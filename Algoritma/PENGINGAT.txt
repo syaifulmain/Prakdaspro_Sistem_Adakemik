@@ -1,0 +1,4 @@
+Nama file flowchart dan nama file pseudocode harus sama:
+Cotoh:
+login.png(flowchart)
+login.txt/pdf/docx(pseudocode)
