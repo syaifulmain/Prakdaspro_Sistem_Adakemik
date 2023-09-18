@@ -1,0 +1,22 @@
+Algoritma: MenghitungNilaiAkhir
+{dibaca nilaiKeaktifan, nilaiProjek, nilaiTugas, nilaiQuiz, nilaiUTS, dan nilaiUAS dari piranti masukan. Hitunglah nilaiAkhir}
+Deklarasi:
+NilaiAkhir, NilaiKeaktifan, NilaiProjek, NilaiTugas, NilaiQuiz, NilaiUTS, NilaiUAS: float
+Nama_Mahasiswa, Matkul = "Keamanan Keselamatan Kerja" : Stri
+Deskripsi:
+1.     print “Masukkan Nama Mahasiswa”
+2.     read Nama_Mahasiswa
+3.     print “Masukkan Nilai Keaktifan”
+4.     read NilaiKeaktifan
+5.     print “Masukkan Nilai Projek”
+6.     read NilaiProjek
+7.     print “Masukkan Nilai Tugas”
+8.     read NilaiTugas
+9.     print “Masukkan Nilai Quiz”
+10.  read NilaiQuiz
+11.  print “Masukkan Nilai UTS”
+12.  read NilaiUTS
+13.  print “Masukkan Nilai UAS”
+14.  read NilaiUAS
+15.NilaiAkhir=(NilaiKeaktifan*0.1f)+(NilaiProjek*0.41f)+(NilaiQuiz*0.09f)+(NilaiTugasHarian*0.1f)+(NilaiUTS*0.1f)+(NilaiUAS*0.2f)
+16. print NilaiAkhir
