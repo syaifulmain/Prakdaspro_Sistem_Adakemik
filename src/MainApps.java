@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Scanner;
 
 public class MainApps {
@@ -30,12 +29,12 @@ public class MainApps {
     public static void login(String NIM, String PASS) {
         boolean userCheck = true;
         for (int i = 0; i < dataUser.length; i++) {
-            if (Objects.equals(dataUser[i][0], NIM) && (Objects.equals(dataUser[i][1], PASS))) {
+            if (dataUser[i][0].equals(NIM) && (dataUser[i][1].equals(PASS))) {
                 index = i;
-                if (Objects.equals(dataUser[i][2], "admin")) {
+                if (dataUser[i][2].equals("admin")) {
                     // to admin dashboard
                     System.out.println("Dashboard admin");
-                } else if (Objects.equals(dataUser[i][2], "dosen")) {
+                } else if (dataUser[i][2].equals("dosen")) {
                     // to dosen dashboard
                     System.out.println("Dashboard dosen");
                 } else {
