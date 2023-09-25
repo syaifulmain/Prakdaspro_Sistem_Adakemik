@@ -10,6 +10,11 @@ public class MainApps {
     public static int index;
 
     public static void main(String[] args) {
+        login(null, null);
+        dataUser[0][0] ="123";
+    dataUser[0][1] ="123";
+    dataUser[0][2] ="admin";
+    loginView();
 
     }
 
