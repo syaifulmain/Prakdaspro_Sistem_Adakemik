@@ -19,12 +19,7 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
-        login(null, null);
-        dataUser[0][0] ="123";
-    dataUser[0][1] ="123";
-    dataUser[0][2] ="admin";
-    loginView();
-
+      
     }
 
     // DONE: login view
@@ -43,6 +38,9 @@ public class MainApps {
     public static void login(String NIM, String PASS) {
         boolean userCheck = true;
         for (int i = 0; i < dataUser.length; i++) {
+            if (dataUser[i][0] == null){
+                break;
+            }
             if (dataUser[i][0].equals(NIM) && (dataUser[i][1].equals(PASS))) {
                 index = i;
                 if (dataUser[i][2].equals("admin")) {
