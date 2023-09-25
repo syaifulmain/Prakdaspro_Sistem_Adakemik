@@ -19,7 +19,7 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
-        loginView();
+      
     }
 
     // DONE: login view
