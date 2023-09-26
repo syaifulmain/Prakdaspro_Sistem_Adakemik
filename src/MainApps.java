@@ -19,7 +19,7 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
-      
+
     }
 
     // DONE: login view
@@ -44,8 +44,8 @@ public class MainApps {
             if (dataUser[i][0].equals(NIM) && (dataUser[i][1].equals(PASS))) {
                 index = i;
                 if (dataUser[i][2].equals("admin")) {
-                    // to admin dashboard
-                    System.out.println("Dashboard admin");
+                    // to admin dashboard\
+                    viewDashboardAdmin();
                 } else if (dataUser[i][2].equals("dosen")) {
                     // to dosen dashboard
                     System.out.println("Dashboard dosen");
@@ -186,9 +186,9 @@ public class MainApps {
         }
         // jika dataBioMahasiwa penuh dikalikan
         if (isFull){
+            var temp = dataBioMahasiwa;
             dataBioMahasiwa = new String[dataBioMahasiwa.length * 2][5];
-
-            System.arraycopy(dataBioMahasiwa, 0, dataBioMahasiwa, 0, dataBioMahasiwa.length);
+            System.arraycopy(temp, 0, dataBioMahasiwa, 0, temp.length);
         }
         // tambahkan ke dataBioMahasiwa
         for (int i = 0; i < dataBioMahasiwa.length; ++i) {
@@ -215,9 +215,9 @@ public class MainApps {
         }
         // jika user penuh dikalikan
         if (isFull){
+            var temp = dataUser;
             dataUser = new String[dataUser.length * 2][5];
-
-            System.arraycopy(dataUser, 0, dataUser, 0, dataUser.length);
+            System.arraycopy(temp, 0, dataUser, 0, temp.length);
         }
         // Mengambil indexUser
         int indexUser = -1;
