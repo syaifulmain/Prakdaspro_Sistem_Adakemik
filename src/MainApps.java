@@ -19,6 +19,7 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
+        viewDashboardAdmin();
 
     }
 
@@ -157,6 +158,10 @@ public class MainApps {
             NIM   = input("NIM(kosong utk batal)");
             if (NIM.equals("")){
                 break viewAddDataBioMahasiswa;
+
+            }else if (!NIM.matches("[0-9]+")) {
+                System.out.println("Input salah(Masukan angka!)");
+                continue;
             }
             String indexUser = cekIndexUser();
             nama  = input("Nama                ");
