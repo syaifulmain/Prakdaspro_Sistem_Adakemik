@@ -24,17 +24,6 @@ public class MainApps {
     static String[][] userDosen = {
 
     };
-    public static String[][] dataUser = new String[10][3];
-    // primary id
-    public static int index;
-    /*
-     * [i][0] dataUser[i][0]
-     * [i][1] NIM
-     * [i][2] nama
-     * [i][3] tempat/tanggal lahir
-     * [i][4] prodi
-     */
-    public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
         clearScreen();
         loginView();
@@ -146,7 +135,7 @@ public class MainApps {
 
     /* DASHBOARD ADMIN */
 // dashboard admin
-    public static void viewDashboardAdmin(){
+    static void viewDashboardAdmin(){
         while (true) {
             System.out.println("=== Dashboard Admin ===");
             System.out.println("1. Data Mahasiswa");
@@ -192,7 +181,7 @@ public class MainApps {
         }
     }
     // view data bio mahasiswa
-    public static void handleDataBioMahasiswa(){
+    static void handleDataBioMahasiswa(){
         while (true) {
             System.out.println("Siakad / Data Mahasiswa / List Mahasiswa");
             showDataBioMahasiswa();
@@ -214,7 +203,7 @@ public class MainApps {
         }
     }
     // show data bio mahasiswa
-    public static void showDataBioMahasiswa(){
+    static void showDataBioMahasiswa(){
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
         System.out.println(horizonLine);
@@ -229,7 +218,7 @@ public class MainApps {
         System.out.println(horizonLine);
     }
     // view add data bio mahasiswa
-    public static void viewAddDataBioMahasiswa(){
+    static void viewAddDataBioMahasiswa(){
         while (true) {
             String nim, nama, jenisKelamin, alamat, tanggalLahir, kelas;
             System.out.println("Mendaftakan Mahasiswa Baru");
@@ -285,24 +274,7 @@ public class MainApps {
         userBaru[userBaru.length - 1] = new String[]{nim, nim};
         userMahasiswa = userBaru;
     }
-    // cek ada/tidaknya nomor pada tabel
-    public static boolean noData(String no){
-        int noData = 0;
-            for (int i = 0; i < dataBioMahasiwa.length; i++) {
-                if (dataBioMahasiwa[i][0] == null) {
-                    noData = i;
-                    break;
-                }                
-            }
-        if (no.equals("")){
-            return false;
-        } else if (!no.matches("[1-9]+") || Integer.parseInt(no) > noData) {
-            System.out.println("Data tidak ditemukan");
-            return false;
-        } else {
-            return true;
-        }
-    }
+    // FIXME: dalam perbaikan
     // view edit data bio mahasiswa
     public static void viewEditDataBioMahasiswa(){
         viewEditDataBioMahasiswa:
@@ -348,6 +320,7 @@ public class MainApps {
             break viewEditDataBioMahasiswa;
         }
     }
+    // FIXME: dalam perbaikan
     // edit data bio mahasiswa
     public static boolean editDataBioMahasiswa (int noIndex1, int noIndex2, String change) {
         if (change != "") {
@@ -357,6 +330,7 @@ public class MainApps {
             return false;
         }
     }
+    // FIXME: dalam perbaikan
     // view hapus data bio mahasiswa
     public static void viewRemoveDataBioMahasiswa() {
         viewRemoveDataBioMahasiswa :
@@ -372,6 +346,7 @@ public class MainApps {
             break viewRemoveDataBioMahasiswa;
         }
     }
+    // FIXME: dalam perbaikan
     // hapus data mahasiswa dari dataBioMahasiswa
     public static boolean removeDataBioMahasiswa(int no) {
         if ((no - 1) >= dataBioMahasiwa.length){
