@@ -4,11 +4,26 @@ public class MainApps {
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
     public static Scanner scanner = new Scanner(System.in);
-    /* 
-     * [i][0] username -> primary id
-     * [i][1] password
-     * [i][2] level {admin, dosen, mahasiswa}
-     */
+    static String[][] bioMahasiswa = {
+        {"1111111111", "Rungkad", "L","BLITAR", "11-11-1111", "1A"},
+        {"2222222222", "Entek", "L","BLITAR", "22-22-2222", "1A"},
+        {"3333333333", "Entek", "L","BLITAR", "33-33-3333", "1A"},
+        {"4444444444", "An", "L","BLITAR", "44-44-4444", "1A"},
+        {"5555555555", "Dingge", "L","BLITAR", "55-55-5555", "1A"}
+    };
+    static String[][] userMahasiswa = {
+        {"1111111111", "1111111111"},
+        {"2222222222", "2222222222"},
+        {"3333333333", "3333333333"},
+        {"4444444444", "4444444444"},
+        {"5555555555", "5555555555"}
+    };
+    static String[][] bioDosen = {
+
+    };
+    static String[][] userDosen = {
+
+    };
     public static String[][] dataUser = new String[10][3];
     // primary id
     public static int index;
@@ -46,81 +61,80 @@ public class MainApps {
     }
     // login logic
     public static void login(String level) {
-        System.out.println("== SISTEM AKADEMIK " + level + " JTI ==");
-        String user, pass;
         while (true) {
-            user = input("Username");
+            System.out.println("== SISTEM AKADEMIK " + level + " JTI ==");
+            String user, pass;
+            while (true) {
+                user = input("Username");
             if (user.length() <= 10) break;
             System.out.println("Masukan tidak boleh lebih dari 10");
-        }
-        while (true) {
-            pass = input("Password");
-            if (!pass.equals("")) break;
-            System.out.println("Password tidak boleh kosong");
-        }
-        clearScreen();
-        switch (level) {
-            case "ADMIN" -> {
-                if (user.equals(usernameAdmin) && pass.equals(passwordAdmin)) viewDashboardAdmin();
-                System.out.println("Username dan password salah/tidak ditemukan");
             }
-            case "DOSEN" -> {
-
+            while (true) {
+                pass = input("Password");
+                if (!pass.equals("")) break;
+                System.out.println("Password tidak boleh kosong");
             }
-            case "MAHASISWA" -> {
-                
+            clearScreen();
+            switch (level) {
+                case "ADMIN" -> {
+                    if (user.equals(usernameAdmin) && pass.equals(passwordAdmin)) viewDashboardAdmin();
+                    System.out.println("Username dan password salah/tidak ditemukan");
+                }
+                case "DOSEN" -> {
+                    
+                }
+                case "MAHASISWA" -> {
+                    for (int i = 0; i < userMahasiswa.length; i++) {
+                        if (user.equals(userMahasiswa[i][0]) && pass.equals(userMahasiswa[i][1])) {
+                            dashboardMahasiswa(bioMahasiswa[i][1]);
+                            break;
+                        }
+                    }
+                    System.out.println("Username dan password salah/tidak ditemukan");
+                }
             }
         }
-        // boolean userCheck = true;
-        // for (int i = 0; i < dataUser.length; i++) {
-        //     if (dataUser[i][0] == null){
-        //         break;
-        //     }
-        //     if (dataUser[i][0].equals(NIM) && (dataUser[i][1].equals(PASS))) {
-        //         index = i;
-        //         if (dataUser[i][2].equals("admin")) {
-        //             // to admin dashboard\
-        //             viewDashboardAdmin();
-        //         } else if (dataUser[i][2].equals("dosen")) {
-        //             // to dosen dashboard
-        //             System.out.println("Dashboard dosen");
-        //         } else {
-        //             // to mahasiswa dashboard
-        //             System.out.println("Dashboard mahasiswa");
-        //         }
-        //         userCheck = false;
-        //         break;
-        //     }
-        // }
-        // if (userCheck) {
-        //     System.out.println("Username/password salah");
-        // }
     }
 
 
     /* DASHBOARD MAHASISWA */
-        // GENERAL
-            // TODO: biodata -> menampikan biodata mahasiswa
+    static void dashboardMahasiswa(String user) {
+        while (true) {
+            System.out.println("Selamat Datang " + user);
+            System.out.println("=== Dashboard Mahasiswa ===");
+            System.out.println("1. Biodata");
+            System.out.println("2. Nilai");
+            System.out.println("3. Jadwal");
+            System.out.println("4. Presesi");
+            System.out.println("5. Logout");
+            System.out.println("x. Keluar");
+            String pilih = input("PILIH");
+            if (pilih.equalsIgnoreCase("x")) exit();
+            clearScreen();
+            switch (pilih) {
+                case "1" -> hadleBiodataMahasiswa();
+                case "2" -> hadleNilaiMahasiswa();
+                case "3" -> hadleJadwalMahasiswa();
+                case "4" -> hadlePresensiMahasiswa();
+                case "5" -> {
+                    return;
+                }
+                default -> System.out.println("Input tidak dimengerti");
+            }
+        }
+    }
+    static void hadleBiodataMahasiswa() {
 
-        
-            // AKADEMIK
-            // TODO: KRS -> menampilkan krs
+    }
+    static void hadleNilaiMahasiswa() {
 
-            // TODO: jadwal perkuliahan -> menampilkan jadwal perkuliahan
+    }
+    static void hadleJadwalMahasiswa() {
 
-            // TODO: nilai mahasiswa -> menampilkan mahasiswa
+    }
+    static void hadlePresensiMahasiswa() {
 
-            // TODO: LMS -> ???
-
-            // TODO: presensi -> menampilkan presensi
-
-            // TODO: data skpi -> menampilkan,menambah,menghapus data skpi
-
-            // UKT
-            // TODO: pembayaran ukt -> menampilkan ukt persemester
-
-            // TODO: keringanan ukt -> ????
-
+    }
     /* DASHBOARD MAHASISWA */
 
 
