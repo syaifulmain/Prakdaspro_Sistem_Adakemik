@@ -36,8 +36,8 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
-        // clearScreen();
-        // loginView();
+        clearScreen();
+        loginView();
     }
 
     // DONE: login view
@@ -254,8 +254,8 @@ public class MainApps {
             tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
             while (true) {
                 System.out.println("1A/1B/1C/1D/1E");
-                kelas = getNonEmptyStringWithLimit("Kelas", 1, 1);
-                if (jenisKelamin.matches("1A|1B|1C|1D|1E|1a|1b|1c|1d|1e")) break;
+                kelas = getNonEmptyStringWithLimit("Kelas", 2, 2);
+                if (kelas.matches("1A|1B|1C|1D|1E|1a|1b|1c|1d|1e")) break;
                 System.out.println("Input kelas salah");
             }
             String pilih = input("Tambahkan data?  y/n");
@@ -265,10 +265,11 @@ public class MainApps {
                 case "N" -> System.out.println("Dibatalkan");
                 default -> System.out.println("Perintah tidak dimengerti gagal menambahkan");
             }
+            break;
         }
     }
     // logic add data bio mahasiswa
-    public static void addDataBioMahasiswa(String nim, String nama, String jenisKelamin, String alamat, String tanggalLihir, String kelas){
+    static void addDataBioMahasiswa(String nim, String nama, String jenisKelamin, String alamat, String tanggalLihir, String kelas){
         String[][] mahasiswaBaru = new String[bioMahasiswa.length + 1][6];
         for (int i = 0; i < bioMahasiswa.length; i++) {
             mahasiswaBaru[i] = bioMahasiswa[i];
@@ -276,39 +277,13 @@ public class MainApps {
         mahasiswaBaru[mahasiswaBaru.length - 1] = new String[]{nim, nama, jenisKelamin, alamat, tanggalLihir, kelas};
         bioMahasiswa = mahasiswaBaru;
         System.out.println("Mahasiswa telah berhasil ditambahkan");
-    }
-    // cek index user
-    public static String cekIndexUser(){
-        // Cek user jika penuh
-        boolean isFull = true;
-        for (int i = 0; i < dataUser.length; i++) {
-            if (dataUser[i][0] == null) {
-                isFull = false;
-                break;
-            }            
+
+        String[][] userBaru = new String[userMahasiswa.length + 1][2];
+        for (int i = 0; i < userMahasiswa.length; i++) {
+            userBaru[i] = userMahasiswa[i];
         }
-        // jika user penuh dikalikan
-        if (isFull){
-            var temp = dataUser;
-            dataUser = new String[dataUser.length * 2][5];
-            System.arraycopy(temp, 0, dataUser, 0, temp.length);
-        }
-        // Mengambil indexUser
-        int indexUser = -1;
-        for(int i = 0; i < dataUser.length; i++) {
-            if(dataUser[i][0] == null) {
-                   indexUser = i;
-                   break;
-            }
-        }
-        return String.valueOf(indexUser);
-    }
-    // menambahkan dataUser mahasiswa
-    public static void addUser(String... data){
-        int indexUser = Integer.parseInt(data[0]);
-        dataUser[indexUser][0]= data[1];
-        dataUser[indexUser][1]= data[1];
-        dataUser[indexUser][2]= data[2];
+        userBaru[userBaru.length - 1] = new String[]{nim, nim};
+        userMahasiswa = userBaru;
     }
     // cek ada/tidaknya nomor pada tabel
     public static boolean noData(String no){
@@ -447,7 +422,7 @@ public class MainApps {
                 if (userInput.length() >= min && userInput.length() <= max) return userInput;
                 System.out.println("Input tidak boleh lebih pendek dari " + min + " atau lebih panjang dari " + max);
             }
-            System.out.println("Imput tidak boleh kosong");
+            else System.out.println("Input tidak boleh kosong");
         }
     }
     static boolean has(String[][] items, String needle, int fieldIndex) {
