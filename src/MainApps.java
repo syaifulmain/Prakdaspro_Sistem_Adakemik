@@ -19,24 +19,33 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
-        viewDashboardAdmin();
-
+        clearScreen();
+        loginView();
     }
 
     // DONE: login view
     public static void loginView(){
         while (true) {
-            System.out.println("== SISTEM AKADEMIK ==");
-            String NIM  = input("USERNAME");
-            if (NIM.equals("")){
-                break;
+            System.out.println("== SISTEM AKADEMIK =="); 
+            System.out.println("1. Admin"); 
+            System.out.println("2. Dosen"); 
+            System.out.println("3. Mahasiswa"); 
+            System.out.println("x. Keluar"); 
+            String pilih  = input("PILIH MASUK SEBAGAI");
+            if (pilih.equalsIgnoreCase("x")) exit();
+            switch (pilih) {
+                case "1" -> login("Admin");
+                case "2" -> login("Dosen");
+                case "3" -> login("Mahasiswa");
+                default -> {
+                    clearScreen();
+                    System.out.println("Input tidak dimengerti");
+                }
             }
-            String PASS = input("PASSWORD");
-            login(NIM, PASS);
         }
     }
     // login logic
-    public static void login(String NIM, String PASS) {
+    public static void login(String level) {
         boolean userCheck = true;
         for (int i = 0; i < dataUser.length; i++) {
             if (dataUser[i][0] == null){
@@ -359,5 +368,16 @@ public class MainApps {
     public static String input(String info){
         System.out.print(info + " : ");
         return scanner.nextLine();
+    }
+    // Clear terminal
+    static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+    // Fungsi untuk keluar
+    static void exit() {
+        clearScreen();
+        System.out.println("Keluar...");
+        System.exit(0);
     }
 }
