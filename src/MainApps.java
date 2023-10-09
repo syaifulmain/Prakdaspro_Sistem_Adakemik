@@ -36,8 +36,7 @@ public class MainApps {
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
-        clearScreen();
-        showDataBioMahasiswa();
+        // clearScreen();
         // loginView();
     }
 
@@ -67,7 +66,8 @@ public class MainApps {
             String user, pass;
             while (true) {
                 user = input("Username");
-            if (user.length() <= 10) break;
+                if (user.equals("x")) return;
+                if (user.length() <= 10) break;
             System.out.println("Masukan tidak boleh lebih dari 10");
             }
             while (true) {
@@ -159,8 +159,8 @@ public class MainApps {
             clearScreen();
             switch (pilih) {
                 case "1" -> RouteDataMahasiswa();
-                case "2" -> {}
-                case "3" -> {}
+                case "2" -> {} //dosen
+                case "3" -> {} //atur jadawal
                 case "4" -> {
                     return;
                 }
@@ -175,7 +175,7 @@ public class MainApps {
             System.out.println("1. List Mahasiswa");
             System.out.println("2. Transkip nilai");
             System.out.println("3. Presensi Mahasiswa");
-            System.out.println("4. Logout");
+            System.out.println("4. Kembali");
             System.out.println("x. Keluar");
             String pilih = input("PILIH");
             if (pilih.equalsIgnoreCase("x")) exit();
@@ -216,7 +216,7 @@ public class MainApps {
     // show data bio mahasiswa
     public static void showDataBioMahasiswa(){
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+%n";
+        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
         System.out.println(horizonLine);
         System.out.format("| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
         System.out.println(horizonLine);
@@ -230,62 +230,52 @@ public class MainApps {
     }
     // view add data bio mahasiswa
     public static void viewAddDataBioMahasiswa(){
-        viewAddDataBioMahasiswa :
-        while (true) { 
-            String NIM, nama, ttl, prodi, choose;
-            String level = "mahasiswa";
-            NIM   = input("NIM(kosong utk batal)");
-            if (NIM.equals("")){
-                break viewAddDataBioMahasiswa;
-
-            }else if (!NIM.matches("[0-9]+")) {
-                System.out.println("Input salah(Masukan angka!)");
+        while (true) {
+            String nim, nama, jenisKelamin, alamat, tanggalLahir, kelas;
+            System.out.println("Mendaftakan Mahasiswa Baru");
+            while (true) {
+                nim = getNonEmptyStringWithLimit("NIM", 10, 10);
+                if (nim.matches("[0-9]+")) break;
+                System.out.println("Input hanya boleh angka");
+            }
+            if (has(bioMahasiswa, nim, 0)) {
+                clearScreen();
+                System.out.println("NIM sudah terdaftar");
                 continue;
             }
-            String indexUser = cekIndexUser();
-            nama  = input("Nama                ");
-            ttl   = input("Tempat/Tanggal Lahir");
-            prodi = input("Prodi               ");
-            choose = input("Tambahkan data?  y/n");
-            switch (choose) {
-                case "y" -> {
-                    addDataBioMahasiswa(indexUser, NIM, nama, ttl, prodi, level);
-                    System.out.println("Berhasil menambahakan data baru");
-                }
-                case "n" -> System.out.println("Dibatalkan");
+            nama = getNonEmptyStringWithLimit("Nama lengkap", 1, 25);
+            while (true) {
+                jenisKelamin = getNonEmptyStringWithLimit("Jenis kelamin(L/P)", 1, 1);
+                if (jenisKelamin.matches("L|P|l|p")) break;
+                System.out.println("Input jenis kelamin salah");
+            }
+            alamat = getNonEmptyStringWithLimit("Alamat", 1, 15);
+            System.out.println("Format xx-xx-xxxx");
+            tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
+            while (true) {
+                System.out.println("1A/1B/1C/1D/1E");
+                kelas = getNonEmptyStringWithLimit("Kelas", 1, 1);
+                if (jenisKelamin.matches("1A|1B|1C|1D|1E|1a|1b|1c|1d|1e")) break;
+                System.out.println("Input kelas salah");
+            }
+            String pilih = input("Tambahkan data?  y/n");
+            clearScreen();
+            switch (pilih.toUpperCase()) {
+                case "Y" -> addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, kelas.toUpperCase());
+                case "N" -> System.out.println("Dibatalkan");
                 default -> System.out.println("Perintah tidak dimengerti gagal menambahkan");
             }
-            break viewAddDataBioMahasiswa;
         }
     }
     // logic add data bio mahasiswa
-    public static void addDataBioMahasiswa(String... data){
-        // Cek dataBioMahasiwa apakah penuh
-        boolean isFull = true;
-        for (int i = 0; i < dataBioMahasiwa.length; i++) {
-            if (dataBioMahasiwa[i][0] == null) {
-                isFull = false;
-                break;
-            }            
+    public static void addDataBioMahasiswa(String nim, String nama, String jenisKelamin, String alamat, String tanggalLihir, String kelas){
+        String[][] mahasiswaBaru = new String[bioMahasiswa.length + 1][6];
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            mahasiswaBaru[i] = bioMahasiswa[i];
         }
-        // jika dataBioMahasiwa penuh dikalikan
-        if (isFull){
-            var temp = dataBioMahasiwa;
-            dataBioMahasiwa = new String[dataBioMahasiwa.length * 2][5];
-            System.arraycopy(temp, 0, dataBioMahasiwa, 0, temp.length);
-        }
-        // tambahkan ke dataBioMahasiwa
-        for (int i = 0; i < dataBioMahasiwa.length; ++i) {
-            if (dataBioMahasiwa[i][0] == null) {
-                dataBioMahasiwa[i][0] = data[0];
-                dataBioMahasiwa[i][1] = data[1];
-                dataBioMahasiwa[i][2] = data[2];
-                dataBioMahasiwa[i][3] = data[3];
-                dataBioMahasiwa[i][4] = data[4];
-                addUser(data[0], data[1], data[5]);
-                break;
-            }
-        }
+        mahasiswaBaru[mahasiswaBaru.length - 1] = new String[]{nim, nama, jenisKelamin, alamat, tanggalLihir, kelas};
+        bioMahasiswa = mahasiswaBaru;
+        System.out.println("Mahasiswa telah berhasil ditambahkan");
     }
     // cek index user
     public static String cekIndexUser(){
@@ -449,5 +439,21 @@ public class MainApps {
         clearScreen();
         System.out.println("Keluar...");
         System.exit(0);
+    }
+    static String getNonEmptyStringWithLimit(String prompt, int min, int max) {
+        while (true) {
+            String userInput = input(prompt);
+            if (!userInput.isEmpty()) {
+                if (userInput.length() >= min && userInput.length() <= max) return userInput;
+                System.out.println("Input tidak boleh lebih pendek dari " + min + " atau lebih panjang dari " + max);
+            }
+            System.out.println("Imput tidak boleh kosong");
+        }
+    }
+    static boolean has(String[][] items, String needle, int fieldIndex) {
+        for (String[] item : items) {
+            if (item[fieldIndex].equals(needle)) return true;
+        }
+        return false;
     }
 }
