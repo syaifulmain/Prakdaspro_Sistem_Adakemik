@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class MainApps {
+    static String usernameAdmin = "admin";
+    static String passwordAdmin = "admin";
     public static Scanner scanner = new Scanner(System.in);
     /* 
      * [i][0] username -> primary id
@@ -32,44 +34,67 @@ public class MainApps {
             System.out.println("3. Mahasiswa"); 
             System.out.println("x. Keluar"); 
             String pilih  = input("PILIH MASUK SEBAGAI");
+            clearScreen();
             if (pilih.equalsIgnoreCase("x")) exit();
             switch (pilih) {
-                case "1" -> login("Admin");
-                case "2" -> login("Dosen");
-                case "3" -> login("Mahasiswa");
-                default -> {
-                    clearScreen();
-                    System.out.println("Input tidak dimengerti");
-                }
+                case "1" -> login("ADMIN");
+                case "2" -> login("DSOEN");
+                case "3" -> login("MAHASISWA");
+                default -> System.out.println("Input tidak dimengerti");
             }
         }
     }
     // login logic
     public static void login(String level) {
-        boolean userCheck = true;
-        for (int i = 0; i < dataUser.length; i++) {
-            if (dataUser[i][0] == null){
-                break;
+        System.out.println("== SISTEM AKADEMIK " + level + " JTI ==");
+        String user, pass;
+        while (true) {
+            user = input("Username");
+            if (user.length() <= 10) break;
+            System.out.println("Masukan tidak boleh lebih dari 10");
+        }
+        while (true) {
+            pass = input("Password");
+            if (!pass.equals("")) break;
+            System.out.println("Password tidak boleh kosong");
+        }
+        clearScreen();
+        switch (level) {
+            case "ADMIN" -> {
+                if (user.equals(usernameAdmin) && pass.equals(passwordAdmin)) viewDashboardAdmin();
+                System.out.println("Username dan password salah/tidak ditemukan");
             }
-            if (dataUser[i][0].equals(NIM) && (dataUser[i][1].equals(PASS))) {
-                index = i;
-                if (dataUser[i][2].equals("admin")) {
-                    // to admin dashboard\
-                    viewDashboardAdmin();
-                } else if (dataUser[i][2].equals("dosen")) {
-                    // to dosen dashboard
-                    System.out.println("Dashboard dosen");
-                } else {
-                    // to mahasiswa dashboard
-                    System.out.println("Dashboard mahasiswa");
-                }
-                userCheck = false;
-                break;
+            case "DOSEN" -> {
+
+            }
+            case "MAHASISWA" -> {
+                
             }
         }
-        if (userCheck) {
-            System.out.println("Username/password salah");
-        }
+        // boolean userCheck = true;
+        // for (int i = 0; i < dataUser.length; i++) {
+        //     if (dataUser[i][0] == null){
+        //         break;
+        //     }
+        //     if (dataUser[i][0].equals(NIM) && (dataUser[i][1].equals(PASS))) {
+        //         index = i;
+        //         if (dataUser[i][2].equals("admin")) {
+        //             // to admin dashboard\
+        //             viewDashboardAdmin();
+        //         } else if (dataUser[i][2].equals("dosen")) {
+        //             // to dosen dashboard
+        //             System.out.println("Dashboard dosen");
+        //         } else {
+        //             // to mahasiswa dashboard
+        //             System.out.println("Dashboard mahasiswa");
+        //         }
+        //         userCheck = false;
+        //         break;
+        //     }
+        // }
+        // if (userCheck) {
+        //     System.out.println("Username/password salah");
+        // }
     }
 
 
