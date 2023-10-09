@@ -1,0 +1,11 @@
+*Daspro
+Kuis =0.2;
+Tugas =0.2;
+UTS =0.3;
+UAS=0.3;
+
+*BING
+Kuis =0.2;
+Tugas =0.2;
+UTS =0.3;
+UAS=0.3;
