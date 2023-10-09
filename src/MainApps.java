@@ -18,20 +18,37 @@ public class MainApps {
      * [i][4] prodi
      */
     public static String[][] dataBioMahasiwa = new String[10][5];
+    String tokenAdmin = "myAdmin";
     public static void main(String[] args) {
-        viewDashboardAdmin();
+        chooseLogin();
 
+    }
+    //Choose who will login(admin, dosen, mahasiswa)
+    public static void chooseLogin(){
+        while (true) {
+            System.out.println("== SISTEM AKADEMIK ==");
+            System.out.println("1. Dosen");
+            System.out.println("2. Mahasiswa");
+            System.out.println("x. Keluar");
+            
+            String choose = input("PILIH MASUK SEBAGAI");
+            if(choose.equals("1")){
+                System.out.println("DOsen");
+            }else if(choose.equals("2")){
+                loginViewMahasiswa();
+        }
+        }
     }
 
     // DONE: login view
-    public static void loginView(){
+    public static void loginViewMahasiswa(){
         while (true) {
-            System.out.println("== SISTEM AKADEMIK ==");
-            String NIM  = input("USERNAME");
+            System.out.println("== SISTEM AKADEMIK MAHASISWA JTI ==");
+            String NIM  = input("USERNAME ");
             if (NIM.equals("")){
                 break;
             }
-            String PASS = input("PASSWORD");
+            String PASS = input("PASSWORD ");
             login(NIM, PASS);
         }
     }
@@ -228,8 +245,8 @@ public class MainApps {
         int indexUser = -1;
         for(int i = 0; i < dataUser.length; i++) {
             if(dataUser[i][0] == null) {
-                   indexUser = i;
-                   break;
+            indexUser = i;
+            break;
             }
         }
         return String.valueOf(indexUser);
