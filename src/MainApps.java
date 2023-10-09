@@ -81,7 +81,7 @@ public class MainApps {
                     System.out.println("Username dan password salah/tidak ditemukan");
                 }
                 case "DOSEN" -> {
-                    
+                    // dashboard dosen
                 }
                 case "MAHASISWA" -> {
                     for (int i = 0; i < userMahasiswa.length; i++) {
@@ -146,23 +146,30 @@ public class MainApps {
     /* DASHBOARD ADMIN */
 // dashboard admin
     public static void viewDashboardAdmin(){
-        dashboardAdminView :
         while (true) {
             System.out.println("=== Dashboard Admin ===");
             System.out.println("1. Data Mahasiswa");
             System.out.println("2. Data Dosen");
-            System.out.println("x. Logout");
-            String choose = input("PILIH");
-            switch (choose) {
-                case "1" -> viewDataBioMahasiswa();
+            System.out.println("3. Atur Jadwal");
+            System.out.println("4. Logout");
+            System.out.println("x. Keluar");
+            String pilih = input("PILIH");
+            if (pilih.equalsIgnoreCase("x")) exit();
+            clearScreen();
+            switch (pilih) {
+                case "1" -> RouteDataMahasiswa();
                 case "2" -> showDataDosen();
-                case "x" -> {break dashboardAdminView;}
-                default -> System.out.println("Perintah tidak dimengerti");
+                case "3" -> showDataDosen();
+                case "4" -> showDataDosen();
+                default -> System.out.println("Input tidak dimengerti");
             }
         }
     }
+    static void RouteDataMahasiswa() {
+        
+    }
     // view data bio mahasiswa
-    public static void viewDataBioMahasiswa(){
+    public static void handleDataBioMahasiswa(){
         showDataMahasiswa :
         while (true) {
             showDataBioMahasiswa();
