@@ -37,7 +37,8 @@ public class MainApps {
     public static String[][] dataBioMahasiwa = new String[10][5];
     public static void main(String[] args) {
         clearScreen();
-        loginView();
+        showDataBioMahasiswa();
+        // loginView();
     }
 
     // DONE: login view
@@ -158,51 +159,74 @@ public class MainApps {
             clearScreen();
             switch (pilih) {
                 case "1" -> RouteDataMahasiswa();
-                case "2" -> showDataDosen();
-                case "3" -> showDataDosen();
-                case "4" -> showDataDosen();
+                case "2" -> {}
+                case "3" -> {}
+                case "4" -> {
+                    return;
+                }
                 default -> System.out.println("Input tidak dimengerti");
             }
         }
     }
     static void RouteDataMahasiswa() {
-        
+        while (true) {
+            System.out.println("Siakad / Data Mahasiswa");
+            System.out.println("=== Data Mahasiswa ===");
+            System.out.println("1. List Mahasiswa");
+            System.out.println("2. Transkip nilai");
+            System.out.println("3. Presensi Mahasiswa");
+            System.out.println("4. Logout");
+            System.out.println("x. Keluar");
+            String pilih = input("PILIH");
+            if (pilih.equalsIgnoreCase("x")) exit();
+            clearScreen();
+            switch (pilih) {
+                case "1" -> handleDataBioMahasiswa();
+                case "2" -> {}
+                case "3" -> {}
+                case "4" -> {
+                    return;
+                }
+                default -> System.out.println("Input tidak dimengerti");
+            }
+        }
     }
     // view data bio mahasiswa
     public static void handleDataBioMahasiswa(){
-        showDataMahasiswa :
         while (true) {
+            System.out.println("Siakad / Data Mahasiswa / List Mahasiswa");
             showDataBioMahasiswa();
-            System.out.println("1. Tambah data");
+            System.out.println("1. Daftarkan Mahasiswa Baru");
             System.out.println("2. Edit data");
             System.out.println("3. Hapus data");
-            System.out.println("x. Kembali");
-            var choose = input("PILIH");
-            switch (choose) {
+            System.out.println("4. Kembali");
+            System.out.println("x. Keluar");
+            String pilih = input("PILIH");
+            if (pilih.equalsIgnoreCase("x")) exit();
+            clearScreen();
+            switch (pilih) {
                 case "1" -> viewAddDataBioMahasiswa();
                 case "2" -> viewEditDataBioMahasiswa();
                 case "3" -> viewRemoveDataBioMahasiswa();
-                case "x" -> {break showDataMahasiswa;}
-                default -> System.out.println("Perintah tidak dimengerti");
+                case "4" -> {return;}
+                default -> System.out.println("Input tidak dimengerti");
             }
         }
     }
     // show data bio mahasiswa
     public static void showDataBioMahasiswa(){
-        String formatTable = "| %-3s | %-10s | %-20s | %-25s | %-25s |%n";
-        System.out.format("+-----+------------+----------------------+---------------------------+---------------------------+%n");
-        System.out.format("| NO  | NIM        | NAMA                 | TEMPAT/TANGGAL LAHIR      | PRODI                     |%n");
-        System.out.format("+-----+------------+----------------------+---------------------------+---------------------------+%n");
-        if (dataBioMahasiwa[0][0] != null) {   
-            int no = 0;
-            for (int i = 0; i < dataBioMahasiwa.length; ++i) {
-                if (dataBioMahasiwa[i][0] != null) {
-                    no++;
-                    System.out.format(formatTable, no, dataBioMahasiwa[i][1], dataBioMahasiwa[i][2], dataBioMahasiwa[i][3], dataBioMahasiwa[i][4]);
-                }
-            }
-            System.out.format("+-----+------------+----------------------+---------------------------+---------------------------+%n");
+        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
+        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+%n";
+        System.out.println(horizonLine);
+        System.out.format("| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
+        System.out.println(horizonLine);
+        if (bioMahasiswa[0][0] == null) return; 
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            String[] takeBio = bioMahasiswa[i];
+            
+            System.out.printf(formatTable, (i+1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4], takeBio[5]);
         }
+        System.out.println(horizonLine);
     }
     // view add data bio mahasiswa
     public static void viewAddDataBioMahasiswa(){
