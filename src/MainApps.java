@@ -282,7 +282,7 @@ public class MainApps {
         int studentIndex = -1;
         while (true) {
             showDataBioMahasiswa();
-            nimLama = getNonEmptyStringWithLimit("NIM", 10, 10);
+            nimLama = getNonEmptyStringWithLimit("masukan NIM yang ingin diubah", 10, 10);
             if (has(bioMahasiswa, nimLama, 0)) break;
             clearScreen();
             System.out.println("NIM tidak ditemukan");
@@ -340,41 +340,29 @@ public class MainApps {
     // FIXME: dalam perbaikan
     // view hapus data bio mahasiswa
     public static void viewRemoveDataBioMahasiswa() {
-        viewRemoveDataBioMahasiswa :
+        String nim;
+
         while (true) {
-            System.out.println("Masukan nomor yang ingin dihapus(kosong utk batal)");
-            String no   = input("No ke");
-            if (noData(no)) {
-                boolean succes = removeDataBioMahasiswa(Integer.valueOf(no));
-                if (!succes) {
-                    System.out.println("Gagal menghapus");
-                }
-            }
-            break viewRemoveDataBioMahasiswa;
+            showDataBioMahasiswa();
+            nim = getNonEmptyStringWithLimit("Masukan NIM yang ingin dihapus", 10, 10);
+
+            if (has(bioMahasiswa, nim, 0)) break;
+
+            clearScreen();
+            System.out.println("Mahasiswa dengan NIM " + nim + " tidak ada!");
         }
-    }
-    // FIXME: dalam perbaikan
-    // hapus data mahasiswa dari dataBioMahasiswa
-    public static boolean removeDataBioMahasiswa(int no) {
-        if ((no - 1) >= dataBioMahasiwa.length){
-            return false;
+
+        String[][] filteredStudents = new String[bioMahasiswa.length - 1][4];
+        int count = 0;
+        for (String[] student : bioMahasiswa) {
+            if (student[0].equals(nim)) continue;
+            filteredStudents[count] = student;
+            count++;
         }
-        if (dataBioMahasiwa[no - 1] == null){
-            return false;
-        } else {
-            for (int i = (no - 1); i < dataBioMahasiwa.length; i++) {
-                if (i == (dataBioMahasiwa.length - 1)){
-                    for (int j = 0; j < dataBioMahasiwa[i].length; j++) {
-                        dataBioMahasiwa[i][j] = null;
-                    }
-                } else {
-                    for (int j = 0; j < dataBioMahasiwa[i].length; j++) {
-                        dataBioMahasiwa[i][j] = dataBioMahasiwa[i + 1][j];
-                    }
-                }
-            }
-            return true;
-        }
+        bioMahasiswa = filteredStudents;
+
+        clearScreen();
+        System.out.println("Students " + nim + " have been successfully removed!");
     }
     public static void showDataDosen(){
         // TODO: DOSEN
