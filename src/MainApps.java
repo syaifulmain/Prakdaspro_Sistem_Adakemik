@@ -219,8 +219,8 @@ public class MainApps {
     }
     // view add data bio mahasiswa
     static void viewAddDataBioMahasiswa(){
+        String nim, nama, jenisKelamin, alamat, tanggalLahir, kelas;
         while (true) {
-            String nim, nama, jenisKelamin, alamat, tanggalLahir, kelas;
             System.out.println("Mendaftakan Mahasiswa Baru");
             while (true) {
                 nim = getNonEmptyStringWithLimit("NIM", 10, 10);
@@ -274,52 +274,67 @@ public class MainApps {
         userBaru[userBaru.length - 1] = new String[]{nim, nim};
         userMahasiswa = userBaru;
     }
-    // FIXME: dalam perbaikan
+    // DONE: dalam perbaikan
     // view edit data bio mahasiswa
-    public static void viewEditDataBioMahasiswa(){
-        viewEditDataBioMahasiswa:
-        while (true) {   
-            System.out.println("Masukan nomor yang ingin diubah(kosong utk batal)");
-            String no   = input("No ke");
-            if (noData(no)){
-                int noIndex1 = Integer.parseInt(no) - 1;
-                String formatTable = "| %-10s | %-20s | %-25s | %-25s |%n";
-                System.out.format("+------------+----------------------+---------------------------+---------------------------+%n");
-                System.out.format("| NIM (1)    | NAMA (2)             | TEMPAT/TANGGAL LAHIR (3)  | PRODI (4)                 |%n");
-                System.out.format(formatTable, dataBioMahasiwa[noIndex1][1], dataBioMahasiwa[noIndex1][2], dataBioMahasiwa[noIndex1][3], dataBioMahasiwa[noIndex1][4]);
-                System.out.format("+------------+----------------------+---------------------------+---------------------------+%n");
-                System.out.println("Masukan nomor yang ingin diubah(kosong utk batal)");
-                String choose = input("No ke");
-                String change = "";
-                switch (choose) {
-                    case "1" ->{
-                            change = input("Ubah NIM");
-                            while (!change.matches("[1-9]+")) {
-                                System.out.println("Input salah");
-                                change = input("Ubah NIM");
-                            }
-                    }
-                    case "2" -> change = input("Ubah NAMA");
-                    case "3" -> change = input("Ubah TEMPAT/TANGGAL LAHIR");
-                    case "4" -> change = input("Ubah PRODI");
-                    case "" -> {
-                        System.out.println("Dibatalkan");
-                        break viewEditDataBioMahasiswa;
-                    }
-                    default -> {
-                        System.out.println("Perintah tidak dimengerti gagal merubah");
-                        break viewEditDataBioMahasiswa;
-                    }
-                }
-                int noIndex2 = Integer.valueOf(choose);
-                boolean succes = editDataBioMahasiswa(noIndex1, noIndex2, change);
-                if (!succes) {
-                    System.out.println("Dibatalkan");
-                }
-            }   
-            break viewEditDataBioMahasiswa;
+    static void viewEditDataBioMahasiswa() {
+        String nimLama, nim, nama, jenisKelamin, alamat, tanggalLahir, kelas;
+        int studentIndex = -1;
+        while (true) {
+            showDataBioMahasiswa();
+            nimLama = getNonEmptyStringWithLimit("NIM", 10, 10);
+            if (has(bioMahasiswa, nimLama, 0)) break;
+            clearScreen();
+            System.out.println("NIM tidak ditemukan");
         }
-    }
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (bioMahasiswa[i][0].equals(nimLama)) {
+                studentIndex = i;
+                break;
+            }
+        }
+        if (studentIndex == -1) {
+            clearScreen();
+            System.out.println("Failed to find student to edit");
+            return;
+        }
+        String[] mahasiswa = bioMahasiswa[studentIndex];
+        clearScreen();
+        while (true) {
+            System.out.println("NIM lama " + mahasiswa[0]);   
+            nim = getNonEmptyStringWithLimit("NIM", 10, 10);
+            if (nim.matches("[0-9]+")) break;
+            System.out.println("Input hanya boleh angka");
+        }
+            System.out.println("Nama lama " + mahasiswa[1]);
+            nama = getNonEmptyStringWithLimit("Nama lengkap", 1, 25);
+        while (true) {
+            System.out.println("Jenis kelamin lama " + mahasiswa[2]);
+            jenisKelamin = getNonEmptyStringWithLimit("Jenis kelamin(L/P)", 1, 1);
+            if (jenisKelamin.matches("L|P|l|p")) break;
+            System.out.println("Input jenis kelamin salah");
+        }
+        System.out.println("Alamat lama " + mahasiswa[3]);
+        alamat = getNonEmptyStringWithLimit("Alamat", 1, 15);
+        System.out.println("Tanggal lahir lama " + mahasiswa[4]);
+        System.out.println("Format xx-xx-xxxx");
+        tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
+        while (true) {
+            System.out.println("Kelas lama " + mahasiswa[5]);
+            System.out.println("1A/1B/1C/1D/1E");
+            kelas = getNonEmptyStringWithLimit("Kelas", 2, 2);
+            if (kelas.matches("1A|1B|1C|1D|1E|1a|1b|1c|1d|1e")) break;
+            System.out.println("Input kelas salah");
+        }
+        bioMahasiswa[studentIndex][0] = nim.isEmpty() ? mahasiswa[0] : nim;
+        bioMahasiswa[studentIndex][1] = nama.isEmpty() ? mahasiswa[1] : nama;
+        bioMahasiswa[studentIndex][2] = jenisKelamin.isEmpty() ? mahasiswa[2] : jenisKelamin;
+        bioMahasiswa[studentIndex][3] = alamat.isEmpty() ? mahasiswa[3] : alamat;
+        bioMahasiswa[studentIndex][4] = tanggalLahir.isEmpty() ? mahasiswa[4] : tanggalLahir;
+        bioMahasiswa[studentIndex][5] = kelas.isEmpty() ? mahasiswa[5] : kelas;
+
+        clearScreen();
+        System.out.println("Berhasil mengedit");
+    }    
     // FIXME: dalam perbaikan
     // edit data bio mahasiswa
     public static boolean editDataBioMahasiswa (int noIndex1, int noIndex2, String change) {
