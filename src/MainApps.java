@@ -32,7 +32,7 @@ public class MainApps {
     // DONE: login view
     public static void loginView(){
         while (true) {
-            System.out.println("== SISTEM AKADEMIK =="); 
+            renderTitle("SISTEM AKADEMIK");
             System.out.println("1. Admin"); 
             System.out.println("2. Dosen"); 
             System.out.println("3. Mahasiswa"); 
@@ -51,7 +51,7 @@ public class MainApps {
     // login logic
     public static void login(String level) {
         while (true) {
-            System.out.println("== SISTEM AKADEMIK " + level + " JTI ==");
+            renderTitle("SISTEM AKADEMIK " + level + " JTI");
             String user, pass;
             while (true) {
                 user = input("Username");
@@ -90,7 +90,7 @@ public class MainApps {
     /* DASHBOARD MAHASISWA */
     static void dashboardMahasiswa(String user) {
         while (true) {
-            System.out.println("Selamat Datang " + user);
+            renderTitle("Selamat Datang " + user);
             System.out.println("=== Dashboard Mahasiswa ===");
             System.out.println("1. Biodata");
             System.out.println("2. Nilai");
@@ -137,6 +137,7 @@ public class MainApps {
 // dashboard admin
     static void viewDashboardAdmin(){
         while (true) {
+            renderTitle("Dashboard Admin");
             System.out.println("=== Dashboard Admin ===");
             System.out.println("1. Data Mahasiswa");
             System.out.println("2. Data Dosen");
@@ -160,7 +161,7 @@ public class MainApps {
     static void RouteDataMahasiswa() {
         while (true) {
             System.out.println("Siakad / Data Mahasiswa");
-            System.out.println("=== Data Mahasiswa ===");
+            renderTitle("Data Mahasiswa");
             System.out.println("1. List Mahasiswa");
             System.out.println("2. Transkip nilai");
             System.out.println("3. Presensi Mahasiswa");
@@ -294,7 +295,7 @@ public class MainApps {
         }
         if (studentIndex == -1) {
             clearScreen();
-            System.out.println("Failed to find student to edit");
+            System.out.println("Gagal menemukan siswa untuk diedit");
             return;
         }
         String[] mahasiswa = bioMahasiswa[studentIndex];
@@ -325,6 +326,7 @@ public class MainApps {
             if (kelas.matches("1A|1B|1C|1D|1E|1a|1b|1c|1d|1e")) break;
             System.out.println("Input kelas salah");
         }
+        String pilih = input("Tambahkan data?  y/n");
         bioMahasiswa[studentIndex][0] = nim.isEmpty() ? mahasiswa[0] : nim;
         bioMahasiswa[studentIndex][1] = nama.isEmpty() ? mahasiswa[1] : nama;
         bioMahasiswa[studentIndex][2] = jenisKelamin.isEmpty() ? mahasiswa[2] : jenisKelamin;
@@ -334,16 +336,6 @@ public class MainApps {
 
         clearScreen();
         System.out.println("Berhasil mengedit");
-    }    
-    // FIXME: dalam perbaikan
-    // edit data bio mahasiswa
-    public static boolean editDataBioMahasiswa (int noIndex1, int noIndex2, String change) {
-        if (change != "") {
-            dataBioMahasiwa[noIndex1][noIndex2] = change;
-            return true;   
-        } else {
-            return false;
-        }
     }
     // FIXME: dalam perbaikan
     // view hapus data bio mahasiswa
@@ -420,5 +412,15 @@ public class MainApps {
             if (item[fieldIndex].equals(needle)) return true;
         }
         return false;
+    }
+    static void renderTitle(String  title) {
+        int paddingSize = 4;
+        int titleLength = title.length();
+
+        String horizontalBorder = "+" + "-".repeat(titleLength + paddingSize * 2) + "+";
+
+        System.out.println(horizontalBorder);
+        System.out.println("|" + " ".repeat(paddingSize) + title + " ".repeat(paddingSize) + "|");
+        System.out.println(horizontalBorder);
     }
 }
