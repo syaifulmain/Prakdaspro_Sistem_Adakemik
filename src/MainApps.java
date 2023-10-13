@@ -337,7 +337,6 @@ public class MainApps {
         clearScreen();
         System.out.println("Berhasil mengedit");
     }
-    // FIXME: dalam perbaikan
     // view hapus data bio mahasiswa
     public static void viewRemoveDataBioMahasiswa() {
         String nim;
