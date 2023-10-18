@@ -37,6 +37,44 @@ Sistem informasi akademik (SIAKAD) adalah suatu sistem informasi yang digunakan 
 - Presensi
 - Show Jadwal
 - Show Nilai
+## Alur
+```text
+Login
+  ├──Admin
+  │   ├──Modul Mahasiswa
+  │   │   ├──List Mahasiwa
+  │   │   │   ├──Daftarkan Mahasiswa  
+  │   │   │   ├──Edit Data Mahasiswa
+  │   │   │   └──Hapus Data Mahasiwa
+  │   │   ├──Transkip Nilai    
+  │   │   ├──Presensi Mahasiswa    
+  │   │   └──User    
+  │   │       └──Edit User 
+  │   ├──Modul Dosen
+  │   │   ├──List Mahasiwa
+  │   │   │   ├──Daftarkan Dosen  
+  │   │   │   ├──Edit Data Dosen
+  │   │   │   └──Hapus Data Dosen
+  │   │   └──User    
+  │   │       └──Edit User
+  │   └──Moddul Kurusus
+  │       ├──Penetapan Kelas Mahasiswa
+  │       ├──Penjadwalan
+  │       └──Penetapan Matkul Pengajar
+  ├──Dosen
+  │   ├──Penilaian Mahasiswa
+  │   │   ├──Tambah Nilai  
+  │   │   └──Edit Nilai
+  │   ├──Presensi Mahasiswa
+  │   │   ├──Presensi
+  │   │   └──Edit Presensi
+  │   └──Cek Jadwal
+  └──Mahasiswa
+      ├──Cek Biodata
+      ├──Cek Nilai
+      ├──Cek Presensi
+      └──Cek Jadwal
+```
 ## Meet The Team 
 1. <a href="https://github.com/Noklent-Fardian"> Noklent Fardian Erix</a> (TI-1E)
 2. <a href="https://github.com/SyaifullahMain"> Muhamad Syaifullah</a> (TI-1E)
