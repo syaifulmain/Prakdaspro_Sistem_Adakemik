@@ -178,7 +178,101 @@ public class MainApps {
             }
             if (pilih.equals("3")) {
                 //Mahasiswa
-                
+                for (int i = 1; i <= 3; i++) {
+                    System.out.println("==Login Mahasiswa SIAKAD=="); 
+                    System.out.print("USERNAME : ");
+                    username = input.nextLine();
+                    System.out.print("PASSWORD : ");
+                    password = input.nextLine();
+                    if (username.equals("mahasiswa") && password.equals("mahasiswa")) {
+                        notWrong = true;
+                                System.out.print("\033[H\033[2J");
+                        break;
+                    }
+                    System.out.println("Username dan password salah");
+                    if (i == 3) ifWrong = true;
+                }
+                while (notWrong) {
+                    System.out.println("Dashboard Mahasiswa");
+                    System.out.println("1. Biodata\n2. Presensi\n3. Matkul\n4. Nilai\n5. Keluar");
+                    System.out.print("Pilih : ");
+                    pilih = input.nextLine();
+                            System.out.print("\033[H\033[2J");
+                    switch (pilih) {
+                        case "1" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILKAN BIODATA");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "2" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILKAN PRESENSI");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "3" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILAKN MATKUL");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "4" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILAKN NILAI");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "5" -> {
+                            notWrong = false;
+                            berhenti = false;
+                            System.out.println("Keluar......");
+                        }
+                        default -> System.out.println("Input tidak dimengerti");
+                    }
+                }
+            }
+            if (ifWrong) {
+                short left = 1, right = 0;
+                for (int j = 0; j < 60; j++) {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.printf("Input salah 3x silahkan tunggu %d:%02d%n",left,right);
+                    Thread.sleep(250);
+                    if (right == 0) {
+                        left --;
+                        right = 59;
+                    } else right--;
+                }
+                        System.out.print("\033[H\033[2J");
+            }
+        }
+    }    
+}
             }
         }
     }    
