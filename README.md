@@ -77,7 +77,7 @@ Login
 ```
 ## Meet The Team 
 1. <a href="https://github.com/Noklent-Fardian"> Noklent Fardian Erix</a> (TI-1E)
-2. <a href="https://github.com/SyaifullahMain"> Muhamad Syaifullah</a> (TI-1E)
+2. <a href="https://github.com/syaifulmain"> Muhamad Syaifullah</a> (TI-1E)
 3. <a href="https://github.com/annisaeka123"> Annisa Eka Puspita</a> (TI-1E)
 
 # Tools 
