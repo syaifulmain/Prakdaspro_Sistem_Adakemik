@@ -130,7 +130,7 @@ public class MainApps {
                                         System.out.println("-----------------------------------------");
                                         for (int i = 1; i <= 5; i++) {
                                             System.out.print("Masukan nilai ke-" + i + " :");
-                                            total = total + input.nextInt();
+                                            total += input.nextInt();
                                         } 
                                         System.out.println("Rata-rata nilai adalah " + total/5);
                                         System.out.println("-----------------------------------------");
