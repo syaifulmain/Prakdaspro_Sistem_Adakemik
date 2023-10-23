@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class MainApps {
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
-    public static Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
     static String[][] bioMahasiswa = {
         {"1111111111", "NOKLENT", "L","JAKARTA", "11-11-1111", "1A"},
         {"2222222222", "BERYL", "L","BLITAR", "22-22-2222", "1B"},
@@ -33,18 +33,16 @@ public class MainApps {
     public static void loginView(){
         while (true) {
             renderTitle("SISTEM AKADEMIK");
-            System.out.println("1. Admin"); 
-            System.out.println("2. Dosen"); 
-            System.out.println("3. Miswa"); 
-            System.out.println("x. Keluar"); 
-            String pilih  = input("PILIH MASUK SEBAGAI");
+            int userInput = pickMenu("Pilih masuk sebagai", new String[] {
+                "Admin",
+                "Dosen",
+                "Mahasiswa",
+            });
             clearScreen();
-            if (pilih.equalsIgnoreCase("x")) exit();
-            switch (pilih) {
-                case "1" -> login("ADMIN");
-                case "2" -> login("DSOEN");
-                case "3" -> login("MAHASISWA");
-                default -> System.out.println("Input tidak dimengerti");
+            switch (userInput) {
+                case 1 -> login("ADMIN");
+                case 2 -> login("DSOEN");
+                case 3 -> login("MAHASISWA");
             }
         }
     }
@@ -172,7 +170,7 @@ public class MainApps {
             if (pilih.equalsIgnoreCase("x")) exit();
             clearScreen();
             switch (pilih) {
-                case "1" -> handleDataBioMahasiswa();
+                case "1" -> handleListMahasiswa();
                 case "2" -> {}
                 case "3" -> {}
                 case "4" -> {
@@ -183,7 +181,7 @@ public class MainApps {
         }
     }
     // view data bio mahasiswa
-    static void handleDataBioMahasiswa(){
+    static void handleListMahasiswa(){
         while (true) {
             System.out.println("Siakad / Data Mahasiswa / List Mahasiswa");
             showDataBioMahasiswa();
@@ -385,16 +383,6 @@ public class MainApps {
         System.out.println("Keluar...");
         System.exit(0);
     }
-    static String getNonEmptyStringWithLimit(String prompt, int min, int max) {
-        while (true) {
-            String userInput = input(prompt);
-            if (!userInput.isEmpty()) {
-                if (userInput.length() >= min && userInput.length() <= max) return userInput;
-                System.out.println("Input tidak boleh lebih pendek dari " + min + " atau lebih panjang dari " + max);
-            }
-            else System.out.println("Input tidak boleh kosong");
-        }
-    }
     static boolean has(String[][] items, String needle, int fieldIndex) {
         for (String[] item : items) {
             if (item[fieldIndex].equals(needle)) return true;
@@ -410,5 +398,42 @@ public class MainApps {
         System.out.println(horizontalBorder);
         System.out.println("|" + " ".repeat(paddingSize) + title + " ".repeat(paddingSize) + "|");
         System.out.println(horizontalBorder);
+    }
+    static String getNonEmptyString(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String userInput = scanner.nextLine().trim();
+            if (!userInput.isEmpty()) return userInput;
+            System.out.println("Masukan tidak boleh kosong!");
+        }
+    }
+    static String getNonEmptyStringWithLimit(String prompt, int min, int max) {
+        while (true) {
+            String userInput = getNonEmptyString(prompt);
+            if (userInput.length() >= min && userInput.length() <= max) return userInput;
+            System.out.println("Masukan tidak boleh lebih rendah dari " + min + " atau lebih besar dari " + max);
+        }
+    }
+    static int pickMenu(String menuTitle, String[] menus) {
+        System.out.println(menuTitle);
+        int i = 0;
+        while (i < menus.length) {
+            System.out.printf("%d. %s%n", i + 1, menus[i]);
+            i++;
+        }
+        System.out.printf("%d. %s%n", i + 1, "Keluar");
+        while (true) {
+            try {
+                int userInput = Integer.parseInt(getNonEmptyString("Pilih menu : "));
+                if (userInput == menus.length + 1) exit();
+                if (userInput < 1 || userInput > menus.length) {
+                    System.out.println("Masukan salah");
+                    continue;
+                }
+                return userInput;
+            } catch (Exception e) {
+                System.out.println("Input salah masukan angka");
+            }
+        }
     }
 }
