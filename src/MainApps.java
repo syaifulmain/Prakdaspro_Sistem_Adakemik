@@ -226,9 +226,9 @@ public class MainApps {
         jenisKelamin = getNonEmptyUniqueWithLimit("Gender L/P", 1, 1, "l-p", true);
         alamat = getNonEmptyStringWithLimit("Alamat : ", 1, 15);
         tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
-        String pilih = input("Tambahkan data? y");
+        String userChoose = getNonEmptyUniqueWithLimit("Tambahkan data? y/t : ", 1, 1, "y/t", true);
         clearScreen();
-        if (pilih.equalsIgnoreCase("y")) addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir,"N");
+        if (userChoose.equalsIgnoreCase("y")) addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir,"N");
         else System.out.println("Dibatalkan");
     }
     // logic add data bio mahasiswa
