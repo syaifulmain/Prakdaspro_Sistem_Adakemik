@@ -35,7 +35,7 @@ public class MainApps {
             renderTitle("SISTEM AKADEMIK");
             System.out.println("1. Admin"); 
             System.out.println("2. Dosen"); 
-            System.out.println("3. Mahasiswa"); 
+            System.out.println("3. Miswa"); 
             System.out.println("x. Keluar"); 
             String pilih  = input("PILIH MASUK SEBAGAI");
             clearScreen();
@@ -52,22 +52,23 @@ public class MainApps {
     public static void login(String level) {
         while (true) {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
-            String user, pass;
+            String username, password;
             while (true) {
-                user = input("Username");
-                if (user.equals("x")) return;
-                if (user.length() <= 10) break;
-            System.out.println("Masukan tidak boleh lebih dari 10");
+                username = input("USERNAME");
+                if (username.equals("x")) return;
+                if (username.length() <= 10 && !username.equals("")) break;
+                // tidak boleh lebih dari 10 da tidak boleh kosong
+                System.out.println("Masukan Username dengan benar");
             }
             while (true) {
-                pass = input("Password");
-                if (!pass.equals("")) break;
+                password = input("PASSWORD");
+                if (!password.equals("")) break;
                 System.out.println("Password tidak boleh kosong");
             }
             clearScreen();
             switch (level) {
                 case "ADMIN" -> {
-                    if (user.equals(usernameAdmin) && pass.equals(passwordAdmin)) viewDashboardAdmin();
+                    if (username.equals(usernameAdmin) && password.equals(passwordAdmin)) viewDashboardAdmin();
                     System.out.println("Username dan password salah/tidak ditemukan");
                 }
                 case "DOSEN" -> {
@@ -75,7 +76,7 @@ public class MainApps {
                 }
                 case "MAHASISWA" -> {
                     for (int i = 0; i < userMahasiswa.length; i++) {
-                        if (user.equals(userMahasiswa[i][0]) && pass.equals(userMahasiswa[i][1])) {
+                        if (username.equals(userMahasiswa[i][0]) && password.equals(userMahasiswa[i][1])) {
                             dashboardMahasiswa(bioMahasiswa[i][1]);
                             break;
                         }
