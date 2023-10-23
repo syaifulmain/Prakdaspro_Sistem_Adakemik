@@ -5,11 +5,11 @@ public class MainApps {
     static String passwordAdmin = "admin";
     public static Scanner scanner = new Scanner(System.in);
     static String[][] bioMahasiswa = {
-        {"1111111111", "Rungkad", "L","BLITAR", "11-11-1111", "1A"},
-        {"2222222222", "Entek", "L","BLITAR", "22-22-2222", "1A"},
-        {"3333333333", "Entek", "L","BLITAR", "33-33-3333", "1A"},
-        {"4444444444", "An", "L","BLITAR", "44-44-4444", "1A"},
-        {"5555555555", "Dingge", "L","BLITAR", "55-55-5555", "1A"}
+        {"1111111111", "NOKLENT", "L","JAKARTA", "11-11-1111", "1A"},
+        {"2222222222", "BERYL", "L","BLITAR", "22-22-2222", "1B"},
+        {"3333333333", "SOMEONE", "L","BLITAR", "33-33-3333", "1C"},
+        {"4444444444", "AHMAD", "L","BLITAR", "44-44-4444", "1D"},
+        {"5555555555", "TOMI", "L","BLITAR", "55-55-5555", "1E"}
     };
     static String[][] userMahasiswa = {
         {"1111111111", "1111111111"},
