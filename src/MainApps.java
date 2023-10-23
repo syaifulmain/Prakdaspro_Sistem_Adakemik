@@ -56,7 +56,7 @@ public class MainApps {
             clearScreen();
             switch (level) {
                 case "ADMIN" -> {
-                    if (username.equals(usernameAdmin) && password.equals(passwordAdmin)) viewDashboardAdmin();
+                    if (username.equals(usernameAdmin) && password.equals(passwordAdmin)) dashboardAdmin();
                     System.out.println("Username dan password salah/tidak ditemukan");
                 }
                 case "DOSEN" -> {
@@ -124,92 +124,87 @@ public class MainApps {
 
     /* DASHBOARD ADMIN */
 // dashboard admin
-    static void viewDashboardAdmin(){
+    static void dashboardAdmin(){
         while (true) {
             renderTitle("Dashboard Admin");
-            System.out.println("=== Dashboard Admin ===");
-            System.out.println("1. Data Mahasiswa");
-            System.out.println("2. Data Dosen");
-            System.out.println("3. Atur Jadwal");
-            System.out.println("4. Logout");
-            System.out.println("x. Keluar");
-            String pilih = input("PILIH");
-            if (pilih.equalsIgnoreCase("x")) exit();
+            int userInput = pickMenu("Menu : ", new String[] {
+                "Modul Mahasiswa",
+                "Modul Dosen",
+                "Modul Kursus"
+            });
             clearScreen();
-            switch (pilih) {
-                case "1" -> RouteDataMahasiswa();
-                case "2" -> {} //dosen
-                case "3" -> {} //atur jadawal
-                case "4" -> {
-                    return;
-                }
-                default -> System.out.println("Input tidak dimengerti");
+            switch (userInput) {
+                case 1 -> modulMahasiswa();
+                case 2 -> {} //dosen
+                case 3 -> {}
             }
         }
     }
-    static void RouteDataMahasiswa() {
+    static void modulMahasiswa() {
         while (true) {
             System.out.println("Siakad / Data Mahasiswa");
-            renderTitle("Data Mahasiswa");
-            System.out.println("1. List Mahasiswa");
-            System.out.println("2. Transkip nilai");
-            System.out.println("3. Presensi Mahasiswa");
-            System.out.println("4. Kembali");
-            System.out.println("x. Keluar");
-            String pilih = input("PILIH");
-            if (pilih.equalsIgnoreCase("x")) exit();
+            renderTitle("Modul Mahasiswa");
+            int userInput = pickMenu("Menu : ", new String[] {
+                "List Mahasiswa",
+                "Transkip Nilai",
+                "Presensi Mahasiswa",
+                "Kembali"
+            });
             clearScreen();
-            switch (pilih) {
-                case "1" -> handleListMahasiswa();
-                case "2" -> {}
-                case "3" -> {}
-                case "4" -> {
+            switch (userInput) {
+                case 1 -> handleListMahasiswa();
+                case 2 -> {}
+                case 3 -> {}
+                case 4 -> {
+                    clearScreen();
                     return;
                 }
-                default -> System.out.println("Input tidak dimengerti");
             }
         }
     }
     // view data bio mahasiswa
-    static void handleListMahasiswa(){
+    static void handleListMahasiswa() {
         while (true) {
             System.out.println("Siakad / Data Mahasiswa / List Mahasiswa");
             showDataBioMahasiswa();
-            System.out.println("1. Daftarkan Mahasiswa Baru");
-            System.out.println("2. Edit data");
-            System.out.println("3. Hapus data");
-            System.out.println("4. Kembali");
-            System.out.println("x. Keluar");
-            String pilih = input("PILIH");
-            if (pilih.equalsIgnoreCase("x")) exit();
+            int userInput = pickMenu("Menu : ", new String[] {
+                "Daftarkan Mahasiswa Baru",
+                "Edit Data Mahasiswa",
+                "Hapus Data Mahasiswa",
+                "Kembali"
+            });
             clearScreen();
-            switch (pilih) {
-                case "1" -> viewAddDataBioMahasiswa();
-                case "2" -> viewEditDataBioMahasiswa();
-                case "3" -> viewRemoveDataBioMahasiswa();
-                case "4" -> {return;}
-                default -> System.out.println("Input tidak dimengerti");
+            switch (userInput) {
+                case 1 -> addDataBioMahasiswa();
+                case 2 -> viewEditDataBioMahasiswa();
+                case 3 -> viewRemoveDataBioMahasiswa();
+                case 4 -> {
+                    clearScreen();
+                    return;
+                }
             }
         }
     }
     // show data bio mahasiswa
-    static void showDataBioMahasiswa(){
+    static void showDataBioMahasiswa() {
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
         System.out.println(horizonLine);
         System.out.format("| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
         System.out.println(horizonLine);
-        if (bioMahasiswa[0][0] == null) return; 
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
-            
             System.out.printf(formatTable, (i+1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4], takeBio[5]);
         }
         System.out.println(horizonLine);
     }
     // view add data bio mahasiswa
-    static void viewAddDataBioMahasiswa(){
-        String nim, nama, jenisKelamin, alamat, tanggalLahir, kelas;
+    static void addDataBioMahasiswa() {
+        String nim, nama, jenisKelamin, alamat, tanggalLahir;
+        nim = getNonEmptyNumberWithLimit("NIM : ", 10, 10);
+        nama = getNonEmptyStringWithLimit("NAMA : ", 1, 25);
+        jenisKelamin = getNonEmptyUniqueWithLimit("Gender L/P", 1, 1, "l-p", true);
+        alamat = getNonEmptyStringWithLimit("Alamat : ", 1, 15);
         while (true) {
             System.out.println("Mendaftakan Mahasiswa Baru");
             while (true) {
@@ -402,6 +397,25 @@ public class MainApps {
             String userInput = getNonEmptyString(prompt);
             if (userInput.length() >= min && userInput.length() <= max) return userInput;
             System.out.println("Masukan tidak boleh lebih rendah dari " + min + " atau lebih besar dari " + max);
+        }
+    }
+    static String getNonEmptyNumberWithLimit(String prompt, int min, int max) {
+        while (true) {
+            String userInput = getNonEmptyStringWithLimit(prompt, min, max);
+            if (userInput.matches("[0-9]+")) return userInput;
+            System.out.println("Masukan hanya boleh angka");
+        }
+    }
+    // String allow gunakan "-" 
+    static String getNonEmptyUniqueWithLimit(String prompt, int min, int max, String allow, boolean ignoreCase) {
+        while (true) {
+            String userInput = getNonEmptyStringWithLimit(prompt, min, max);
+            String[] array = allow.split("-");
+            for (String string : array) {
+                if (ignoreCase && string.equalsIgnoreCase(userInput)) return userInput;
+                if (string.equals(userInput)) return userInput;
+            }
+            System.out.println("Masukan format dengan benar");
         }
     }
     static int pickMenu(String menuTitle, String[] menus) {
