@@ -26,11 +26,11 @@ public class MainApps {
     };
     public static void main(String[] args) {
         clearScreen();
-        loginView();
+        login();
     }
 
     // DONE: login view
-    public static void loginView(){
+    public static void login(){
         while (true) {
             renderTitle("SISTEM AKADEMIK");
             int userInput = pickMenu("Pilih masuk sebagai", new String[] {
@@ -40,29 +40,19 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> login("ADMIN");
-                case 2 -> login("DSOEN");
-                case 3 -> login("MAHASISWA");
+                case 1 -> loginRole("ADMIN");
+                case 2 -> loginRole("DSOEN");
+                case 3 -> loginRole("MAHASISWA");
             }
         }
     }
     // login logic
-    public static void login(String level) {
+    public static void loginRole(String level) {
         while (true) {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
             String username, password;
-            while (true) {
-                username = input("USERNAME");
-                if (username.equals("x")) return;
-                if (username.length() <= 10 && !username.equals("")) break;
-                // tidak boleh lebih dari 10 da tidak boleh kosong
-                System.out.println("Masukan Username dengan benar");
-            }
-            while (true) {
-                password = input("PASSWORD");
-                if (!password.equals("")) break;
-                System.out.println("Password tidak boleh kosong");
-            }
+            username = getNonEmptyStringWithLimit("USERNAME : ", 1, 10);
+            password = getNonEmptyStringWithLimit("PASSWORD : ", 1, 10);
             clearScreen();
             switch (level) {
                 case "ADMIN" -> {
@@ -432,7 +422,7 @@ public class MainApps {
                 }
                 return userInput;
             } catch (Exception e) {
-                System.out.println("Input salah masukan angka");
+                System.out.println("Masukan hanya boleh angka");
             }
         }
     }
