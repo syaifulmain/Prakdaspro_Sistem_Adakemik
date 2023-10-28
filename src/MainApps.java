@@ -390,14 +390,17 @@ public class MainApps {
     }
 
     // show table data nim,nama,kelas mahasiswa
-    public static void showKelasMahasiswa(){
+    public static void showKelasMahasiswa(String kelas){
         String formatTable = "| %-3s | %-10s | %-25s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+";
         System.out.println(horizonLine);
         System.out.format("| NO  | NIM        | NAMA                      | Kelas |%n");
-        System.out.println(horizonLine);
+        System.out.println(horizonLine); 
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
+            if (takeBio[5].matches(kelas)) {
+                
+            }
             System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1],takeBio[5]);
         }
         System.out.println(horizonLine);
@@ -405,13 +408,38 @@ public class MainApps {
 
     // Penempatan kelas
     public static void penempatanKelasMahasiswa(){
+        final String kelas = "1A|1B|1C|1D|1E|";
         while (true) {
             System.out.println("Siakad / Modul Kursus / Penempatan Kelas Mahasiswa");
-            showKelasMahasiswa();
+            showKelasMahasiswa(kelas);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Atur Kelas",
+                    "Sortir",
                     "Kembali",
                     "Keluar"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> addDataBioMahasiswa();
+                case 2 -> sortirBerdasarkanKelas();
+                case 3 -> {
+                    clearScreen();
+                    return;
+                }
+                case 4 -> exit();
+            }
+        }
+    }
+
+    // sortir berdasarkan kelas
+    public static void sortirBerdasarkanKelas(){
+        while (true) {
+            System.out.println("1A|1B|1C|1D|1E|");
+            String kelas = getNonEmptyUniqueWithLimit("Masukan Kelas", 2, 2, "1A-1B-1C-1D-1E-", false);
+            showKelasMahasiswa(kelas);
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Atur Kelas",
+                    "Kembali"
             });
             clearScreen();
             switch (userInput) {
@@ -420,11 +448,10 @@ public class MainApps {
                     clearScreen();
                     return;
                 }
-                case 3 -> exit();
             }
-            
         }
     }
+    // atur kelas
     /* modulKursus */
     /* DASHBOARD ADMIN */
 
