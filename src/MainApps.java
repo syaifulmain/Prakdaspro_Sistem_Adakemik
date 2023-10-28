@@ -26,30 +26,64 @@ public class MainApps {
 
     };
 
-    static String[][] matkul = {
-        {"RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6"},
-        {"RTI231001", "PANCASILA", "Pancasila", "2"},
-        {"RTI231004", "MATDAS", "Matematika Dasar", "3"},
-        {"RTI231005", "BING_1", "Bahasa Inggris 1", "4"},
-        {"RTI231002", "KTI", "Konsep Teknologi Informasi", "4"},
-        {"RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4"},
-        {"RTI231006", "DASPRO", "Dasar Pemrograman", "4"},
-        {"RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4"}
+    static String[][] matkulTI = {
+            { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
+            { "RTI231001", "PANCASILA", "Pancasila", "2" },
+            { "RTI231004", "MATDAS", "Matematika Dasar", "3" },
+            { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
+            { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
+            { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
+            { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
+            { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
     };
     static String[][][] jadwal = {
-        {
-            {"1E"},
-            {"2-RTI231007", "10-RTI231001"},
-            {"1-RTI231004", "8-RTI231005"},
-            {"1-RTI231002", "9-RTI231004"},
-            {"8-RTI231008"},
-            {"1-RTI231006", "8-RTI231003"},
-        },
+            {
+                    { "1A" },
+                    { "1-RTI231004-3", "6-RTI231007-6" },
+                    { "1-RTI231006-4"},
+                    { "1-RTI231004-3", "5-RTI231003-4" },
+                    { "4-RTI231008-4", "8-RTI231002-4" },
+                    { "2-RTI231005-4", "9-RTI231001-2" },
+            },
+            {
+                    { "1B" },
+                    { "1-RTI231004-3", "6-RTI231007-6" },
+                    { "3-RTI231005-4",},
+                    { "4-RTI231006-4", "8-RTI231002-4" },
+                    { "1-RTI231003-4","5-RTI231001-2","8-RTI231008-4"},
+                    { "1-RTI231004-4",},
+            },
+            {
+                    { "1C" },
+                    { "1-RTI231004-3", "6-RTI231001-2", "8-RTI231003-4" },
+                    { "6-RTI231006-4",},
+                    { "2-RTI231007-7", "8-RTI231005-4" },
+                    { "7-RTI231002-4" },
+                    { "1-RTI231004-3", "7-RTI231008-4" },
+            },
+            {
+                    { "1D" },
+                    { "2-RTI231005-4", "8-RTI231003-4" },
+                    { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
+                    { "6-RTI231007-6",},
+                    { "1-RTI231004-3", "7-RTI231002-4" },
+                    { "9-RTI231004-3", },
+            },
+            {
+                    { "1E" },
+                    { "2-RTI231007-6", "10-RTI231001-2" },
+                    { "1-RTI231004-3", "8-RTI231005-4" },
+                    { "1-RTI231002-4", "9-RTI231004-3" },
+                    { "8-RTI231008-4" },
+                    { "1-RTI231006-4", "8-RTI231003-4" },
+            },
     };
+    static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
     public static void main(String[] args) {
-        clearScreen();
-        login();
+        // clearScreen();
+        // login();
+        penjadwalanMenuKelas();
     }
 
     // DONE: login view
@@ -345,9 +379,8 @@ public class MainApps {
         if (userChoose.equalsIgnoreCase("y")) {
             bioMahasiswa[studentIndex][userInput - 1] = input;
             System.out.println("Berhasil mengedit");
-        }
-        else {
-             System.out.println("Dibatalkan");
+        } else {
+            System.out.println("Dibatalkan");
         }
         clearScreen();
     }
@@ -397,8 +430,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> penempatanKelasMahasiswa();
-                case 2 -> {
-                }
+                case 2 -> penjadwalanMenuKelas();
                 case 3 -> {
                 }
                 case 4 -> {
@@ -418,7 +450,8 @@ public class MainApps {
         System.out.println(horizonLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
-            if (takeBio[5].matches(kelas)) System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[5]);
+            if (takeBio[5].matches(kelas))
+                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[5]);
         }
         System.out.println(horizonLine);
     }
@@ -465,18 +498,17 @@ public class MainApps {
             }
         }
         System.out.println("1A|1B|1C|1D|1E|");
-        input = getNonEmptyUniqueWithLimit("Atur kelas", 2, 2, "1A-1B-1C-1D-1E" , true);
+        input = getNonEmptyUniqueWithLimit("Atur kelas", 2, 2, "1A-1B-1C-1D-1E", true);
         String userChoose = getNonEmptyUniqueWithLimit("Simpan perubahan y/t", 1, 1, "y-t",
                 true);
         if (userChoose.equalsIgnoreCase("y")) {
             bioMahasiswa[studentIndex][5] = input;
             System.out.println("Berhasil mengedit");
-        }
-        else {
-             System.out.println("Dibatalkan");
+        } else {
+            System.out.println("Dibatalkan");
         }
         clearScreen();
-        
+
     }
 
     // sortir berdasarkan kelas
@@ -503,6 +535,105 @@ public class MainApps {
         }
     }
 
+    // penjadwalan
+    static void penjadwalanMenuKelas() {
+        while (true) {
+            System.out.println("Siakad / Modul Kursus / Penjadwalan");
+            int userInput = pickMenu("Kelas : ", new String[] {
+                    "1A",
+                    "1B",
+                    "1C",
+                    "1D",
+                    "1E",
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> jadwalByKelas("1A", 0);
+                case 2 -> jadwalByKelas("1B", 1);
+                case 3 -> jadwalByKelas("1C", 2);
+                case 4 -> jadwalByKelas("1D", 3);
+                case 5 -> jadwalByKelas("1E", 4);
+                case 6 -> {
+                    clearScreen();
+                    return;
+                }
+            }
+        }
+    }
+
+    // jadwal kelas
+    static void jadwalByKelas(String kelasString, int kelasInt) {
+        while (true) {
+            System.out.println("Siakad / Modul Kursus / Penjadwalan / " + kelasString);
+            showJadwal(kelasInt);
+            int userInput = pickMenu("", new String[] {
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> {
+                    clearScreen();
+                    return;
+                }
+            }
+        }
+    }
+
+    static void showJadwal(int kelas) {
+        System.out.println("+------+" + "-----+".repeat(11));
+        System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
+        System.out.println("+------+" + "-----+".repeat(11));
+        String formatJadwal = "|%-6s|%-66s%n";
+        int index2 = 1;
+        for (String hari : kumpulanHari) {
+            int begin = 0;
+            int howLong = 0;
+            String matkul = "";
+            String simpanJadwal = "";
+            int addSpace = -1;
+            int index3 = 0;
+            int jadwalLenght = 0;
+            String[] tempArray;
+            for (int i = 1; i <= 11; i++) {
+                if (jadwalLenght < jadwal[kelas][index2].length) {
+                    tempArray = jadwal[kelas][index2][index3].split("-");
+                    if ( Integer.parseInt(tempArray[0]) == i) {
+                        begin = Integer.parseInt(tempArray[0]);
+                        howLong = Integer.parseInt(tempArray[2]);
+                        for (int j = 0; j < matkulTI.length; j++) {
+                            if (tempArray[1].equals(matkulTI[j][0])) {
+                                matkul = matkulTI[j][1];
+                                break;
+                            }
+                        }
+                        jadwalLenght++;
+                    }
+                } else
+                    begin = 0;
+                if (i == begin) {
+                    if ((begin + howLong - 1) == 11) {
+                        simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())+"|";
+                        i = i + howLong - 1;
+                        index3++;
+                    } else {
+                        simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())
+                                + "|";
+                        i = i + howLong - 1;
+                        addSpace = -1;
+                        index3++;
+                    }
+                } else {
+                    simpanJadwal += "-".repeat(5) + "|";
+                    addSpace++;
+                }
+            }
+            index2++;
+            System.out.printf(formatJadwal, hari, simpanJadwal);
+            String line = "+------+" + "-".repeat(65) + "+%n";
+            System.out.printf(line);
+        }
+    }
     /* modulKursus */
     /* DASHBOARD ADMIN */
 
