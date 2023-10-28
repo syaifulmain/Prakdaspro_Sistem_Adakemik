@@ -390,7 +390,7 @@ public class MainApps {
     }
 
     // show table data nim,nama,kelas mahasiswa
-    public static void penempatanKelasMahasiswa(){
+    public static void showKelasMahasiswa(){
         String formatTable = "| %-3s | %-10s | %-25s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+";
         System.out.println(horizonLine);
@@ -401,6 +401,29 @@ public class MainApps {
             System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1],takeBio[5]);
         }
         System.out.println(horizonLine);
+    }
+
+    // Penempatan kelas
+    public static void penempatanKelasMahasiswa(){
+        while (true) {
+            System.out.println("Siakad / Modul Kursus / Penempatan Kelas Mahasiswa");
+            showKelasMahasiswa();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Atur Kelas",
+                    "Kembali",
+                    "Keluar"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> addDataBioMahasiswa();
+                case 2 -> {
+                    clearScreen();
+                    return;
+                }
+                case 3 -> exit();
+            }
+            
+        }
     }
     /* modulKursus */
     /* DASHBOARD ADMIN */
