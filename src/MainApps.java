@@ -4,6 +4,7 @@ public class MainApps {
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
     static Scanner scanner = new Scanner(System.in);
+
     static String[][] bioMahasiswa = {
             { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
             { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
@@ -23,6 +24,27 @@ public class MainApps {
     };
     static String[][] userDosen = {
 
+    };
+
+    static String[][] matkul = {
+        {"RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6"},
+        {"RTI231001", "PANCASILA", "Pancasila", "2"},
+        {"RTI231004", "MATDAS", "Matematika Dasar", "3"},
+        {"RTI231005", "BING_1", "Bahasa Inggris 1", "4"},
+        {"RTI231002", "KTI", "Konsep Teknologi Informasi", "4"},
+        {"RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4"},
+        {"RTI231006", "DASPRO", "Dasar Pemrograman", "4"},
+        {"RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4"}
+    };
+    static String[][][] jadwal = {
+        {
+            {"1E"},
+            {"2-RTI231007", "10-RTI231001"},
+            {"1-RTI231004", "8-RTI231005"},
+            {"1-RTI231002", "9-RTI231004"},
+            {"8-RTI231008"},
+            {"1-RTI231006", "8-RTI231003"},
+        },
     };
 
     public static void main(String[] args) {
@@ -244,7 +266,7 @@ public class MainApps {
         jenisKelamin = getNonEmptyUniqueWithLimit("Gender L/P", 1, 1, "l-p", true);
         alamat = getNonEmptyStringWithLimit("Alamat", 1, 15);
         tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
-        String userChoose = getNonEmptyUniqueWithLimit("Tambahkan data? y/t", 1, 1, "y/t", true);
+        String userChoose = getNonEmptyUniqueWithLimit("Tambahkan data? y/t", 1, 1, "y-t", true);
         clearScreen();
         if (userChoose.equalsIgnoreCase("y"))
             addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, "N");
@@ -277,7 +299,7 @@ public class MainApps {
         int studentIndex = -1;
         while (true) {
             showDataBioMahasiswa();
-            nimLama = getNonEmptyStringWithLimit("masukan NIM yang ingin diubah : ", 10, 10);
+            nimLama = getNonEmptyStringWithLimit("masukan NIM yang ingin diubah", 10, 10);
             if (has(bioMahasiswa, nimLama, 0))
                 break;
             clearScreen();
@@ -303,27 +325,31 @@ public class MainApps {
         switch (userInput) {
             case 1 -> {
                 while (true) {
-                    input = getNonEmptyNumberWithLimit("NIM : ", 10, 10);
+                    input = getNonEmptyNumberWithLimit("NIM", 10, 10);
                     if (has(bioMahasiswa, input, 0))
                         break;
                     System.out.println("NIM " + input + " sudah terdaftar");
                 }
             }
-            case 2 -> input = getNonEmptyStringWithLimit("NAMA : ", 1, 25);
-            case 3 -> input = getNonEmptyUniqueWithLimit("Gender L/P : ", 1, 1, "l-p", true);
-            case 4 -> input = getNonEmptyStringWithLimit("Alamat : ", 1, 15);
-            case 5 -> input = getNonEmptyStringWithLimit("Tanggal lahir : ", 10, 10);
+            case 2 -> input = getNonEmptyStringWithLimit("NAMA", 1, 25);
+            case 3 -> input = getNonEmptyUniqueWithLimit("Gender L/P", 1, 1, "l-p", true);
+            case 4 -> input = getNonEmptyStringWithLimit("Alamat", 1, 15);
+            case 5 -> input = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
             case 6 -> {
                 clearScreen();
                 return;
             }
         }
-        String userChoose = getNonEmptyUniqueWithLimit("Simpan " + input + " Sebagai perubahan y/t : ", 1, 1, "y-t",
+        String userChoose = getNonEmptyUniqueWithLimit("Simpan " + input + " Sebagai perubahan y/t", 1, 1, "y-t",
                 true);
-        if (userChoose.equalsIgnoreCase("y"))
+        if (userChoose.equalsIgnoreCase("y")) {
             bioMahasiswa[studentIndex][userInput - 1] = input;
+            System.out.println("Berhasil mengedit");
+        }
+        else {
+             System.out.println("Dibatalkan");
+        }
         clearScreen();
-        System.out.println("Berhasil mengedit");
     }
 
     // remove data bio mahasiswa
@@ -410,7 +436,7 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> aturKelasMahasiswa();
+                case 1 -> aturKelasMahasiswa(kelas);
                 case 2 -> sortirBerdasarkanKelas();
                 case 3 -> {
                     clearScreen();
@@ -421,8 +447,36 @@ public class MainApps {
     }
 
     // atur kelas
-    static void aturKelasMahasiswa() {
-
+    static void aturKelasMahasiswa(String kelas) {
+        String nim, input;
+        int studentIndex = -1;
+        while (true) {
+            showKelasMahasiswa(kelas);
+            nim = getNonEmptyStringWithLimit("Masukan NIM", 10, 10);
+            if (has(bioMahasiswa, nim, 0))
+                break;
+            clearScreen();
+            System.out.println("NIM tidak ditemukan");
+        }
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (bioMahasiswa[i][0].equals(nim)) {
+                studentIndex = i;
+                break;
+            }
+        }
+        System.out.println("1A|1B|1C|1D|1E|");
+        input = getNonEmptyUniqueWithLimit("Atur kelas", 2, 2, "1A-1B-1C-1D-1E" , true);
+        String userChoose = getNonEmptyUniqueWithLimit("Simpan perubahan y/t", 1, 1, "y-t",
+                true);
+        if (userChoose.equalsIgnoreCase("y")) {
+            bioMahasiswa[studentIndex][5] = input;
+            System.out.println("Berhasil mengedit");
+        }
+        else {
+             System.out.println("Dibatalkan");
+        }
+        clearScreen();
+        
     }
 
     // sortir berdasarkan kelas
@@ -437,7 +491,10 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> addDataBioMahasiswa();
+                case 1 -> {
+                    aturKelasMahasiswa(kelas);
+                    return;
+                }
                 case 2 -> {
                     clearScreen();
                     return;
@@ -521,7 +578,7 @@ public class MainApps {
             String[] array = allow.split("-");
             for (String string : array) {
                 if (ignoreCase && string.equalsIgnoreCase(userInput))
-                    return userInput;
+                    return userInput.toUpperCase();
                 if (string.equals(userInput))
                     return userInput;
             }
