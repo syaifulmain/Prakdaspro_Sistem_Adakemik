@@ -55,7 +55,39 @@ public class MainApps {
                                 System.out.print("pilih : ");
                                 pilih = input.nextLine();
                                         System.out.print("\033[H\033[2J");
-                                if (pilih.matches("1|2|3|4")) System.out.println("Maintenance");
+                                if (pilih.matches("2|3|4")) System.out.println("Maintenance");
+                                else if (pilih.equals("1")) {
+                                    
+                                    
+                                    String[][] dataMahasiswa;
+                                    System.out.print("Masukan jumlah mahasisawa : ");
+                                    int jumlahMahasiswa = input.nextInt();
+                                    dataMahasiswa  = new String[jumlahMahasiswa][5];
+                                    
+                                    for (int i = 0; i < dataMahasiswa.length; i++) {
+                                        System.out.println("Mahasiswa nomor urut ke-" + (i+1));
+                                        System.out.print("Masukan NIM : ");
+                                        dataMahasiswa[i][0] = input.nextLine();              
+                                        System.out.print("Masukan Nama : ");
+                                        dataMahasiswa[i][1] = input.nextLine();              
+                                        System.out.print("Masukan Kelamin : ");
+                                        dataMahasiswa[i][2] = input.nextLine();              
+                                        System.out.print("Masukan Alamat : ");
+                                        dataMahasiswa[i][2] = input.nextLine();              
+                                        System.out.print("Masukan Kelas : ");
+                                        dataMahasiswa[i][2] = input.nextLine();              
+                                    }
+
+                                    for (int i = 0; i < dataMahasiswa.length; i++) {
+                                        System.out.println("Data Mahasiswa nomor urut ke-" + (i+1));
+                                        System.out.println("NIM : " +dataMahasiswa[i][0]);
+                                        System.out.println("Nama : " +dataMahasiswa[i][1]);
+                                        System.out.println("kelamin : " +dataMahasiswa[i][2]);
+                                        System.out.println("Alamat : " +dataMahasiswa[i][3]);
+                                        System.out.println("Kelas : " +dataMahasiswa[i][4] + "\n");
+                                    }
+
+                                }
                                 else if (pilih.equals("5")) break;
                                 else System.out.println("Input tidak dimengerti");
                             }
