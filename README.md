@@ -2,7 +2,7 @@
 ![Static Badge](https://img.shields.io/badge/Mata%20Kuliah-Dasar%20Pemrograman-13e600) ![Static Badge](https://img.shields.io/badge/Contributors-3%20contributor-4a92f0)
 
 
-## Sistem Informasi Akademik 
+## Sistem Informasi Akademik Kelompok 2
 Sistem informasi akademik (SIAKAD) adalah suatu sistem informasi yang digunakan untuk mengelola proses akademik di perguruan tinggi. Sistem ini menggabungkan berbagai data dan informasi akademik, seperti data mahasiswa, dosen, mata kuliah, kurikulum, jadwal kuliah, nilai, dan lain-lain. Dengan menggunakan SIAKAD, proses akademik dapat berjalan lebih efisien dan efektif.
 
 ## Fitur
