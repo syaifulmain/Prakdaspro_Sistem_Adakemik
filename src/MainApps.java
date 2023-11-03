@@ -4,13 +4,12 @@ public class MainApps {
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
     static Scanner scanner = new Scanner(System.in);
-
     static String[][] bioMahasiswa = {
             { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
             { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
             { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
-            { "4444444444", "AHMAD", "L", "BLITAR", "44-44-4444", "1D" },
-            { "5555555555", "TOMI", "L", "BLITAR", "55-55-5555", "1E" }
+            { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
+            { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
     };
     static String[][] userMahasiswa = {
             { "1111111111", "1111111111" },
@@ -82,8 +81,9 @@ public class MainApps {
 
     public static void main(String[] args) {
         // clearScreen();
-        // login();
-        penjadwalanMenuKelas();
+        login();
+        // penjadwalanMenuKelas();
+        // showDataBioMahasiswa();
     }
 
     // DONE: login view
