@@ -176,7 +176,7 @@ public class MainApps {
                 System.out.println("Alamat: " + bioMahasiswa[i][3]);
                 System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
                 System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break; 
+                break; // No need to continue after finding the user.
             }
         }
     
