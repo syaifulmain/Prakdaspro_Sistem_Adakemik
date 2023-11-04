@@ -1,16 +1,15 @@
-package procedural;
 
 import java.util.Scanner;
 
 public class MainApps {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         System.out.print("\033[H\033[2J");
         Scanner input = new Scanner(System.in);
         String pilih;
         String[][] dataMahasiswa;
 
         boolean berhenti = true;
-        while (berhenti) {s
+        while (berhenti) {
             while (true) {
                 //login TUI
                 System.out.print("==Selamat Datang di SIAKAD==\nMasuk sebagai : \n1. Admin\n2. Dosen\n3. Mahasiswa\n4. keluar\n");
@@ -291,13 +290,20 @@ public class MainApps {
                     }
                 }
             }
+
+            // Uji coba
             if (ifWrong) {
-                short left = 1, right = 0;
-                for (int j = 0; j < 60; j++) {
+                int detik = 60;
+                int left = detik / 60, right = detik % 60;
+                for (int j = 0; j < detik; j++) {
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.printf("Input salah 3x silahkan tunggu %d:%02d%n",left,right);
-                    Thread.sleep(250);
+                    try{
+                        Thread.sleep(250);
+                    } catch (InterruptedException e){
+                        
+                    }
                     if (right == 0) {
                         left --;
                         right = 59;
