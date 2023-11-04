@@ -176,12 +176,12 @@ public class MainApps {
                 System.out.println("Alamat: " + bioMahasiswa[i][3]);
                 System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
                 System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break; // No need to continue after finding the user.
+                break; 
             }
         }
     
         if (!userFound) {
-            System.out.println("User with NIM " + nim + " not found.");
+            System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
         }
     }
 
