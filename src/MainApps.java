@@ -1,6 +1,8 @@
+
 import java.util.Scanner;
 
 public class MainApps {
+
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
     static Scanner scanner = new Scanner(System.in);
@@ -81,55 +83,137 @@ public class MainApps {
     };
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
+
+
     public static void main(String[] args) {
-        // clearScreen();
-        login();
-        // penjadwalanMenuKelas();
-        // showDataBioMahasiswa();
-    }
+        System.out.print("\033[H\033[2J");
+        Scanner input = new Scanner(System.in);
+        String pilih;
+        String[][] dataMahasiswa;
+        String[][] userMahasiswa = {
+            {"1111111111", "1111111111"},
+            {"2222222222", "2222222222"},
+            {"3333333333", "3333333333"}
+        };
 
-    // DONE: login view
-    static void login() {
-        while (true) {
-            renderTitle("SISTEM AKADEMIK");
-            int userInput = pickMenu("Pilih masuk sebagai", new String[] {
-                    "Admin",
-                    "Dosen",
-                    "Mahasiswa",
-            });
-            clearScreen();
-            switch (userInput) {
-                case 1 -> loginRole("ADMIN");
-                case 2 -> loginRole("DSOEN");
-                case 3 -> loginRole("MAHASISWA");
+        boolean berhenti = true;
+        while (berhenti) {
+            while (true) {
+                //login TUI
+                System.out.print("==Selamat Datang di SIAKAD==\nMasuk sebagai : \n1. Admin\n2. Dosen\n3. Mahasiswa\n4. keluar\n");
+                System.out.print("Pilih : ");
+                pilih = input.nextLine();
+                System.out.print("\033[H\033[2J");
+                if (pilih.matches("1|2|3")) break;
+                if (pilih.equals("4")) {
+                    berhenti = false;
+                    break;
+                }
+                System.out.println("Input tidak dimengerti");
             }
-        }
-    }
-
-    // login logic
-    static void loginRole(String level) {
-        while (true) {
-            renderTitle("SISTEM AKADEMIK " + level + " JTI");
             String username, password;
-            username = getNonEmptyStringWithLimit("USERNAME", 1, 10);
-            password = getNonEmptyStringWithLimit("PASSWORD", 1, 10);
-            clearScreen();
-            switch (level) {
-                case "ADMIN" -> {
-                    if (username.equals(usernameAdmin) && password.equals(passwordAdmin))
-                        dashboardAdmin();
-                    System.out.println("Username dan password salah/tidak ditemukan");
+            boolean ifWrong = false;
+            boolean notWrong = false;
+            boolean login = true;
+            if (pilih.equals("1")) {
+                //Admin
+                for (int i = 1; i <= 3; i++) {
+                    System.out.println("==Login Admin SIAKAD=="); 
+                    System.out.print("USERNAME : ");
+                    username = input.nextLine();
+                    System.out.print("PASSWORD : ");
+                    password = input.nextLine();
+                    if (username.equals("admin") && password.equals("admin")) {
+                        notWrong = true;
+                                System.out.print("\033[H\033[2J");
+                        break;
+                    }
+                    System.out.println("Username dan password salah");
+                    if (i == 3) ifWrong = true;
                 }
-                case "DOSEN" -> {
-                    // dashboard dosen
-                }
+
                 case "MAHASISWA" -> {
                     for (int i = 0; i < userMahasiswa.length; i++) {
                         if (username.equals(userMahasiswa[i][0]) && password.equals(userMahasiswa[i][1])) {
                             dashboardMahasiswa(bioMahasiswa[i][1], bioMahasiswa[i][0]);
                             break;
+
+                while (notWrong) {
+                    System.out.println("Dashboard Admin");
+                    System.out.println("1. Mahasiswa\n2. Dosen\n3. Kursus\n4. Keluar");
+                    System.out.print("Pilih : ");
+                    pilih = input.nextLine();
+                            System.out.print("\033[H\033[2J");
+                    switch (pilih) {
+                        case "1" -> {
+                            while (notWrong) {
+                                System.out.println("Modul Mahasiswa");
+                                System.out.println("1. List Mahasiswa\n2. Transkip nilai\n3. Presensi Mahasiswa\n4. user\n5. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.matches("2|3|4")) System.out.println("Maintenance");
+                                else if (pilih.equals("1")) {
+                                    
+                                    System.out.print("Masukan jumlah mahasisawa : ");
+                                    int jumlahMahasiswa = input.nextInt();
+                                    dataMahasiswa  = new String[jumlahMahasiswa][5];
+                                    String[] labelData = {"NIM", "Nama", "Kelamin", "Alamat", "Kelas"};
+                                    System.out.println();
+                                    input.nextLine();
+                                    
+                                    for (int i = 0; i < dataMahasiswa.length; i++) {
+                                        System.out.println("Mahasiswa nomor urut ke-" + (i+1));
+                                        for (int j = 0; j < dataMahasiswa[i].length; j++) {
+                                            System.out.print("Masukan " + labelData[j] + " : ");
+                                            dataMahasiswa[i][j] = input.nextLine();
+                                        }          
+                                    }
+                                    System.out.println("=".repeat(50));
+                                    for (int i = 0; i < dataMahasiswa.length; i++) {
+                                        System.out.println("Data Mahasiswa nomor urut ke-" + (i+1));
+                                        for (int j = 0; j < dataMahasiswa[i].length; j++) {
+                                            System.out.printf("%s : %s%n", labelData[j], dataMahasiswa[i][j]);
+                                        }
+                                    }
+                                }
+                                else if (pilih.equals("5")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
                         }
+                        case "2" -> {
+                            while (notWrong) {
+                                System.out.println("Modul Dosen");
+                                System.out.println("1. List Dosen\n2. user\n3. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.matches("1|2")) System.out.println("Maintenance");
+                                else if (pilih.equals("3")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+
+                        }
+                        case "3" -> {
+                            while (notWrong) {
+                                System.out.println("Modul Kursus");
+                                System.out.println("1. Kelas mahasiswa\n2. Matkul pengajar\n3. Penjadwalan\n4. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.matches("1|2|3")) System.out.println("Maintenance");
+                                else if (pilih.equals("4")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "4" -> {
+                            notWrong = false;
+                            berhenti = false;
+                            System.out.println("Keluar......");
+                        }
+                        default -> System.out.println("Input tidak dimengerti");
                     }
+
                     System.out.println("Username dan password salah/tidak ditemukan");
                 }
             }
@@ -270,119 +354,20 @@ public class MainApps {
                     return;
                 }
             }
-        }
-    }
-
-    // show table data bio mahasiswa
-    static void showDataBioMahasiswa() {
-        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
-        System.out.println(horizonLine);
-        System.out.format(
-                "| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
-        System.out.println(horizonLine);
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            String[] takeBio = bioMahasiswa[i];
-            System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
-                    takeBio[5]);
-        }
-        System.out.println(horizonLine);
-    }
-
-    // show data bio mahasiswa and menu
-    static void showBioAMahasiswa(String nim) {
-        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
-        System.out.println(horizonLine);
-        System.out.format(
-                "| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
-        System.out.println(horizonLine);
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            String[] takeBio = bioMahasiswa[i];
-            if (nim.equals(takeBio[0])) {
-                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
-                        takeBio[5]);
-                break;
-            }
-        }
-        System.out.println(horizonLine);
-
-    }
-
-    // add data bio mahasiswa
-    static void addDataBioMahasiswa() {
-        String nim, nama, jenisKelamin, alamat, tanggalLahir;
-        nim = getNonEmptyNumberWithLimit("NIM", 10, 10);
-        if (has(bioMahasiswa, nim, 0)) {
-            System.out.println("NIM " + nim + " sudah terdaftar");
-            return;
-        }
-        nama = getNonEmptyStringWithLimit("NAMA", 1, 25);
-        jenisKelamin = getNonEmptyUniqueWithLimit("Gender L/P", 1, 1, "l-p", true);
-        alamat = getNonEmptyStringWithLimit("Alamat", 1, 15);
-        tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
-        String userChoose = getNonEmptyUniqueWithLimit("Tambahkan data? y/t", 1, 1, "y-t", true);
-        clearScreen();
-        if (userChoose.equalsIgnoreCase("y"))
-            addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, "N");
-        else
-            System.out.println("Dibatalkan");
-    }
-
-    // add data bio mahasiswa
-    static void addDataBioMahasiswa(String nim, String nama, String jenisKelamin, String alamat, String tanggalLihir,
-            String kelas) {
-        String[][] mahasiswaBaru = new String[bioMahasiswa.length + 1][6];
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            mahasiswaBaru[i] = bioMahasiswa[i];
-        }
-        mahasiswaBaru[mahasiswaBaru.length - 1] = new String[] { nim, nama, jenisKelamin, alamat, tanggalLihir, kelas };
-        bioMahasiswa = mahasiswaBaru;
-        System.out.println("Mahasiswa telah berhasil ditambahkan");
-
-        String[][] userBaru = new String[userMahasiswa.length + 1][2];
-        for (int i = 0; i < userMahasiswa.length; i++) {
-            userBaru[i] = userMahasiswa[i];
-        }
-        userBaru[userBaru.length - 1] = new String[] { nim, nim };
-        userMahasiswa = userBaru;
-    }
-
-    // edit data bio mahasiswa
-    static void EditDataBioMahasiswa() {
-        String nimLama, input = "";
-        int studentIndex = -1;
-        while (true) {
-            showDataBioMahasiswa();
-            nimLama = getNonEmptyStringWithLimit("masukan NIM yang ingin diubah", 10, 10);
-            if (has(bioMahasiswa, nimLama, 0))
-                break;
-            clearScreen();
-            System.out.println("NIM tidak ditemukan");
-        }
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (bioMahasiswa[i][0].equals(nimLama)) {
-                studentIndex = i;
-                break;
-            }
-        }
-        String[] tempBioMahasiswa = bioMahasiswa[studentIndex];
-        clearScreen();
-        showBioAMahasiswa(nimLama);
-        int userInput = pickMenu("Ubah data", new String[] {
-                "NIM",
-                "Nama",
-                "Jenis Kelamin",
-                "Alamat",
-                "Tanggal Lahir",
-                "Kembali"
-        });
-        switch (userInput) {
-            case 1 -> {
-                while (true) {
-                    input = getNonEmptyNumberWithLimit("NIM", 10, 10);
-                    if (has(bioMahasiswa, input, 0))
+            if (pilih.equals("2")) {
+              //Dosen
+                // iniBug = input.nextLine();
+                for (int i = 1; i <= 3; i++) {
+                    System.out.println("==Login Dosen SIAKAD=="); 
+                    System.out.print("USERNAME : ");
+                    username = input.nextLine();
+                    System.out.print("PASSWORD : ");
+                    password = input.nextLine();
+                    if (username.equals("dosen") && password.equals("dosen")) {
+                        notWrong = true;
+                                System.out.print("\033[H\033[2J");
                         break;
+
                     System.out.println("NIM " + input + " sudah terdaftar");
                 }
             }
@@ -551,214 +536,182 @@ public class MainApps {
                 case 2 -> {
                    clearScreen();
                     return;
+
+                    }
+                    System.out.println("Username dan password salah");
+                    if (i == 3) ifWrong = true;
+
+                }
+                while (notWrong) {
+                    while (notWrong) {
+                        System.out.println("Dashboard Dosen");
+                        System.out.println("1. Penilaian\n2. Presensi\n3. Matkul\n4. Keluar");
+                        System.out.print("Pilih : ");
+                        pilih = input.nextLine();
+                                System.out.print("\033[H\033[2J");
+                        switch (pilih) {
+                            case "1" -> {
+                                while (notWrong) {
+                                    System.out.println("Penilaian Mahasiswa");
+                                    System.out.println("1. Kelas \n2. Kelas\n3. Kelas\n4. Kembali");
+                                    System.out.print("pilih : ");
+                                    pilih = input.nextLine();
+                                            System.out.print("\033[H\033[2J");
+                                    if (pilih.matches("1|2|3")) {
+                                        int total = 0;
+                                        System.out.println("-----------------------------------------");
+                                        for (int i = 1; i <= 5; i++) {
+                                            System.out.print("Masukan nilai ke-" + i + " :");
+                                            total += input.nextInt();
+                                        } 
+                                        System.out.println("Rata-rata nilai adalah " + total/5);
+                                        System.out.println("-----------------------------------------");
+                                        input.nextLine();
+
+                                    }else if (pilih.equals("4")){
+                                        break;
+                                    
+                                    }else System.out.println("Input tidak dimengerti");
+                                }
+                            }
+                            case "2" -> {
+                                while (notWrong) {
+                                    System.out.println("Presensi Mahasiswa");
+                                    System.out.println("1. Kelas \n2. Kelas\n3. Kelas\n4. Kembali");
+                                    System.out.print("pilih : ");
+                                    pilih = input.nextLine();
+                                            System.out.print("\033[H\033[2J");
+                                    if (pilih.matches("1|2|3")) System.out.println("Maintenance");
+                                    else if (pilih.equals("4")) break;
+                                    else System.out.println("Input tidak dimengerti");
+                                }
+                            }
+                            case "3" -> {
+                                while (notWrong) {
+                                    System.out.println("MENAMPILAKN MATKUL");
+                                    System.out.println("Maintenance");
+                                    System.out.println("1. Kembali");
+                                    System.out.print("pilih : ");
+                                    pilih = input.nextLine();
+                                            System.out.print("\033[H\033[2J");
+                                    if (pilih.equals("1")) break;
+                                    else System.out.println("Input tidak dimengerti");
+                                }
+                            }
+                            case "4" -> {
+                                notWrong = false;
+                                berhenti = false;
+                                System.out.println("Keluar......");
+                            }
+                            default -> System.out.println("Input tidak dimengerti");
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    // penjadwalan
-    static void penjadwalanMenuKelas() {
-        while (true) {
-            System.out.println("Siakad / Modul Kursus / Penjadwalan");
-            int userInput = pickMenu("Kelas : ", new String[] {
-                    "1A",
-                    "1B",
-                    "1C",
-                    "1D",
-                    "1E",
-                    "Kembali"
-            });
-            clearScreen();
-            switch (userInput) {
-                case 1 -> jadwalByKelas("1A", 0);
-                case 2 -> jadwalByKelas("1B", 1);
-                case 3 -> jadwalByKelas("1C", 2);
-                case 4 -> jadwalByKelas("1D", 3);
-                case 5 -> jadwalByKelas("1E", 4);
-                case 6 -> {
-                    clearScreen();
-                    return;
+            if (pilih.equals("3")) {
+                //Mahasiswa
+                for (int i = 1; i <= 3 && login; i++) {
+                    System.out.println("==Login Mahasiswa SIAKAD=="); 
+                    System.out.print("USERNAME : ");
+                    username = input.nextLine();
+                    System.out.print("PASSWORD : ");
+                    password = input.nextLine();
+                    for (int baris = 0; baris < userMahasiswa.length; baris++) {
+                        if (username.equals(userMahasiswa[baris][0]) && password.equals(userMahasiswa[baris][1])) {
+                            System.out.print("\033[H\033[2J");
+                            notWrong = true;
+                            login = false;
+                            break;
+                        }
+                        System.out.println("Username dan password salah");
+                        if (i == 3) ifWrong = true;
+                    }
                 }
-            }
-        }
-    }
-
-    // jadwal kelas
-    static void jadwalByKelas(String kelasString, int kelasInt) {
-        while (true) {
-            System.out.println("Siakad / Modul Kursus / Penjadwalan / " + kelasString);
-            showJadwal(kelasInt);
-            int userInput = pickMenu("", new String[] {
-                    "Kembali"
-            });
-            clearScreen();
-            switch (userInput) {
-                case 1 -> {
-                    clearScreen();
-                    return;
-                }
-            }
-        }
-    }
-
-    static void showJadwal(int kelas) {
-        System.out.println("+------+" + "-----+".repeat(11));
-        System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
-        System.out.println("+------+" + "-----+".repeat(11));
-        String formatJadwal = "|%-6s|%-66s%n";
-        int index2 = 1;
-        for (String hari : kumpulanHari) {
-            int begin = 0;
-            int howLong = 0;
-            String matkul = "";
-            String simpanJadwal = "";
-            int addSpace = -1;
-            int index3 = 0;
-            int jadwalLenght = 0;
-            String[] tempArray;
-            for (int i = 1; i <= 11; i++) {
-                if (jadwalLenght < jadwal[kelas][index2].length) {
-                    tempArray = jadwal[kelas][index2][index3].split("-");
-                    if ( Integer.parseInt(tempArray[0]) == i) {
-                        begin = Integer.parseInt(tempArray[0]);
-                        howLong = Integer.parseInt(tempArray[2]);
-                        for (int j = 0; j < matkulTI.length; j++) {
-                            if (tempArray[1].equals(matkulTI[j][0])) {
-                                matkul = matkulTI[j][1];
-                                break;
+                while (notWrong) {
+                    System.out.println("Dashboard Mahasiswa");
+                    System.out.println("1. Biodata\n2. Presensi\n3. Matkul\n4. Nilai\n5. Keluar");
+                    System.out.print("Pilih : ");
+                    pilih = input.nextLine();
+                            System.out.print("\033[H\033[2J");
+                    switch (pilih) {
+                        case "1" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILKAN BIODATA");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
                             }
                         }
-                        jadwalLenght++;
+                        case "2" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILKAN PRESENSI");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "3" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILAKN MATKUL");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "4" -> {
+                            while (notWrong) {
+                                System.out.println("MENAMPILAKN NILAI");
+                                System.out.println("Maintenance");
+                                System.out.println("1. Kembali");
+                                System.out.print("pilih : ");
+                                pilih = input.nextLine();
+                                        System.out.print("\033[H\033[2J");
+                                if (pilih.equals("1")) break;
+                                else System.out.println("Input tidak dimengerti");
+                            }
+                        }
+                        case "5" -> {
+                            notWrong = false;
+                            berhenti = false;
+                            System.out.println("Keluar......");
+                        }
+                        default -> System.out.println("Input tidak dimengerti");
                     }
-                } else
-                    begin = 0;
-                if (i == begin) {
-                    if ((begin + howLong - 1) == 11) {
-                        simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())+"|";
-                        i = i + howLong - 1;
-                        index3++;
-                    } else {
-                        simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())
-                                + "|";
-                        i = i + howLong - 1;
-                        addSpace = -1;
-                        index3++;
-                    }
-                } else {
-                    simpanJadwal += "-".repeat(5) + "|";
-                    addSpace++;
                 }
             }
-            index2++;
-            System.out.printf(formatJadwal, hari, simpanJadwal);
-            String line = "+------+" + "-".repeat(65) + "+%n";
-            System.out.printf(line);
-        }
-    }
-    /* modulKursus */
-    /* DASHBOARD ADMIN */
 
-    // SCANNER
-    static String input(String info) {
-        System.out.print(info + " : ");
-        return scanner.nextLine();
-    }
-
-    // Clear terminal
-    static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    // Fungsi untuk keluar
-    static void exit() {
-        clearScreen();
-        System.out.println("Keluar...");
-        System.exit(0);
-    }
-
-    static boolean has(String[][] items, String needle, int fieldIndex) {
-        for (String[] item : items) {
-            if (item[fieldIndex].equals(needle))
-                return true;
-        }
-        return false;
-    }
-
-    static void renderTitle(String title) {
-        int paddingSize = 4;
-        int titleLength = title.length();
-
-        String horizontalBorder = "+" + "-".repeat(titleLength + paddingSize * 2) + "+";
-
-        System.out.println(horizontalBorder);
-        System.out.println("|" + " ".repeat(paddingSize) + title + " ".repeat(paddingSize) + "|");
-        System.out.println(horizontalBorder);
-    }
-
-    static String getNonEmptyString(String prompt) {
-        while (true) {
-            String userInput = input(prompt);
-            if (!userInput.isEmpty())
-                return userInput;
-            System.out.println("Masukan tidak boleh kosong!");
-        }
-    }
-
-    static String getNonEmptyStringWithLimit(String prompt, int min, int max) {
-        while (true) {
-            String userInput = getNonEmptyString(prompt);
-            if (userInput.length() >= min && userInput.length() <= max)
-                return userInput;
-            System.out.println("Masukan tidak boleh lebih rendah dari " + min + " atau lebih besar dari " + max);
-        }
-    }
-
-    static String getNonEmptyNumberWithLimit(String prompt, int min, int max) {
-        while (true) {
-            String userInput = getNonEmptyStringWithLimit(prompt, min, max);
-            if (userInput.matches("[0-9]+"))
-                return userInput;
-            System.out.println("Masukan hanya boleh angka");
-        }
-    }
-
-    // String allow gunakan "-"
-    static String getNonEmptyUniqueWithLimit(String prompt, int min, int max, String allow, boolean ignoreCase) {
-        while (true) {
-            String userInput = getNonEmptyStringWithLimit(prompt, min, max);
-            String[] array = allow.split("-");
-            for (String string : array) {
-                if (ignoreCase && string.equalsIgnoreCase(userInput))
-                    return userInput.toUpperCase();
-                if (string.equals(userInput))
-                    return userInput;
-            }
-            System.out.println("Masukan format dengan benar");
-        }
-    }
-
-    static int pickMenu(String menuTitle, String[] menus) {
-        System.out.println(menuTitle);
-        int i = 0;
-        while (i < menus.length) {
-            System.out.printf("%d. %s%n", i + 1, menus[i]);
-            i++;
-        }
-        System.out.printf("%d. %s%n", i + 1, "Keluar");
-        while (true) {
-            try {
-                int userInput = Integer.parseInt(getNonEmptyString("Pilih menu"));
-                if (userInput == menus.length + 1)
-                    exit();
-                if (userInput < 1 || userInput > menus.length) {
-                    System.out.println("Masukan salah");
-                    continue;
+            // Uji coba
+            if (ifWrong) {
+                int detik = 60;
+                int left = detik / 60, right = detik % 60;
+                for (int j = 0; j < detik; j++) {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.printf("Input salah 3x silahkan tunggu %d:%02d%n",left,right);
+                    try{
+                        Thread.sleep(250);
+                    } catch (InterruptedException e){
+                        
+                    }
+                    if (right == 0) {
+                        left --;
+                        right = 59;
+                    } else right--;
                 }
-                return userInput;
-            } catch (Exception e) {
-                System.out.println("Masukan hanya boleh angka");
+                System.out.print("\033[H\033[2J");
             }
         }
-    }
+    }    
 }
