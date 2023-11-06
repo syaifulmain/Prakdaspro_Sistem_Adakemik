@@ -76,6 +76,8 @@ public class MainApps {
                     { "8-RTI231008-4" },
                     { "1-RTI231006-4", "8-RTI231003-4" },
             },
+
+
     };
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
@@ -124,7 +126,7 @@ public class MainApps {
                 case "MAHASISWA" -> {
                     for (int i = 0; i < userMahasiswa.length; i++) {
                         if (username.equals(userMahasiswa[i][0]) && password.equals(userMahasiswa[i][1])) {
-                            dashboardMahasiswa(bioMahasiswa[i][1]);
+                            dashboardMahasiswa(bioMahasiswa[i][1], bioMahasiswa[i][0]);
                             break;
                         }
                     }
@@ -135,7 +137,7 @@ public class MainApps {
     }
 
     /* DASHBOARD MAHASISWA */
-    static void dashboardMahasiswa(String user) {
+    static void dashboardMahasiswa(String user, String nim ) {
         while (true) {
             renderTitle("Selamat Datang " + user);
             System.out.println("=== Dashboard Mahasiswa ===");
@@ -150,7 +152,7 @@ public class MainApps {
                 exit();
             clearScreen();
             switch (pilih) {
-                case "1" -> hadleBiodataMahasiswa();
+                case "1" -> hadleBiodataMahasiswa(nim);
                 case "2" -> hadleNilaiMahasiswa();
                 case "3" -> hadleJadwalMahasiswa();
                 case "4" -> hadlePresensiMahasiswa();
@@ -162,8 +164,8 @@ public class MainApps {
         }
     }
 
-    static void hadleBiodataMahasiswa() {
-        String nim = getNonEmptyStringWithLimit("NIM", 10, 10);
+    static void hadleBiodataMahasiswa( String nim)  {
+        
         boolean userFound = false;
     
         for (int i = 0; i < bioMahasiswa.length; i++) {
@@ -183,10 +185,10 @@ public class MainApps {
         if (!userFound) {
             System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
         }
-    }
+    } 
 
     static void hadleNilaiMahasiswa() {
-
+          
     }
 
     static void hadleJadwalMahasiswa() {
@@ -547,7 +549,7 @@ public class MainApps {
                     return;
                 }
                 case 2 -> {
-                    clearScreen();
+                   clearScreen();
                     return;
                 }
             }
