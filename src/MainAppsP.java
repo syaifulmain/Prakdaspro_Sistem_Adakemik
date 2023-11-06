@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class MainAppsP {
@@ -6,6 +7,11 @@ public class MainAppsP {
         Scanner input = new Scanner(System.in);
         String pilih;
         String[][] dataMahasiswa;
+        String[][] userMahasiswa = {
+            {"1111111111", "1111111111"},
+            {"2222222222", "2222222222"},
+            {"3333333333", "3333333333"}
+        };
 
         boolean berhenti = true;
         while (berhenti) {
@@ -25,6 +31,7 @@ public class MainAppsP {
             String username, password;
             boolean ifWrong = false;
             boolean notWrong = false;
+            boolean login = true;
             if (pilih.equals("1")) {
                 //Admin
                 for (int i = 1; i <= 3; i++) {
@@ -58,36 +65,27 @@ public class MainAppsP {
                                 if (pilih.matches("2|3|4")) System.out.println("Maintenance");
                                 else if (pilih.equals("1")) {
                                     
-                                    
                                     System.out.print("Masukan jumlah mahasisawa : ");
                                     int jumlahMahasiswa = input.nextInt();
                                     dataMahasiswa  = new String[jumlahMahasiswa][5];
+                                    String[] labelData = {"NIM", "Nama", "Kelamin", "Alamat", "Kelas"};
                                     System.out.println();
                                     input.nextLine();
                                     
                                     for (int i = 0; i < dataMahasiswa.length; i++) {
                                         System.out.println("Mahasiswa nomor urut ke-" + (i+1));
-                                        System.out.print("Masukan NIM : ");
-                                        dataMahasiswa[i][0] = input.nextLine();              
-                                        System.out.print("Masukan Nama : ");
-                                        dataMahasiswa[i][1] = input.nextLine();              
-                                        System.out.print("Masukan Kelamin : ");
-                                        dataMahasiswa[i][2] = input.nextLine();              
-                                        System.out.print("Masukan Alamat : ");
-                                        dataMahasiswa[i][3] = input.nextLine();              
-                                        System.out.print("Masukan Kelas : ");
-                                        dataMahasiswa[i][4] = input.nextLine();              
+                                        for (int j = 0; j < dataMahasiswa[i].length; j++) {
+                                            System.out.print("Masukan " + labelData[j] + " : ");
+                                            dataMahasiswa[i][j] = input.nextLine();
+                                        }          
                                     }
-
+                                    System.out.println("=".repeat(50));
                                     for (int i = 0; i < dataMahasiswa.length; i++) {
                                         System.out.println("Data Mahasiswa nomor urut ke-" + (i+1));
-                                        System.out.println("NIM : " +dataMahasiswa[i][0]);
-                                        System.out.println("Nama : " +dataMahasiswa[i][1]);
-                                        System.out.println("kelamin : " +dataMahasiswa[i][2]);
-                                        System.out.println("Alamat : " +dataMahasiswa[i][3]);
-                                        System.out.println("Kelas : " +dataMahasiswa[i][4] + "\n");
+                                        for (int j = 0; j < dataMahasiswa[i].length; j++) {
+                                            System.out.printf("%s : %s%n", labelData[j], dataMahasiswa[i][j]);
+                                        }
                                     }
-
                                 }
                                 else if (pilih.equals("5")) break;
                                 else System.out.println("Input tidak dimengerti");
@@ -211,19 +209,22 @@ public class MainAppsP {
             }
             if (pilih.equals("3")) {
                 //Mahasiswa
-                for (int i = 1; i <= 3; i++) {
+                for (int i = 1; i <= 3 && login; i++) {
                     System.out.println("==Login Mahasiswa SIAKAD=="); 
                     System.out.print("USERNAME : ");
                     username = input.nextLine();
                     System.out.print("PASSWORD : ");
                     password = input.nextLine();
-                    if (username.equals("mahasiswa") && password.equals("mahasiswa")) {
-                        notWrong = true;
-                                System.out.print("\033[H\033[2J");
-                        break;
+                    for (int baris = 0; baris < userMahasiswa.length; baris++) {
+                        if (username.equals(userMahasiswa[baris][0]) && password.equals(userMahasiswa[baris][1])) {
+                            System.out.print("\033[H\033[2J");
+                            notWrong = true;
+                            login = false;
+                            break;
+                        }
+                        System.out.println("Username dan password salah");
+                        if (i == 3) ifWrong = true;
                     }
-                    System.out.println("Username dan password salah");
-                    if (i == 3) ifWrong = true;
                 }
                 while (notWrong) {
                     System.out.println("Dashboard Mahasiswa");
