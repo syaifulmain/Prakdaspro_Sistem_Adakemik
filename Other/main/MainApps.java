@@ -76,6 +76,8 @@ public class MainApps {
                     { "8-RTI231008-4" },
                     { "1-RTI231006-4", "8-RTI231003-4" },
             },
+
+
     };
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
@@ -124,7 +126,7 @@ public class MainApps {
                 case "MAHASISWA" -> {
                     for (int i = 0; i < userMahasiswa.length; i++) {
                         if (username.equals(userMahasiswa[i][0]) && password.equals(userMahasiswa[i][1])) {
-                            dashboardMahasiswa(bioMahasiswa[i][1]);
+                            dashboardMahasiswa(bioMahasiswa[i][1], bioMahasiswa[i][0]);
                             break;
                         }
                     }
@@ -135,7 +137,7 @@ public class MainApps {
     }
 
     /* DASHBOARD MAHASISWA */
-    static void dashboardMahasiswa(String user) {
+    static void dashboardMahasiswa(String user, String nim ) {
         while (true) {
             renderTitle("Selamat Datang " + user);
             System.out.println("=== Dashboard Mahasiswa ===");
@@ -150,7 +152,7 @@ public class MainApps {
                 exit();
             clearScreen();
             switch (pilih) {
-                case "1" -> hadleBiodataMahasiswa();
+                case "1" -> hadleBiodataMahasiswa(nim);
                 case "2" -> hadleNilaiMahasiswa();
                 case "3" -> hadleJadwalMahasiswa();
                 case "4" -> hadlePresensiMahasiswa();
@@ -162,12 +164,31 @@ public class MainApps {
         }
     }
 
-    static void hadleBiodataMahasiswa() {
-
-    }
+    static void hadleBiodataMahasiswa( String nim)  {
+        
+        boolean userFound = false;
+    
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) {
+                userFound = true;
+                
+                System.out.println("NIM: " + bioMahasiswa[i][0]);
+                System.out.println("Nama: " + bioMahasiswa[i][1]);
+                System.out.println("Jenis Kelamin: " + bioMahasiswa[i][2]);
+                System.out.println("Alamat: " + bioMahasiswa[i][3]);
+                System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
+                System.out.println("Kelas: " + bioMahasiswa[i][5]);
+                break; 
+            }
+        }
+    
+        if (!userFound) {
+            System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
+        }
+    } 
 
     static void hadleNilaiMahasiswa() {
-
+          
     }
 
     static void hadleJadwalMahasiswa() {
@@ -528,7 +549,7 @@ public class MainApps {
                     return;
                 }
                 case 2 -> {
-                    clearScreen();
+                   clearScreen();
                     return;
                 }
             }
