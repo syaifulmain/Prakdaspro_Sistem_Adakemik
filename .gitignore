@@ -26,3 +26,10 @@ hs_err_pid*
 replay_pid*
 
 test/
+.idea
+
+### IntelliJ IDEA ###
+.idea/
+
+### VS Code ###
+.vscode/
