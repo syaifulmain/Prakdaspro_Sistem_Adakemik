@@ -28,62 +28,65 @@ public class MainApps {
     static String[][] matkulTI = {
             { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
             { "RTI231001", "PANCASILA", "Pancasila", "2" },
-            { "RTI231004", "MATDAS", "Matematika Dasar", "3" },
+            { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
             { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
             { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
             { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
             { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
             { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
     };
+
     static String[][][] jadwal = {
             {
                     { "1A" },
-                    { "1-RTI231004-3", "6-RTI231007-6" },
-                    { "1-RTI231006-4"},
-                    { "1-RTI231004-3", "5-RTI231003-4" },
-                    { "4-RTI231008-4", "8-RTI231002-4" },
-                    { "2-RTI231005-4", "9-RTI231001-2" },
+                    { "1-RTI231004-3", "6-RTI231007-6", "" },
+                    { "1-RTI231006-4",              "", "" },
+                    { "1-RTI231004-3", "5-RTI231003-4", "" },
+                    { "4-RTI231008-4", "8-RTI231002-4", "" },
+                    { "2-RTI231005-4", "9-RTI231001-2", "" },
             },
             {
                     { "1B" },
-                    { "1-RTI231004-3", "6-RTI231007-6" },
-                    { "3-RTI231005-4",},
-                    { "4-RTI231006-4", "8-RTI231002-4" },
+                    { "1-RTI231004-3", "6-RTI231007-6", "" },
+                    { "3-RTI231005-4", ""             , "" },
+                    { "4-RTI231006-4", "8-RTI231002-4", "" },
                     { "1-RTI231003-4","5-RTI231001-2","8-RTI231008-4"},
-                    { "1-RTI231004-4",},
+                    { "1-RTI231004-4", ""             , " "},
             },
             {
                     { "1C" },
                     { "1-RTI231004-3", "6-RTI231001-2", "8-RTI231003-4" },
-                    { "6-RTI231006-4",},
-                    { "2-RTI231007-7", "8-RTI231005-4" },
-                    { "7-RTI231002-4" },
-                    { "1-RTI231004-3", "7-RTI231008-4" },
+                    { "6-RTI231006-4", ""             , "" },
+                    { "2-RTI231007-7", "8-RTI231005-4", "" },
+                    { "7-RTI231002-4", ""             , "" },
+                    { "1-RTI231004-3", "7-RTI231008-4", "" },
             },
             {
                     { "1D" },
-                    { "2-RTI231005-4", "8-RTI231003-4" },
+                    { "2-RTI231005-4", "8-RTI231003-4", "" },
                     { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
-                    { "6-RTI231007-6",},
-                    { "1-RTI231004-3", "7-RTI231002-4" },
-                    { "9-RTI231004-3", },
+                    { "6-RTI231007-6", ""             , "" },
+                    { "1-RTI231004-3", "7-RTI231002-4", "" },
+                    { "9-RTI231004-3", ""             , "" },
             },
             {
                     { "1E" },
-                    { "2-RTI231007-6", "10-RTI231001-2" },
-                    { "1-RTI231004-3", "8-RTI231005-4" },
-                    { "1-RTI231002-4", "9-RTI231004-3" },
-                    { "8-RTI231008-4" },
-                    { "1-RTI231006-4", "8-RTI231003-4" },
+                    { "2-RTI231007-6", "10-RTI231001-2", ""  },
+                    { "1-RTI231004-3", "8-RTI231005-4", ""  },
+                    { "1-RTI231002-4", "9-RTI231004-3", ""  },
+                    { "8-RTI231008-4", ""             , "" },
+                    { "1-RTI231006-4", "8-RTI231003-4", ""  },
             },
-
-
+    };
+    static String[][] transkipNilai = {
+            {}
     };
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
     public static void main(String[] args) {
-        // clearScreen();
-        login();
+        clearScreen();
+        // login();
+        aturJadwal(0);
         // penjadwalanMenuKelas();
         // showDataBioMahasiswa();
     }
@@ -100,7 +103,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> loginRole("ADMIN");
-                case 2 -> loginRole("DSOEN");
+                case 2 -> loginRole("DOSEN");
                 case 3 -> loginRole("MAHASISWA");
             }
         }
@@ -312,7 +315,7 @@ public class MainApps {
     // add data bio mahasiswa
     static void addDataBioMahasiswa() {
         String nim, nama, jenisKelamin, alamat, tanggalLahir;
-        nim = getNonEmptyNumberWithLimit("NIM", 10, 10);
+        nim = getNonEmptyNumberStringWithLimit("NIM", 10, 10);
         if (has(bioMahasiswa, nim, 0)) {
             System.out.println("NIM " + nim + " sudah terdaftar");
             return;
@@ -380,7 +383,7 @@ public class MainApps {
         switch (userInput) {
             case 1 -> {
                 while (true) {
-                    input = getNonEmptyNumberWithLimit("NIM", 10, 10);
+                    input = getNonEmptyNumberStringWithLimit("NIM", 10, 10);
                     if (has(bioMahasiswa, input, 0))
                         break;
                     System.out.println("NIM " + input + " sudah terdaftar");
@@ -429,6 +432,12 @@ public class MainApps {
         clearScreen();
         System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
     }
+    
+    // transkip nilai
+    static void transkipNilai() {
+
+    }
+
     /* modulMahasiswa */
 
     /* modulDosen */
@@ -589,11 +598,13 @@ public class MainApps {
             System.out.println("Siakad / Modul Kursus / Penjadwalan / " + kelasString);
             showJadwal(kelasInt);
             int userInput = pickMenu("", new String[] {
+                    "Atur",
                     "Kembali"
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> {
+                case 1 -> aturJadwal(kelasInt);
+                case 2 -> {
                     clearScreen();
                     return;
                 }
@@ -619,7 +630,10 @@ public class MainApps {
             for (int i = 1; i <= 11; i++) {
                 if (jadwalLenght < jadwal[kelas][index2].length) {
                     tempArray = jadwal[kelas][index2][index3].split("-");
-                    if ( Integer.parseInt(tempArray[0]) == i) {
+                    if (jadwal[kelas][index2][index3].equals("")) {
+                        begin = 0;
+                    }
+                    else if ( Integer.parseInt(tempArray[0]) == i) {
                         begin = Integer.parseInt(tempArray[0]);
                         howLong = Integer.parseInt(tempArray[2]);
                         for (int j = 0; j < matkulTI.length; j++) {
@@ -633,17 +647,10 @@ public class MainApps {
                 } else
                     begin = 0;
                 if (i == begin) {
-                    if ((begin + howLong - 1) == 11) {
-                        simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())+"|";
-                        i = i + howLong - 1;
-                        index3++;
-                    } else {
-                        simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())
-                                + "|";
+                    simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())+ "|";
                         i = i + howLong - 1;
                         addSpace = -1;
                         index3++;
-                    }
                 } else {
                     simpanJadwal += "-".repeat(5) + "|";
                     addSpace++;
@@ -655,13 +662,64 @@ public class MainApps {
             System.out.printf(line);
         }
     }
+
+    // show matkulti
+    static void matkul() { 
+        String formatTable = "|  {%s}  | %-8s | %-40s |%n";
+        String horizonLine = "+-------+-----------+"+ "-".repeat(42) +"+";
+        System.out.println(horizonLine);
+        System.out.println("| index | Kode      | Mata Kuliah" + " ".repeat(30) +"|");
+        System.out.println(horizonLine);
+        int number = 1;
+        for (int i = 0; i < matkulTI.length; i++) {
+            String[] takeMatkul = matkulTI[i];
+            System.out.printf(formatTable,number++, takeMatkul[0], takeMatkul[2]);
+        }
+        System.out.println(horizonLine);
+    }
+    
+    // atur jadwal
+    static void aturJadwal(int kelasInt) {
+        String[][] tempJadawal =  new String[5][3]; 
+        showJadwal(kelasInt);
+        matkul();
+        String _1,_2,_3;
+        int min = 1;
+        System.out.println("Format {1}-{2}-{3}");
+        System.out.println("1. Mulai dari jam ke-(1-11)\n2. Index Kode matkul\n3. Lama jam matkul(1-6)");
+        for (int i = 0; i < kumpulanHari.length; i++) {
+            System.out.println("Masukan jadwal pada hari "+kumpulanHari[i]);
+            for (int j = 0; j < tempJadawal[i].length; j++) {
+                while (true) {
+                    _1 = getNonEmptyNumberWithLimit("{1}", min, 11);
+                    if (((11-min)+Integer.parseInt(_1))<= 11) break;
+                    System.out.println("Jam tidak tersedia");
+                }
+                _2 = getNonEmptyNumberWithLimit("{2}", 1, 8);
+                _3 = getNonEmptyNumberWithLimit("{3}", 1, 11-min);
+                min += Integer.parseInt(_3);
+                System.out.printf("%s-%s-%s%n",_1,matkulTI[Integer.parseInt(_2)][2],_3);
+                tempJadawal[i][j] = _1 + "-" + _2 + "-" + _3;
+                if (min > 8  ) break;
+                String next = getNonEmptyUniqueWithLimit("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1 ,"y-n",true);
+                if (next.equals("N")) break; 
+            }
+            ;
+        }
+    }
+
+    static void inputJadawal () {
+
+    }
+
+
     /* modulKursus */
     /* DASHBOARD ADMIN */
 
     // SCANNER
     static String input(String info) {
         System.out.print(info + " : ");
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
     // Clear terminal
@@ -714,11 +772,26 @@ public class MainApps {
         }
     }
 
-    static String getNonEmptyNumberWithLimit(String prompt, int min, int max) {
+    static String getNonEmptyNumberStringWithLimit(String prompt, int min, int max) {
         while (true) {
             String userInput = getNonEmptyStringWithLimit(prompt, min, max);
             if (userInput.matches("[0-9]+"))
                 return userInput;
+            System.out.println("Masukan hanya boleh angka");
+        }
+    }
+
+    //
+    static String getNonEmptyNumberWithLimit(String prompt, int min, int max) {
+        while (true) {
+            String userInput = getNonEmptyString(prompt);
+            if (userInput.matches("[0-9]+")){
+                int value = Integer.parseInt(userInput);
+                if (value >= min && value <= max) {
+                    return userInput;
+                }
+                System.out.println("Masukan tidak boleh lebih rendah dari " + min + " atau lebih besar dari " + max);
+            } 
             System.out.println("Masukan hanya boleh angka");
         }
     }
@@ -761,5 +834,4 @@ public class MainApps {
             }
         }
     }
-    
 }
