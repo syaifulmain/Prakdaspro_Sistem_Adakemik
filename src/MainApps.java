@@ -25,7 +25,17 @@ public class MainApps {
 
     };
 
-    static String[][] matkulTI = {
+    /* JADWAL */
+    static String[][] matkulTI;
+    static String[][] jadwal_1A;
+    static String[][] jadwal_1B;
+    static String[][] jadwal_1C;
+    static String[][] jadwal_1D;
+    static String[][] jadwal_1E;
+    /* JADWAL */
+
+    static void fillJadwal() {
+        String[][] matkulTI = {
             { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
             { "RTI231001", "PANCASILA", "Pancasila", "2" },
             { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
@@ -34,50 +44,44 @@ public class MainApps {
             { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
             { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
             { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
-    };
+        };
+        String[][] jadwal_1A = {
+            { "1-RTI231004-3", "6-RTI231007-6", "" },
+            { "1-RTI231006-4",              "", "" },
+            { "1-RTI231004-3", "5-RTI231003-4", "" },
+            { "4-RTI231008-4", "8-RTI231002-4", "" },
+            { "2-RTI231005-4", "9-RTI231001-2", "" },
+        };
+        String[][] jadwal_1B = {
+            { "1-RTI231004-3", "6-RTI231007-6", "" },
+            { "3-RTI231005-4", ""             , "" },
+            { "4-RTI231006-4", "8-RTI231002-4", "" },
+            { "1-RTI231003-4","5-RTI231001-2","8-RTI231008-4"},
+            { "1-RTI231004-4", ""             , " "},
+        };
+        String[][] jadwal_1C = {
+            { "1-RTI231004-3", "6-RTI231001-2", "8-RTI231003-4" },
+            { "6-RTI231006-4", ""             , "" },
+            { "2-RTI231007-7", "8-RTI231005-4", "" },
+            { "7-RTI231002-4", ""             , "" },
+            { "1-RTI231004-3", "7-RTI231008-4", "" },
+        };
+        String[][] jadwal_1D = {
+                { "2-RTI231005-4", "8-RTI231003-4", "" },
+                { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
+                { "6-RTI231007-6", ""             , "" },
+                { "1-RTI231004-3", "7-RTI231002-4", "" },
+                { "9-RTI231004-3", ""             , "" },
+        };
+        String[][] jadwal_1E = {
+            { "2-RTI231007-6", "10-RTI231001-2", ""  },
+            { "1-RTI231004-3", "8-RTI231005-4", ""  },
+            { "1-RTI231002-4", "9-RTI231004-3", ""  },
+            { "8-RTI231008-4", ""             , "" },
+            { "1-RTI231006-4", "8-RTI231003-4", ""  },
+        };
+    }
 
-    static String[][][] jadwal = {
-            {
-                    { "1A" },
-                    { "1-RTI231004-3", "6-RTI231007-6", "" },
-                    { "1-RTI231006-4",              "", "" },
-                    { "1-RTI231004-3", "5-RTI231003-4", "" },
-                    { "4-RTI231008-4", "8-RTI231002-4", "" },
-                    { "2-RTI231005-4", "9-RTI231001-2", "" },
-            },
-            {
-                    { "1B" },
-                    { "1-RTI231004-3", "6-RTI231007-6", "" },
-                    { "3-RTI231005-4", ""             , "" },
-                    { "4-RTI231006-4", "8-RTI231002-4", "" },
-                    { "1-RTI231003-4","5-RTI231001-2","8-RTI231008-4"},
-                    { "1-RTI231004-4", ""             , " "},
-            },
-            {
-                    { "1C" },
-                    { "1-RTI231004-3", "6-RTI231001-2", "8-RTI231003-4" },
-                    { "6-RTI231006-4", ""             , "" },
-                    { "2-RTI231007-7", "8-RTI231005-4", "" },
-                    { "7-RTI231002-4", ""             , "" },
-                    { "1-RTI231004-3", "7-RTI231008-4", "" },
-            },
-            {
-                    { "1D" },
-                    { "2-RTI231005-4", "8-RTI231003-4", "" },
-                    { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
-                    { "6-RTI231007-6", ""             , "" },
-                    { "1-RTI231004-3", "7-RTI231002-4", "" },
-                    { "9-RTI231004-3", ""             , "" },
-            },
-            {
-                    { "1E" },
-                    { "2-RTI231007-6", "10-RTI231001-2", ""  },
-                    { "1-RTI231004-3", "8-RTI231005-4", ""  },
-                    { "1-RTI231002-4", "9-RTI231004-3", ""  },
-                    { "8-RTI231008-4", ""             , "" },
-                    { "1-RTI231006-4", "8-RTI231003-4", ""  },
-            },
-    };
     static String[][] transkipNilai = {
             {}
     };
@@ -740,8 +744,7 @@ public class MainApps {
     // Fungsi untuk mengecek apakah ada item di array
     static boolean has(String[][] items, String needle, int fieldIndex) {
         for (String[] item : items) {
-            if (item[fieldIndex].equals(needle))
-                return true;
+            if (item[fieldIndex].equals(needle)) return true;
         }
         return false;
     }
