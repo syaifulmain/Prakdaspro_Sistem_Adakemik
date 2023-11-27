@@ -4,18 +4,19 @@ public class MainApps {
     static Scanner scanner = new Scanner(System.in);
     static String[] role = { "ADMIN", "DOSEN", "MAHASISWA" };
 
-    static String usernameAdmin = "admin";
-    static String passwordAdmin = "admin";
+    /* Admin */
+    static String[][] userAdmin;
+    /* Admin */
+    
+    /* Dosen */
+    static String[][] bioDosen;
+    static String[][] userDosen;
+    /* Dosen */
     
     /* Mahasiswa */
     static String[][] bioMahasiswa;
     static String[][] userMahasiswa;
     /* Mahasiswa */
-
-    /* Dosen */
-    static String[][] bioDosen;
-    static String[][] userDosen;
-    /* Dosen */
 
     static String[][] transkipNilai = {
             {}
@@ -78,22 +79,11 @@ public class MainApps {
             { "1-RTI231006-4", "8-RTI231003-4", ""  },
         };
     }
-    static void fillMahasiswa() {
-        bioMahasiswa = new String[][] {
-            { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
-            { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
-            { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
-            { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
-            { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+    static void fillAdmin() {
+        userAdmin = new String[][] {
+            { "admin", "admin" }
         };
-        userMahasiswa = new String[][] {
-            { "1111111111", "1111111111" },
-            { "2222222222", "2222222222" },
-            { "3333333333", "3333333333" },
-            { "4444444444", "4444444444" },
-            { "5555555555", "5555555555" }
-        };
-    }
+    }  
     static void fillDosen() {
         bioDosen = new String[][] {
             { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
@@ -110,10 +100,28 @@ public class MainApps {
             { "dosen5", "5" }
         };
     }
+    static void fillMahasiswa() {
+        bioMahasiswa = new String[][] {
+            { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
+            { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
+            { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
+            { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
+            { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+        };
+        userMahasiswa = new String[][] {
+            { "1111111111", "1111111111" },
+            { "2222222222", "2222222222" },
+            { "3333333333", "3333333333" },
+            { "4444444444", "4444444444" },
+            { "5555555555", "5555555555" }
+        };
+    }
+    
     static void fill() {
         fillJadwal();
-        fillMahasiswa();
+        fillAdmin();
         fillDosen();
+        fillMahasiswa();
     }
     public static void main(String[] args) {
         run();
@@ -129,7 +137,7 @@ public class MainApps {
     }
 
     // DONE: login view
-    static void login() {
+    static void firstLogin() {
         while (true) {
             renderTitle("SISTEM AKADEMIK");
             int userInput = pickMenu("Pilih masuk sebagai", role);
@@ -148,58 +156,61 @@ public class MainApps {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
             String username = getInputStringNumberwithLimit("USERNAME", 1, 10, true);
             String password = getInputStringNumberwithLimit("PASSWORD", 1, 10, false);
+            String userLogin;
+            int counter = 0;
             clearScreen();
             switch (level) {
                 case "ADMIN" -> {
-                    if (username.equals(usernameAdmin) && password.equals(passwordAdmin))
-                        dashboardAdmin();
-                    System.out.println("Username dan password salah/tidak ditemukan");
+                    userLogin = validasi(userAdmin, username, password);
+                    if (userLogin != null) dashboardAdmin(userLogin);
                 }
                 case "DOSEN" -> {
-                    // dashboard dosen
+                    userLogin = validasi(userDosen, username, password);
+                    if (userLogin != null) dashboardDosen(userLogin);
                 }
                 case "MAHASISWA" -> {
-                    for (int i = 0; i < userMahasiswa.length; i++) {
-                        if (username.equals(userMahasiswa[i][0]) && password.equals(userMahasiswa[i][1])) {
-                            dashboardMahasiswa(bioMahasiswa[i][1], bioMahasiswa[i][0]);
-                            break;
-                        }
-                    }
-                    System.out.println("Username dan password salah/tidak ditemukan");
+                    userLogin = validasi(userMahasiswa, username, password);
+                    if (userLogin != null) dashboardMahasiswa(userLogin);
                 }
             }
+            counter++;
+            if (counter == 3) {
+                System.out.println("Anda telah mencoba 3 kali, silahkan ulangi program");
+                exit();
+            }
         }
+    }
+
+    //
+    static String validasi(String[][] userArray, String user, String pass) {
+        for (int i = 0; i < userArray.length; i++) 
+            if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1])) return userArray[i][0];
+        System.out.println("Username dan password salah/tidak ditemukan");
+        return null;
     }
 
     /* DASHBOARD MAHASISWA */
-    static void dashboardMahasiswa(String user, String nim ) {
+    static void dashboardMahasiswa(String nim) {
         while (true) {
-            renderTitle("Selamat Datang " + user);
+            renderTitle("Selamat Datang " + nim);
             System.out.println("=== Dashboard Mahasiswa ===");
-            System.out.println("1. Biodata");
-            System.out.println("2. Nilai");
-            System.out.println("3. Jadwal");
-            System.out.println("4. Presesi");
-            System.out.println("5. Logout");
-            System.out.println("x. Keluar");
-            String pilih = input("PILIH");
-            if (pilih.equalsIgnoreCase("x"))
-                exit();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Biodata",
+                    "Nilai",
+                    "Jadwal",
+                    "Presesi",
+            });
             clearScreen();
-            switch (pilih) {
-                case "1" -> hadleBiodataMahasiswa(nim);
-                case "2" -> hadleNilaiMahasiswa();
-                case "3" -> hadleJadwalMahasiswa();
-                case "4" -> hadlePresensiMahasiswa();
-                case "5" -> {
-                    return;
-                }
-                default -> System.out.println("Input tidak dimengerti");
+            switch (userInput) {
+                case 1 -> hadleBiodataMahasiswa(nim);
+                case 2 -> hadleNilaiMahasiswa();
+                case 3 -> hadleJadwalMahasiswa();
+                case 4 -> hadlePresensiMahasiswa();
             }
         }
     }
 
-    static void hadleBiodataMahasiswa( String nim)  {
+    static void hadleBiodataMahasiswa(String nim)  {
         
         boolean userFound = false;
     
@@ -237,12 +248,16 @@ public class MainApps {
 
     /* DASHBOARD DOSEN */
 
+    static void dashboardDosen(String user) {
+
+    }
+
     /* DASHBOARD DOSEN */
 
     /* DASHBOARD ADMIN */
-    static void dashboardAdmin() {
+    static void dashboardAdmin(String user) {
         while (true) {
-            renderTitle("Dashboard Admin");
+            renderTitle("Dashboard " + user);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Modul Mahasiswa",
                     "Modul Dosen",
@@ -253,7 +268,6 @@ public class MainApps {
                 case 1 -> modulMahasiswa();
                 case 2 -> modulDosen();
                 case 3 -> modulKursus();
-                case 4 -> exit();
             }
         }
     }
@@ -276,10 +290,7 @@ public class MainApps {
                 }
                 case 3 -> {
                 }
-                case 4 -> {
-                    clearScreen();
-                    return;
-                }
+                case 4 -> {return;}
             }
         }
     }
