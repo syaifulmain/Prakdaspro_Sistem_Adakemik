@@ -1,21 +1,21 @@
 import java.util.Scanner;
 
 public class MainApps {
+    static Scanner scanner = new Scanner(System.in);
+    static String[] role = { "ADMIN", "DOSEN", "MAHASISWA" };
+
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
-    static Scanner scanner = new Scanner(System.in);
     
     /* Mahasiswa */
     static String[][] bioMahasiswa;
     static String[][] userMahasiswa;
     /* Mahasiswa */
 
-    static String[][] bioDosen = {
-
-    };
-    static String[][] userDosen = {
-
-    };
+    /* Dosen */
+    static String[][] bioDosen;
+    static String[][] userDosen;
+    /* Dosen */
 
     static String[][] transkipNilai = {
             {}
@@ -64,11 +64,11 @@ public class MainApps {
             { "1-RTI231004-3", "7-RTI231008-4", "" },
         };
         jadwal_1D = new String[][] {
-                { "2-RTI231005-4", "8-RTI231003-4", "" },
-                { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
-                { "6-RTI231007-6", ""             , "" },
-                { "1-RTI231004-3", "7-RTI231002-4", "" },
-                { "9-RTI231004-3", ""             , "" },
+            { "2-RTI231005-4", "8-RTI231003-4", "" },
+            { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
+            { "6-RTI231007-6", ""             , "" },
+            { "1-RTI231004-3", "7-RTI231002-4", "" },
+            { "9-RTI231004-3", ""             , "" },
         };
         jadwal_1E = new String[][] {
             { "2-RTI231007-6", "10-RTI231001-2", ""  },
@@ -80,27 +80,47 @@ public class MainApps {
     }
     static void fillMahasiswa() {
         bioMahasiswa = new String[][] {
-                { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
-                { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
-                { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
-                { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
-                { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+            { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
+            { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
+            { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
+            { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
+            { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
         };
         userMahasiswa = new String[][] {
-                { "1111111111", "1111111111" },
-                { "2222222222", "2222222222" },
-                { "3333333333", "3333333333" },
-                { "4444444444", "4444444444" },
-                { "5555555555", "5555555555" }
+            { "1111111111", "1111111111" },
+            { "2222222222", "2222222222" },
+            { "3333333333", "3333333333" },
+            { "4444444444", "4444444444" },
+            { "5555555555", "5555555555" }
         };
+    }
+    static void fillDosen() {
+        bioDosen = new String[][] {
+            { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
+            { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
+            { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
+            { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
+            { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+        };
+        userDosen = new String[][] {
+            { "dosen1", "1" },
+            { "dosen2", "2" },
+            { "dosen3", "3" },
+            { "dosen4", "4" },
+            { "dosen5", "5" }
+        };
+    }
+    static void fill() {
+        fillJadwal();
+        fillMahasiswa();
+        fillDosen();
     }
     public static void main(String[] args) {
         run();
     }
 
     static void run () {
-        fillJadwal();
-        fillBioMahasiswa();
+        fill();
         clearScreen();
         // login();
         aturJadwal(0);
@@ -112,16 +132,12 @@ public class MainApps {
     static void login() {
         while (true) {
             renderTitle("SISTEM AKADEMIK");
-            int userInput = pickMenu("Pilih masuk sebagai", new String[] {
-                    "Admin",
-                    "Dosen",
-                    "Mahasiswa",
-            });
+            int userInput = pickMenu("Pilih masuk sebagai", role);
             clearScreen();
             switch (userInput) {
-                case 1 -> loginRole("ADMIN");
-                case 2 -> loginRole("DOSEN");
-                case 3 -> loginRole("MAHASISWA");
+                case 1 -> loginRole(role[0]);
+                case 2 -> loginRole(role[1]);
+                case 3 -> loginRole(role[2]);
             }
         }
     }
@@ -130,9 +146,8 @@ public class MainApps {
     static void loginRole(String level) {
         while (true) {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
-            String username, password;
-            username = getNonEmptyStringWithLimit("USERNAME", 1, 10);
-            password = getNonEmptyStringWithLimit("PASSWORD", 1, 10);
+            String username = getInputStringNumberwithLimit("USERNAME", 1, 10, true);
+            String password = getInputStringNumberwithLimit("PASSWORD", 1, 10, false);
             clearScreen();
             switch (level) {
                 case "ADMIN" -> {
