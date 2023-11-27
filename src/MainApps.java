@@ -84,6 +84,10 @@ public class MainApps {
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
     public static void main(String[] args) {
+        run();
+    }
+
+    static void run () {
         clearScreen();
         // login();
         aturJadwal(0);
@@ -704,7 +708,7 @@ public class MainApps {
                 String next = getNonEmptyUniqueWithLimit("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1 ,"y-n",true);
                 if (next.equals("N")) break; 
             }
-            ;
+            
         }
     }
 
@@ -716,11 +720,9 @@ public class MainApps {
     /* modulKursus */
     /* DASHBOARD ADMIN */
 
-    // SCANNER
-    static String input(String info) {
-        System.out.print(info + " : ");
-        return scanner.nextLine().trim();
-    }
+    /* HELPER */
+
+    
 
     // Clear terminal
     static void clearScreen() {
@@ -735,6 +737,7 @@ public class MainApps {
         System.exit(0);
     }
 
+    // Fungsi untuk mengecek apakah ada item di array
     static boolean has(String[][] items, String needle, int fieldIndex) {
         for (String[] item : items) {
             if (item[fieldIndex].equals(needle))
@@ -743,6 +746,7 @@ public class MainApps {
         return false;
     }
 
+    // Melakukan print title
     static void renderTitle(String title) {
         int paddingSize = 4;
         int titleLength = title.length();
@@ -754,60 +758,59 @@ public class MainApps {
         System.out.println(horizontalBorder);
     }
 
-    static String getNonEmptyString(String prompt) {
+
+    // mengembalikan input String user scanner
+    static String input(String info) {
+        System.out.print(info + " : ");
+        return scanner.nextLine().trim();
+    }
+
+    // mengembalikan input String user scanner tidak boleh kosong
+    static String getInputString(String prompt, boolean allowEmpty) {
         while (true) {
             String userInput = input(prompt);
-            if (!userInput.isEmpty())
-                return userInput;
+            if (allowEmpty && userInput.isEmpty()) return userInput;
+            if (!userInput.isEmpty()) return userInput;
             System.out.println("Masukan tidak boleh kosong!");
         }
     }
 
-    static String getNonEmptyStringWithLimit(String prompt, int min, int max) {
+    static String getInputStringWithLimit(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
-            String userInput = getNonEmptyString(prompt);
-            if (userInput.length() >= min && userInput.length() <= max)
-                return userInput;
-            System.out.println("Masukan tidak boleh lebih rendah dari " + min + " atau lebih besar dari " + max);
+            String userInput = getInputString(prompt, allowEmpty);
+            if (allowEmpty && userInput.isEmpty()) return userInput;
+            if (userInput.length() >= min && userInput.length() <= max) return userInput;
+            System.out.println("Masukan minimal " + min + " karakter dan maksimal " + max + " karakter");
         }
     }
 
-    static String getNonEmptyNumberStringWithLimit(String prompt, int min, int max) {
+    static String getInputStringNumber(String prompt, boolean allowEmpty) {
         while (true) {
-            String userInput = getNonEmptyStringWithLimit(prompt, min, max);
-            if (userInput.matches("[0-9]+"))
-                return userInput;
+            String userInput = getInputString(prompt, allowEmpty);
+            if (allowEmpty && userInput.isEmpty()) return userInput;
+            if (userInput.matches("[0-9]+")) return userInput;
             System.out.println("Masukan hanya boleh angka");
         }
     }
 
-    //
-    static String getNonEmptyNumberWithLimit(String prompt, int min, int max) {
+    static String getInputStringNumberwithLimit(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
-            String userInput = getNonEmptyString(prompt);
-            if (userInput.matches("[0-9]+")){
-                int value = Integer.parseInt(userInput);
-                if (value >= min && value <= max) {
-                    return userInput;
-                }
-                System.out.println("Masukan tidak boleh lebih rendah dari " + min + " atau lebih besar dari " + max);
-            } 
-            System.out.println("Masukan hanya boleh angka");
+            String userInput = getInputStringNumber(prompt, allowEmpty);
+            if (allowEmpty && userInput.isEmpty()) return userInput;
+            if (Integer.parseInt(userInput) >= min && Integer.parseInt(userInput) <= max) return userInput;
+            System.out.println("Masukan yang tersedia " + min + "-" + max);
         }
     }
 
     // String allow gunakan "-"
-    static String getNonEmptyUniqueWithLimit(String prompt, int min, int max, String allow, boolean ignoreCase) {
+    static String getInputUniqueWord(String prompt, int min, int max, boolean ignoreCase, String... uniqueWord) {
         while (true) {
-            String userInput = getNonEmptyStringWithLimit(prompt, min, max);
-            String[] array = allow.split("-");
-            for (String string : array) {
-                if (ignoreCase && string.equalsIgnoreCase(userInput))
-                    return userInput.toUpperCase();
-                if (string.equals(userInput))
-                    return userInput;
+            String userInput = getInputString(prompt, false);
+            for (int i = 0; i < uniqueWord.length; i++) {
+                if (ignoreCase && uniqueWord[i].equalsIgnoreCase(userInput)) return userInput.toUpperCase();
+                if (uniqueWord[i].equals(userInput)) return userInput;
             }
-            System.out.println("Masukan format dengan benar");
+            System.out.println("Format masukan salah");
         }
     }
 
@@ -820,18 +823,16 @@ public class MainApps {
         }
         System.out.printf("%d. %s%n", i + 1, "Keluar");
         while (true) {
-            try {
-                int userInput = Integer.parseInt(getNonEmptyString("Pilih menu"));
-                if (userInput == menus.length + 1)
-                    exit();
-                if (userInput < 1 || userInput > menus.length) {
-                    System.out.println("Masukan salah");
-                    continue;
-                }
-                return userInput;
-            } catch (Exception e) {
-                System.out.println("Masukan hanya boleh angka");
+            String userInput = getInputStringNumberwithLimit("Pilih menu", 1, menus.length + 1, false);
+            int userNumber = Integer.parseInt(userInput);
+            if (userNumber == menus.length + 1)
+                exit();
+            if (!(userNumber < 1 || userNumber > menus.length)) {
+                return userNumber;
             }
+            System.out.println("Format masukan salah");
         }
     }
+    
+    /* HELPER */
 }
