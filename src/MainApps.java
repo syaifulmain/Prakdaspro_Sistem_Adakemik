@@ -4,26 +4,23 @@ public class MainApps {
     static String usernameAdmin = "admin";
     static String passwordAdmin = "admin";
     static Scanner scanner = new Scanner(System.in);
-    static String[][] bioMahasiswa = {
-            { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
-            { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
-            { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
-            { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
-            { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
-    };
-    static String[][] userMahasiswa = {
-            { "1111111111", "1111111111" },
-            { "2222222222", "2222222222" },
-            { "3333333333", "3333333333" },
-            { "4444444444", "4444444444" },
-            { "5555555555", "5555555555" }
-    };
+    
+    /* Mahasiswa */
+    static String[][] bioMahasiswa;
+    static String[][] userMahasiswa;
+    /* Mahasiswa */
+
     static String[][] bioDosen = {
 
     };
     static String[][] userDosen = {
 
     };
+
+    static String[][] transkipNilai = {
+            {}
+    };
+    static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
     /* JADWAL */
     static String[][] matkulTI;
@@ -35,7 +32,7 @@ public class MainApps {
     /* JADWAL */
 
     static void fillJadwal() {
-        String[][] matkulTI = {
+        matkulTI = new String[][] {
             { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
             { "RTI231001", "PANCASILA", "Pancasila", "2" },
             { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
@@ -45,35 +42,35 @@ public class MainApps {
             { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
             { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
         };
-        String[][] jadwal_1A = {
+        jadwal_1A = new String[][] {
             { "1-RTI231004-3", "6-RTI231007-6", "" },
             { "1-RTI231006-4",              "", "" },
             { "1-RTI231004-3", "5-RTI231003-4", "" },
             { "4-RTI231008-4", "8-RTI231002-4", "" },
             { "2-RTI231005-4", "9-RTI231001-2", "" },
         };
-        String[][] jadwal_1B = {
+        jadwal_1B = new String[][] {
             { "1-RTI231004-3", "6-RTI231007-6", "" },
             { "3-RTI231005-4", ""             , "" },
             { "4-RTI231006-4", "8-RTI231002-4", "" },
             { "1-RTI231003-4","5-RTI231001-2","8-RTI231008-4"},
             { "1-RTI231004-4", ""             , " "},
         };
-        String[][] jadwal_1C = {
+        jadwal_1C = new String[][] {
             { "1-RTI231004-3", "6-RTI231001-2", "8-RTI231003-4" },
             { "6-RTI231006-4", ""             , "" },
             { "2-RTI231007-7", "8-RTI231005-4", "" },
             { "7-RTI231002-4", ""             , "" },
             { "1-RTI231004-3", "7-RTI231008-4", "" },
         };
-        String[][] jadwal_1D = {
+        jadwal_1D = new String[][] {
                 { "2-RTI231005-4", "8-RTI231003-4", "" },
                 { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
                 { "6-RTI231007-6", ""             , "" },
                 { "1-RTI231004-3", "7-RTI231002-4", "" },
                 { "9-RTI231004-3", ""             , "" },
         };
-        String[][] jadwal_1E = {
+        jadwal_1E = new String[][] {
             { "2-RTI231007-6", "10-RTI231001-2", ""  },
             { "1-RTI231004-3", "8-RTI231005-4", ""  },
             { "1-RTI231002-4", "9-RTI231004-3", ""  },
@@ -81,17 +78,29 @@ public class MainApps {
             { "1-RTI231006-4", "8-RTI231003-4", ""  },
         };
     }
-
-    static String[][] transkipNilai = {
-            {}
-    };
-    static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
-
+    static void fillMahasiswa() {
+        bioMahasiswa = new String[][] {
+                { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
+                { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
+                { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
+                { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
+                { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+        };
+        userMahasiswa = new String[][] {
+                { "1111111111", "1111111111" },
+                { "2222222222", "2222222222" },
+                { "3333333333", "3333333333" },
+                { "4444444444", "4444444444" },
+                { "5555555555", "5555555555" }
+        };
+    }
     public static void main(String[] args) {
         run();
     }
 
     static void run () {
+        fillJadwal();
+        fillBioMahasiswa();
         clearScreen();
         // login();
         aturJadwal(0);
