@@ -299,7 +299,7 @@ public class MainApps {
     static void handleListMahasiswa() {
         while (true) {
             System.out.println("Siakad / Data Mahasiswa / List Mahasiswa");
-            showAllDataBioMahasiswa();
+            showDataBioMahasiswa(false);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Daftarkan Mahasiswa Baru",
                     "Edit Data Mahasiswa",
@@ -318,8 +318,8 @@ public class MainApps {
         }
     }
 
-    // show table data bio mahasiswa
-    static void showAllDataBioMahasiswa() {
+    // menampilkan table data bio mahasiswa masukan parameter true dan nim untuk menampilkan data berdasarkan nim
+    static void showDataBioMahasiswa(boolean isNIM, String... nim) {
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
         System.out.println(horizonLine);
@@ -327,27 +327,14 @@ public class MainApps {
         System.out.println(horizonLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
-            System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4], takeBio[5]);
-        }
-        System.out.println(horizonLine);
-    }
-
-    // show data bio mahasiswa and menu
-    static void showBioMahasiswa(String nim) {
-        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
-        System.out.println(horizonLine);
-        System.out.format("| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
-        System.out.println(horizonLine);
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            String[] takeBio = bioMahasiswa[i];
-            if (nim.equals(takeBio[0])) {
+            if (isNIM && nim[0].equals(takeBio[0])) {
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4], takeBio[5]);
                 break;
             }
+            else
+                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4], takeBio[5]);
         }
         System.out.println(horizonLine);
-
     }
 
     // add data bio mahasiswa
@@ -495,8 +482,7 @@ public class MainApps {
             switch (userInput) {
                 case 1 -> penempatanKelasMahasiswa();
                 case 2 -> penjadwalanMenuKelas();
-                case 3 -> {
-                }
+                // case 3 ->
                 case 4 -> {
                     return;
                 }
