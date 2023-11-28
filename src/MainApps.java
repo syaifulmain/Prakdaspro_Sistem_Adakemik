@@ -44,39 +44,39 @@ public class MainApps {
             { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
         };
         jadwal_1A = new String[][] {
-            { "1-RTI231004-3", "6-RTI231007-6", "" },
-            { "1-RTI231006-4",              "", "" },
-            { "1-RTI231004-3", "5-RTI231003-4", "" },
-            { "4-RTI231008-4", "8-RTI231002-4", "" },
-            { "2-RTI231005-4", "9-RTI231001-2", "" },
+            { "1-RTI231004-3", "6-RTI231007-6", null},
+            { "1-RTI231006-4", null, null},
+            { "1-RTI231004-3", "5-RTI231003-4", null},
+            { "4-RTI231008-4", "8-RTI231002-4", null},
+            { "2-RTI231005-4", "9-RTI231001-2", null},
         };
         jadwal_1B = new String[][] {
-            { "1-RTI231004-3", "6-RTI231007-6", "" },
-            { "3-RTI231005-4", ""             , "" },
-            { "4-RTI231006-4", "8-RTI231002-4", "" },
+            { "1-RTI231004-3", "6-RTI231007-6", null},
+            { "3-RTI231005-4", null, null},
+            { "4-RTI231006-4", "8-RTI231002-4", null},
             { "1-RTI231003-4","5-RTI231001-2","8-RTI231008-4"},
-            { "1-RTI231004-4", ""             , " "},
+            { "1-RTI231004-4", null, null},
         };
         jadwal_1C = new String[][] {
             { "1-RTI231004-3", "6-RTI231001-2", "8-RTI231003-4" },
-            { "6-RTI231006-4", ""             , "" },
-            { "2-RTI231007-7", "8-RTI231005-4", "" },
-            { "7-RTI231002-4", ""             , "" },
-            { "1-RTI231004-3", "7-RTI231008-4", "" },
+            { "6-RTI231006-4", null, null},
+            { "2-RTI231007-7", "8-RTI231005-4", null},
+            { "7-RTI231002-4", null, null},
+            { "1-RTI231004-3", "7-RTI231008-4", null},
         };
         jadwal_1D = new String[][] {
-            { "2-RTI231005-4", "8-RTI231003-4", "" },
+            { "2-RTI231005-4", "8-RTI231003-4", null},
             { "1-RTI231001-2", "4-RTI231006-4", "8-RTI231008-4" },
-            { "6-RTI231007-6", ""             , "" },
-            { "1-RTI231004-3", "7-RTI231002-4", "" },
-            { "9-RTI231004-3", ""             , "" },
+            { "6-RTI231007-6", null, null},
+            { "1-RTI231004-3", "7-RTI231002-4", null},
+            { "9-RTI231004-3", null, null},
         };
         jadwal_1E = new String[][] {
-            { "2-RTI231007-6", "10-RTI231001-2", ""  },
-            { "1-RTI231004-3", "8-RTI231005-4", ""  },
-            { "1-RTI231002-4", "9-RTI231004-3", ""  },
-            { "8-RTI231008-4", ""             , "" },
-            { "1-RTI231006-4", "8-RTI231003-4", ""  },
+            { "2-RTI231007-6", "10-RTI231001-2", null},
+            { "1-RTI231004-3", "8-RTI231005-4", null},
+            { "1-RTI231002-4", "9-RTI231004-3", null},
+            { "8-RTI231008-4", null, null},
+            { "1-RTI231006-4", "8-RTI231003-4", null},
         };
     }
     static void fillAdmin() {
@@ -130,8 +130,9 @@ public class MainApps {
     static void run () {
         fill();
         clearScreen();
+        penjadwalan();
         // login();
-        aturJadwal(0);
+        // aturJadwal(0);
         // penjadwalanMenuKelas();
         // showDataBioMahasiswa();
     }
@@ -254,7 +255,7 @@ public class MainApps {
 
     /* DASHBOARD DOSEN */
 
-    /* DASHBOARD ADMIN */
+    /*<--- DASHBOARD ADMIN --->*/
     static void dashboardAdmin(String user) {
         while (true) {
             renderTitle("Dashboard " + user);
@@ -272,7 +273,7 @@ public class MainApps {
         }
     }
 
-    /* modulMahasiswa */
+    /*<--- modulMahasiswa --->*/
     static void modulMahasiswa() {
         while (true) {
             System.out.println("Siakad / Modul Mahasiswa");
@@ -309,7 +310,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> addDataBioMahasiswa();
-                case 2 -> EditDataBioMahasiswa();
+                case 2 -> editDataBioMahasiswa();
                 case 3 -> removeDataBioMahasiswa();
                 case 4 -> {
                     return;
@@ -350,10 +351,8 @@ public class MainApps {
         String tanggalLahir = getInputStringWithLimit("Tanggal lahir", 10, 10, false);
         String userChoose   = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
         clearScreen();
-        if (userChoose.equalsIgnoreCase("y"))
-            addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, "N");
-        else
-            System.out.println("Dibatalkan");
+        if (userChoose.equalsIgnoreCase("y")) addDataBioMahasiswa(nim, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, "N");
+        else System.out.println("Dibatalkan");
     }
 
     // add data bio mahasiswa
@@ -375,14 +374,13 @@ public class MainApps {
     }
 
     // edit data bio mahasiswa
-    static void EditDataBioMahasiswa() {
+    static void editDataBioMahasiswa() {
         String oldNim, input = "";
         int studentIndex = -1;
         while (true) {
-            showAllDataBioMahasiswa();
+            showDataBioMahasiswa(false);
             oldNim = getInputStringWithLimit("Masukan NIM yang ingin diubah", 10, 10, false);
-            if (has(bioMahasiswa, oldNim, 0))
-                break;
+            if (has(bioMahasiswa, oldNim, 0)) break;
             clearScreen();
             System.out.println("NIM tidak ditemukan");
         }
@@ -393,21 +391,20 @@ public class MainApps {
             }
         }
         clearScreen();
-        showBioMahasiswa(oldNim);
+        showDataBioMahasiswa(true, oldNim);
         int userInput = pickMenu("Ubah data", new String[] {
                 "NIM",
                 "Nama",
                 "Jenis Kelamin",
                 "Alamat",
                 "Tanggal Lahir",
-                "Kembali"
+                "Batal"
         });
         switch (userInput) {
             case 1 -> {
                 while (true) {
                     input = getInputStringWithLimit("NIM", 10, 10, false);
-                    if (has(bioMahasiswa, input, 0))
-                        break;
+                    if (has(bioMahasiswa, input, 0)) break;
                     System.out.println("NIM " + input + " sudah terdaftar");
                 }
             }
@@ -434,7 +431,7 @@ public class MainApps {
     static void removeDataBioMahasiswa() {
         String nim;
         while (true) {
-            showAllDataBioMahasiswa();
+            showDataBioMahasiswa(false);
             nim = getInputStringWithLimit("Masukan NIM yang ingin dihapus : ", 10, 10, false);
             if (has(bioMahasiswa, nim, 0))
                 break;
@@ -459,15 +456,15 @@ public class MainApps {
 
     }
 
-    /* modulMahasiswa */
+    /*<--- modulMahasiswa --->*/
 
-    /* modulDosen */
+    /*<--- modulDosen --->*/
     static void modulDosen() {
 
     }
-    /* modulDosen */
+    /*<--- modulDosen --->*/
 
-    /* modulKursus */
+    /*<--- modulKursus --->*/
     static void modulKursus() {
         while (true) {
             System.out.println("Siakad / Modul Kursus");
@@ -481,7 +478,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> penempatanKelasMahasiswa();
-                case 2 -> penjadwalanMenuKelas();
+                case 2 -> penjadwalan();
                 // case 3 ->
                 case 4 -> {
                     return;
@@ -491,7 +488,7 @@ public class MainApps {
     }
 
     // show table data nim,nama,kelas mahasiswa
-    static void showKelasMahasiswa(String kelas) {
+    static void tampilkanMahasiswaBerdasarkanKelas(String kelas) {
         String formatTable = "| %-3s | %-10s | %-25s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+";
         System.out.println(horizonLine);
@@ -499,8 +496,7 @@ public class MainApps {
         System.out.println(horizonLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
-            if (takeBio[5].matches(kelas))
-                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[5]);
+            if (takeBio[5].matches(kelas)) System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[5]);
         }
         System.out.println(horizonLine);
     }
@@ -510,7 +506,7 @@ public class MainApps {
         final String kelas = "1A|1B|1C|1D|1E|";
         while (true) {
             System.out.println("Siakad / Modul Kursus / Penempatan Kelas Mahasiswa");
-            showKelasMahasiswa(kelas);
+            tampilkanMahasiswaBerdasarkanKelas(kelas);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Atur Kelas",
                     "Sortir",
@@ -521,7 +517,26 @@ public class MainApps {
                 case 1 -> aturKelasMahasiswa(kelas);
                 case 2 -> sortirBerdasarkanKelas();
                 case 3 -> {
-                    clearScreen();
+                    return;
+                }
+            }
+        }
+    }
+
+    // sortir berdasarkan kelas
+    static void sortirBerdasarkanKelas() {
+        while (true) {
+            System.out.println("1A|1B|1C|1D|1E|");
+            String kelas = getInputUniqueWord("Masukan Kelas", 2, 2,  true, "1A", "1B", "1C", "1D", "1E");
+            tampilkanMahasiswaBerdasarkanKelas(kelas);
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Atur Kelas",
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> aturKelasMahasiswa(kelas);
+                case 2 -> {
                     return;
                 }
             }
@@ -530,11 +545,11 @@ public class MainApps {
 
     // atur kelas
     static void aturKelasMahasiswa(String kelas) {
-        String nim, input;
+        String nim;
         int studentIndex = -1;
         while (true) {
-            showKelasMahasiswa(kelas);
-            nim = getNonEmptyStringWithLimit("Masukan NIM", 10, 10);
+            tampilkanMahasiswaBerdasarkanKelas(kelas);
+            nim = getInputStringWithLimit("Masukan NIM", 10, 10, false);
             if (has(bioMahasiswa, nim, 0))
                 break;
             clearScreen();
@@ -547,45 +562,19 @@ public class MainApps {
             }
         }
         System.out.println("1A|1B|1C|1D|1E|");
-        input = getNonEmptyUniqueWithLimit("Atur kelas", 2, 2, "1A-1B-1C-1D-1E", true);
-        String userChoose = getNonEmptyUniqueWithLimit("Simpan perubahan y/t", 1, 1, "y-t",
-                true);
+        String input = getInputUniqueWord("Atur kelas", 2, 2,  true, "1A", "1B", "1C", "1D", "1E");
+        String userChoose = getInputUniqueWord("Simpan perubahan y/t", 1, 1, true, "y", "t");
+        clearScreen();
         if (userChoose.equalsIgnoreCase("y")) {
             bioMahasiswa[studentIndex][5] = input;
             System.out.println("Berhasil mengedit");
         } else {
             System.out.println("Dibatalkan");
         }
-        clearScreen();
-
-    }
-
-    // sortir berdasarkan kelas
-    static void sortirBerdasarkanKelas() {
-        while (true) {
-            System.out.println("1A|1B|1C|1D|1E|");
-            String kelas = getNonEmptyUniqueWithLimit("Masukan Kelas", 2, 2, "1A-1B-1C-1D-1E-", true);
-            showKelasMahasiswa(kelas);
-            int userInput = pickMenu("Menu : ", new String[] {
-                    "Atur Kelas",
-                    "Kembali"
-            });
-            clearScreen();
-            switch (userInput) {
-                case 1 -> {
-                    aturKelasMahasiswa(kelas);
-                    return;
-                }
-                case 2 -> {
-                   clearScreen();
-                    return;
-                }
-            }
-        }
     }
 
     // penjadwalan
-    static void penjadwalanMenuKelas() {
+    static void penjadwalan() {
         while (true) {
             System.out.println("Siakad / Modul Kursus / Penjadwalan");
             int userInput = pickMenu("Kelas : ", new String[] {
@@ -598,13 +587,12 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> jadwalByKelas("1A", 0);
-                case 2 -> jadwalByKelas("1B", 1);
-                case 3 -> jadwalByKelas("1C", 2);
-                case 4 -> jadwalByKelas("1D", 3);
-                case 5 -> jadwalByKelas("1E", 4);
+                case 1 -> pilihJadwalBerdasarkanKelas("1A", jadwal_1A);
+                case 2 -> pilihJadwalBerdasarkanKelas("1B", jadwal_1B);
+                case 3 -> pilihJadwalBerdasarkanKelas("1C", jadwal_1C);
+                case 4 -> pilihJadwalBerdasarkanKelas("1D", jadwal_1D);
+                case 5 -> pilihJadwalBerdasarkanKelas("1E", jadwal_1E);
                 case 6 -> {
-                    clearScreen();
                     return;
                 }
             }
@@ -612,70 +600,64 @@ public class MainApps {
     }
 
     // jadwal kelas
-    static void jadwalByKelas(String kelasString, int kelasInt) {
-        while (true) {
-            System.out.println("Siakad / Modul Kursus / Penjadwalan / " + kelasString);
-            showJadwal(kelasInt);
-            int userInput = pickMenu("", new String[] {
-                    "Atur",
-                    "Kembali"
-            });
-            clearScreen();
-            switch (userInput) {
-                case 1 -> aturJadwal(kelasInt);
-                case 2 -> {
-                    clearScreen();
-                    return;
-                }
-            }
+    static void pilihJadwalBerdasarkanKelas(String stringKelas,String[][] arrayKelas) {
+        System.out.println("Siakad / Modul Kursus / Penjadwalan / " + stringKelas);
+        tampilkanJadwalBerdasarkanKelas(arrayKelas);
+        int userInput = pickMenu("", new String[] {
+                "Atur",
+                "Kembali"
+        });
+        clearScreen();
+        switch (userInput) {
+            case 1 -> aturJadwal(stringKelas, arrayKelas);
         }
     }
 
-    static void showJadwal(int kelas) {
+    static void tampilkanJadwalBerdasarkanKelas(String[][] arrayKelas) {
         System.out.println("+------+" + "-----+".repeat(11));
         System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
         System.out.println("+------+" + "-----+".repeat(11));
         String formatJadwal = "|%-6s|%-66s%n";
-        int index2 = 1;
+
+        int row = 0;
         for (String hari : kumpulanHari) {
             int begin = 0;
             int howLong = 0;
             String matkul = "";
             String simpanJadwal = "";
-            int addSpace = -1;
-            int index3 = 0;
             int jadwalLenght = 0;
             String[] tempArray;
-            for (int i = 1; i <= 11; i++) {
-                if (jadwalLenght < jadwal[kelas][index2].length) {
-                    tempArray = jadwal[kelas][index2][index3].split("-");
-                    if (jadwal[kelas][index2][index3].equals("")) {
+            int column = 0;
+            for (int j = 1; j <= 11; j++) {
+                if (jadwalLenght < arrayKelas[row].length) {
+                    if (arrayKelas[row][column] == null) {
                         begin = 0;
                     }
-                    else if ( Integer.parseInt(tempArray[0]) == i) {
-                        begin = Integer.parseInt(tempArray[0]);
-                        howLong = Integer.parseInt(tempArray[2]);
-                        for (int j = 0; j < matkulTI.length; j++) {
-                            if (tempArray[1].equals(matkulTI[j][0])) {
-                                matkul = matkulTI[j][1];
-                                break;
+                    else {
+                        tempArray = arrayKelas[row][column].split("-");
+                        if ( Integer.parseInt(tempArray[0]) == j) {
+                            begin = Integer.parseInt(tempArray[0]);
+                            howLong = Integer.parseInt(tempArray[2]);
+                            for (int k = 0; k < matkulTI.length; k++) {
+                                if (tempArray[1].equals(matkulTI[k][0])) {
+                                    matkul = matkulTI[k][1];
+                                    break;
+                                }
                             }
+                            jadwalLenght++;
                         }
-                        jadwalLenght++;
                     }
-                } else
-                    begin = 0;
-                if (i == begin) {
-                    simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())+ "|";
-                        i = i + howLong - 1;
-                        addSpace = -1;
-                        index3++;
-                } else {
-                    simpanJadwal += "-".repeat(5) + "|";
-                    addSpace++;
                 }
+                else
+                    begin = 0;
+                if (j == begin) {
+                    simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length())+ "|";
+                    j += howLong - 1;
+                    column++;
+                } else 
+                    simpanJadwal += "-".repeat(5) + "|";
             }
-            index2++;
+            row++;
             System.out.printf(formatJadwal, hari, simpanJadwal);
             String line = "+------+" + "-".repeat(65) + "+%n";
             System.out.printf(line);
@@ -683,7 +665,7 @@ public class MainApps {
     }
 
     // show matkulti
-    static void matkul() { 
+    static void tampilkanMatkul() { 
         String formatTable = "|  {%s}  | %-8s | %-40s |%n";
         String horizonLine = "+-------+-----------+"+ "-".repeat(42) +"+";
         System.out.println(horizonLine);
@@ -698,44 +680,47 @@ public class MainApps {
     }
     
     // atur jadwal
-    static void aturJadwal(int kelasInt) {
+    static void aturJadwal(String stringKelas, String[][] arrayKelas) {
         String[][] tempJadawal =  new String[5][3]; 
-        showJadwal(kelasInt);
-        matkul();
+        tampilkanJadwalBerdasarkanKelas(arrayKelas);
+        tampilkanMatkul();
         String _1,_2,_3;
-        int min = 1;
         System.out.println("Format {1}-{2}-{3}");
         System.out.println("1. Mulai dari jam ke-(1-11)\n2. Index Kode matkul\n3. Lama jam matkul(1-6)");
         for (int i = 0; i < kumpulanHari.length; i++) {
             System.out.println("Masukan jadwal pada hari "+kumpulanHari[i]);
+            int min = 1;
             for (int j = 0; j < tempJadawal[i].length; j++) {
-                while (true) {
-                    _1 = getNonEmptyNumberWithLimit("{1}", min, 11);
-                    if (((11-min)+Integer.parseInt(_1))<= 11) break;
-                    System.out.println("Jam tidak tersedia");
-                }
-                _2 = getNonEmptyNumberWithLimit("{2}", 1, 8);
-                _3 = getNonEmptyNumberWithLimit("{3}", 1, 11-min);
+                _1 = getInputStringNumberwithLimit("{1}", min, 10, false);
+                _2 = getInputStringNumberwithLimit("{2}", 1, 8, false);
+                _3 = getInputStringNumberwithLimit("{3}", 1, 11-min, false);
                 min += Integer.parseInt(_3);
                 System.out.printf("%s-%s-%s%n",_1,matkulTI[Integer.parseInt(_2)][2],_3);
-                tempJadawal[i][j] = _1 + "-" + _2 + "-" + _3;
+                tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2)][0] + "-" + _3;
                 if (min > 8  ) break;
-                String next = getNonEmptyUniqueWithLimit("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1 ,"y-n",true);
+                String next = getInputUniqueWord("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1 ,true, "y", "n");
                 if (next.equals("N")) break; 
             }
-            
         }
+        tampilkanJadwalBerdasarkanKelas(tempJadawal);
+        String userChoose = getInputUniqueWord("Simpan perubahan y/t", 1, 1, true, "y", "t");
+        if (userChoose.equals("n")) return;
+        arrayKelas = tempJadawal;
+        switch (stringKelas) {
+            case "1A" -> jadwal_1A = tempJadawal;
+            case "1B" -> jadwal_1B = tempJadawal;
+            case "1C" -> jadwal_1C = tempJadawal;
+            case "1D" -> jadwal_1D = tempJadawal;
+            case "1E" -> jadwal_1E = tempJadawal;
+        }
+        clearScreen();
+        pilihJadwalBerdasarkanKelas(stringKelas, tempJadawal);
     }
 
-    static void inputJadawal () {
+    /*<--- modulKursus --->*/
+    /*<--- DASHBOARD ADMIN --->*/
 
-    }
-
-
-    /* modulKursus */
-    /* DASHBOARD ADMIN */
-
-    /* HELPER */
+    /*<--- HELPER --->*/
 
     
 
@@ -848,5 +833,5 @@ public class MainApps {
         }
     }
     
-    /* HELPER */
+    /*<--- HELPER --->*/
 }
