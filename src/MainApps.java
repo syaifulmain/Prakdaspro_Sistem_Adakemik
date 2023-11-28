@@ -79,6 +79,8 @@ public class MainApps {
             { "1-RTI231006-4", "8-RTI231003-4", null},
         };
     }
+
+    /*<--- mengisi data array --->*/
     static void fillAdmin() {
         userAdmin = new String[][] {
             { "admin", "admin" }
@@ -123,6 +125,8 @@ public class MainApps {
         fillDosen();
         fillMahasiswa();
     }
+    /*<--- mengisi data array --->*/
+
     public static void main(String[] args) {
         run();
     }
@@ -130,14 +134,14 @@ public class MainApps {
     static void run () {
         fill();
         clearScreen();
-        penjadwalan();
-        // login();
+        // penjadwalan();
+        firstLogin();
         // aturJadwal(0);
         // penjadwalanMenuKelas();
         // showDataBioMahasiswa();
     }
 
-    // DONE: login view
+    // login awal untuk login
     static void firstLogin() {
         while (true) {
             renderTitle("SISTEM AKADEMIK");
@@ -151,7 +155,7 @@ public class MainApps {
         }
     }
 
-    // login logic
+    // melakukan login sesuai role
     static void loginRole(String level) {
         while (true) {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
@@ -182,7 +186,7 @@ public class MainApps {
         }
     }
 
-    //
+    // untuk validasi username dan password
     static String validasi(String[][] userArray, String user, String pass) {
         for (int i = 0; i < userArray.length; i++) 
             if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1])) return userArray[i][0];
@@ -256,6 +260,7 @@ public class MainApps {
     /* DASHBOARD DOSEN */
 
     /*<--- DASHBOARD ADMIN --->*/
+    // menu dashboard admin
     static void dashboardAdmin(String user) {
         while (true) {
             renderTitle("Dashboard " + user);
@@ -487,7 +492,7 @@ public class MainApps {
         }
     }
 
-    // show table data nim,nama,kelas mahasiswa
+    // meanmpilkan table data nim,nama,kelas mahasiswa
     static void tampilkanMahasiswaBerdasarkanKelas(String kelas) {
         String formatTable = "| %-3s | %-10s | %-25s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+";
@@ -543,7 +548,7 @@ public class MainApps {
         }
     }
 
-    // atur kelas
+    // atur kelas mahasiswa
     static void aturKelasMahasiswa(String kelas) {
         String nim;
         int studentIndex = -1;
@@ -573,7 +578,7 @@ public class MainApps {
         }
     }
 
-    // penjadwalan
+    // menu penjadwalan
     static void penjadwalan() {
         while (true) {
             System.out.println("Siakad / Modul Kursus / Penjadwalan");
@@ -599,7 +604,7 @@ public class MainApps {
         }
     }
 
-    // jadwal kelas
+    // pilih jadwal berdasarkan kelas
     static void pilihJadwalBerdasarkanKelas(String stringKelas,String[][] arrayKelas) {
         System.out.println("Siakad / Modul Kursus / Penjadwalan / " + stringKelas);
         tampilkanJadwalBerdasarkanKelas(arrayKelas);
@@ -613,6 +618,7 @@ public class MainApps {
         }
     }
 
+    // menampilkan jadwal berdasarkan kelas
     static void tampilkanJadwalBerdasarkanKelas(String[][] arrayKelas) {
         System.out.println("+------+" + "-----+".repeat(11));
         System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
@@ -664,7 +670,7 @@ public class MainApps {
         }
     }
 
-    // show matkulti
+    // menmapilkan matkul
     static void tampilkanMatkul() { 
         String formatTable = "|  {%s}  | %-8s | %-40s |%n";
         String horizonLine = "+-------+-----------+"+ "-".repeat(42) +"+";
@@ -679,7 +685,7 @@ public class MainApps {
         System.out.println(horizonLine);
     }
     
-    // atur jadwal
+    // untuk mengatur/edit jadwal
     static void aturJadwal(String stringKelas, String[][] arrayKelas) {
         String[][] tempJadawal =  new String[5][3]; 
         tampilkanJadwalBerdasarkanKelas(arrayKelas);
@@ -724,7 +730,7 @@ public class MainApps {
 
     
 
-    // Clear terminal
+    // clear terminal
     static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -737,7 +743,7 @@ public class MainApps {
         System.exit(0);
     }
 
-    // Fungsi untuk mengecek apakah ada item di array
+    // Funtuk mengecek apakah ada item di array
     static boolean has(String[][] items, String needle, int fieldIndex) {
         for (String[] item : items) {
             if (item[fieldIndex].equals(needle)) return true;
@@ -745,7 +751,7 @@ public class MainApps {
         return false;
     }
 
-    // Melakukan print title
+    // melakukan print title
     static void renderTitle(String title) {
         int paddingSize = 4;
         int titleLength = title.length();
@@ -764,7 +770,7 @@ public class MainApps {
         return scanner.nextLine().trim();
     }
 
-    // mengembalikan input String user scanner tidak boleh kosong
+    // mengembalikan input String user, kosong/tidak
     static String getInputString(String prompt, boolean allowEmpty) {
         while (true) {
             String userInput = input(prompt);
@@ -774,6 +780,7 @@ public class MainApps {
         }
     }
 
+    // mengembalikan input String user, kosong/tidak, dengan limit
     static String getInputStringWithLimit(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
             String userInput = getInputString(prompt, allowEmpty);
@@ -783,6 +790,7 @@ public class MainApps {
         }
     }
 
+    // mengembalikan input String number user, kosong/tidak
     static String getInputStringNumber(String prompt, boolean allowEmpty) {
         while (true) {
             String userInput = getInputString(prompt, allowEmpty);
@@ -792,6 +800,7 @@ public class MainApps {
         }
     }
 
+    // mengembalikan input String number user, kosong/tidak, dengan limit
     static String getInputStringNumberwithLimit(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
             String userInput = getInputStringNumber(prompt, allowEmpty);
@@ -801,7 +810,7 @@ public class MainApps {
         }
     }
 
-    // String allow gunakan "-"
+    // mengembalikan input String kata unik user, ignorecase/tidak, dengan limit
     static String getInputUniqueWord(String prompt, int min, int max, boolean ignoreCase, String... uniqueWord) {
         while (true) {
             String userInput = getInputString(prompt, false);
@@ -813,6 +822,7 @@ public class MainApps {
         }
     }
 
+    // membuat menu dengan input number
     static int pickMenu(String menuTitle, String[] menus) {
         System.out.println(menuTitle);
         int i = 0;
