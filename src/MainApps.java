@@ -320,7 +320,7 @@ public class MainApps {
         nama = getNonEmptyStringWithLimit("NAMA", 1, 25);
         jenisKelamin = getNonEmptyUniqueWithLimit("Gender L/P", 1, 1, "l-p", true);
         alamat = getNonEmptyStringWithLimit("Alamat", 1, 15);
-        tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir", 10, 10);
+        tanggalLahir = getNonEmptyStringWithLimit("Tanggal lahir (DD/MM/YYYY)", 10, 10);
         String userChoose = getNonEmptyUniqueWithLimit("Tambahkan data? y/t", 1, 1, "y-t", true);
         clearScreen();
         if (userChoose.equalsIgnoreCase("y"))
