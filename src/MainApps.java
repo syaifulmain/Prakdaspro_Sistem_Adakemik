@@ -159,8 +159,8 @@ public class MainApps {
     static void loginRole(String level) {
         while (true) {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
-            String username = getInputStringNumberwithLimit("USERNAME", 1, 10, true);
-            String password = getInputStringNumberwithLimit("PASSWORD", 1, 10, false);
+            String username = getInputStringWithLimit("USERNAME", 1, 10, true);
+            String password = getInputStringWithLimit("PASSWORD", 1, 10, false);
             String userLogin;
             int counter = 0;
             clearScreen();
@@ -796,7 +796,7 @@ public class MainApps {
             String userInput = getInputString(prompt, allowEmpty);
             if (allowEmpty && userInput.isEmpty()) return userInput;
             if (userInput.matches("[0-9]+")) return userInput;
-            System.out.println("Masukan hanya boleh angka");
+            System.out.println("Masukan hanya boleh angka lah");
         }
     }
 
