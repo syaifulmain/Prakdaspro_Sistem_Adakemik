@@ -214,7 +214,7 @@ public class MainApps {
                     "Biodata",
                     "Nilai",
                     "Jadwal",
-                    "Presesi",
+                    "Presensi",
             });
             clearScreen();
             switch (userInput) {
@@ -254,7 +254,6 @@ public class MainApps {
     }
 
     static void hadleJadwalMahasiswa(String nim) {
-        
         boolean userFound = false;
     
         for (int i = 0; i < bioMahasiswa.length; i++) {
@@ -262,33 +261,36 @@ public class MainApps {
                 userFound = true;
 
                 String kelas = bioMahasiswa[i][5];
+
+                System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
+
+
                         switch (kelas) {
                             case "1A":
-                                System.out.println(jadwal_1A);
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1A);
                                 break;
+
                             case "1B":
-                                System.out.println(jadwal_1B);
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1B);
                                 break;
                             case "1C":
-                                System.out.println(jadwal_1C);
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1C);
                                 break;
                             case "1D":
-                                System.out.println(jadwal_1D);
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1D);
                                 break;
                             case "1E":
-                                System.out.println(jadwal_1E);
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1E);
                                 break;
                             default:
                                 System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
                         }
-                        System.out.println(matkulTI);
                         break;
             }
-            System.out.println();
-            
+
         }
+    
     }
-        
 
     static void hadlePresensiMahasiswa() {
 
