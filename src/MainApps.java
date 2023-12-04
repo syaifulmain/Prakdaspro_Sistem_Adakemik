@@ -35,15 +35,25 @@ public class MainApps {
 
     static void fillJadwal() {
         matkulTI = new String[][] {
-                { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
-                { "RTI231001", "PANCASILA", "Pancasila", "2" },
-                { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
-                { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
-                { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
-                { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
-                { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
-                { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
+            { "RTI231001", "PANCASILA", "Pancasila", "2" },
+            { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
+            { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" },
+            { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
+            { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
+            { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
+            { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
+            { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
         };
+        // matkulTI = new String[][] {
+        //     { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
+        //     { "RTI231001", "PANCASILA", "Pancasila", "2" },
+        //     { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
+        //     { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
+        //     { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
+        //     { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
+        //     { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
+        //     { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
+        // };
         jadwal_1A = new String[][] {
                 { "1-RTI231004-3", "6-RTI231007-6", null },
                 { "1-RTI231006-4", null, null },
@@ -83,8 +93,8 @@ public class MainApps {
 
     /* <--- mengisi data array ---> */
     static void fillAdmin() {
-        userAdmin = new String[][] {
-                { "admin", "admin" }
+    userAdmin = new String[][] {
+            { "admin", "admin" }
         };
     }
 
@@ -160,12 +170,12 @@ public class MainApps {
 
     // melakukan login sesuai role
     static void loginRole(String level) {
+        int counter = 0;
         while (true) {
             renderTitle("SISTEM AKADEMIK " + level + " JTI");
             String username = getInputStringWithLimit("USERNAME", 1, 10, true);
             String password = getInputStringWithLimit("PASSWORD", 1, 10, false);
             String userLogin;
-            int counter = 0;
             clearScreen();
             switch (level) {
                 case "ADMIN" -> {
@@ -194,31 +204,9 @@ public class MainApps {
 
     // untuk validasi username dan password
     static String validasi(String[][] userArray, String user, String pass) {
-        // for (int counter = 0; counter <= 3; counter++) {
-        // if (counter == 3) {
-        // System.out.println("Anda telah mencoba 3 kali, silahkan ulangi program");
-        // exit();
-        // }
-        // for (int i = 0; i < userArray.length; i++) {
-        // if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1])) {
-        // return userArray[i][0];
-        // } else
-        // System.out.println("Username dan password salah/tidak ditemukan");
-        // }
-        // }
-        for (int i = 0; i < userArray.length; i++) {
-            if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1])) {
-                counter = 0;
-                return userArray[i][0];
-            } else {
-                counter++;
-                if (counter == 3) {
-                    exitForce();
-                }else{
-                    System.out.println("Username dan password salah/tidak ditemukan " );
-                }
-            }
-        }
+        for (int i = 0; i < userArray.length; i++) 
+            if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1])) return userArray[i][0];
+        System.out.println("Username dan password salah/tidak ditemukan");      
         return null;
     }
 
@@ -405,6 +393,7 @@ public class MainApps {
         bioMahasiswa = mahasiswaBaru;
         System.out.println("Mahasiswa telah berhasil ditambahkan");
 
+        // add user mahasiswa
         String[][] userBaru = new String[userMahasiswa.length + 1][2];
         for (int i = 0; i < userMahasiswa.length; i++) {
             userBaru[i] = userMahasiswa[i];
@@ -498,7 +487,7 @@ public class MainApps {
 
     }
 
-    /* <--- modulMahasiswa ---> */
+    /*<--- modulMahasiswa --->*/
 
     /* <--- modulDosen ---> */
     static void modulDosen() {
@@ -841,11 +830,9 @@ public class MainApps {
     static String getInputStringNumber(String prompt, boolean allowEmpty) {
         while (true) {
             String userInput = getInputString(prompt, allowEmpty);
-            if (allowEmpty && userInput.isEmpty())
-                return userInput;
-            if (userInput.matches("[0-9]+"))
-                return userInput;
-            System.out.println("Masukan hanya boleh angka!");
+            if (allowEmpty && userInput.isEmpty()) return userInput;
+            if (userInput.matches("[0-9]+")) return userInput;
+            System.out.println("Masukan hanya boleh angka");
         }
     }
 
