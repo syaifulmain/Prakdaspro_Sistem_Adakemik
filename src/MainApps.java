@@ -30,7 +30,6 @@ public class MainApps {
     static String[][] NilaiK3;
     /* Nilai Matkul */
 
-
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
     /* JADWAL */
@@ -90,18 +89,83 @@ public class MainApps {
         };
     }
 
-    static void FillNilaiMatkul(){
+    static void FillNilaiMatkul() {
         // kuis,tugas,uts,uas
-        NilaiPancasila = new String[][]{
+        transkipNilai = new String[][] {
+                { "1111111111", "72,75", "72.75", "84.75", "72.75", "76.5", "75.25", "76.25", "75.25" },
+                { "2222222222", "78.25", "78.25", "87.25", "72.75", "78.25", "78.25", "90.25", "78.25" },
+                { "3333333333", "76", "76", "74.25", "75", "85", "76", "86.5", "76" },
+                { "4444444444", "80.75", "80.75", "77.5", "80.75", "80.75", "80.75", "78", "80.75" },
+                { "5555555555", "82.75", "82.75", "88", "82.75", "84.75", "82.75", "63.75", "82.75" },
 
-            {"1111111111","77","89","45", ""},
-            {"2222222222","77","89","45","89"},
-            {"3333333333","77","89","45",""},
-            {"4444444444","77","89","45",""},
-            {"5555555555","77","89","45",""},
 
-                
         };
+        NilaiPancasila = new String[][] {
+
+                { "1111111111", "77", "89", "45", "80" },
+                { "2222222222", "90", "84", "50", "89" },
+                { "3333333333", "80", "83", "54", "87" },
+                { "4444444444", "99", "81", "60", "83" },
+                { "5555555555", "78", "81", "90", "82" },
+
+        };
+        NilaiKTI = new String[][] {
+
+                { "1111111111", "77", "89", "45", "80" },
+                { "2222222222", "90", "84", "50", "89" },
+                { "3333333333", "80", "83", "54", "87" },
+                { "4444444444", "99", "81", "60", "83" },
+                { "5555555555", "78", "81", "90", "82" },
+        };
+        NilaiCTPS = new String[][] {
+
+                { "1111111111", "79", "83", "90", "87" },
+                { "2222222222", "90", "83", "87", "89" },
+                { "3333333333", "80", "89", "45", "83" },
+                { "4444444444", "83", "87", "60", "80" },
+                { "5555555555", "83", "83", "87", "99" },
+        };
+        NilaiMATDAS = new String[][] {
+
+                { "1111111111", "77", "89", "45", "80" },
+                { "2222222222", "90", "84", "50", "89" },
+                { "3333333333", "80", "83", "54", "87" },
+                { "4444444444", "99", "81", "60", "83" },
+                { "5555555555", "78", "81", "90", "82" },
+        };
+        NilaiBING_1 = new String[][] {
+
+                { "1111111111", "88", "90", "45", "83" },
+                { "2222222222", "90", "84", "50", "89" },
+                { "3333333333", "80", "83", "90", "87" },
+                { "4444444444", "99", "81", "60", "83" },
+                { "5555555555", "78", "81", "90", "90" },
+        };
+        NilaiPRAK_DASPRO = new String[][] {
+
+                { "1111111111", "78", "89", "47", "87" },
+                { "2222222222", "90", "84", "50", "89" },
+                { "3333333333", "80", "83", "54", "87" },
+                { "4444444444", "99", "81", "60", "83" },
+                { "5555555555", "78", "81", "90", "82" },
+        };
+        NilaiDASPRO = new String[][] {
+
+                { "1111111111", "60", "80", "65", "100" },
+                { "2222222222", "83", "89", "100", "89" },
+                { "3333333333", "77", "89", "80", "100" },
+                { "4444444444", "89", "89", "45", "89" },
+                { "5555555555", "77", "89", "45", "44" },
+        };
+        NilaiK3 = new String[][] {
+
+                { "1111111111", "87", "89", "45", "80" },
+                { "2222222222", "90", "84", "50", "89" },
+                { "3333333333", "80", "83", "54", "87" },
+                { "4444444444", "99", "81", "60", "83" },
+                { "5555555555", "78", "81", "90", "82" },
+        };
+
     }
 
     /* <--- mengisi data array ---> */
@@ -150,6 +214,7 @@ public class MainApps {
         fillAdmin();
         fillDosen();
         fillMahasiswa();
+        FillNilaiMatkul();
     }
     /* <--- mengisi data array ---> */
 
@@ -329,30 +394,41 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> tambahNilaiPancasila();
-                // case 2 -> tambahNilaiKTI();
-                // case 3 -> tambahNilaiCTPS();
-                // case 4 -> tambahNilaiMATDAS();
-                // case 5 -> tambahNilaiBING_1();
-                // case 6 -> tambahNilaiDASPRO();
-                // case 7 -> tambahNilaiPRAK_DASPRO();
-                // case 8 -> tambahNilaiK3();
+                case 1 -> tambahNilaiMatkul(NilaiPancasila, "Pancasila");
+                case 2 -> tambahNilaiMatkul(NilaiKTI, "KTI");
+                case 3 -> tambahNilaiMatkul(NilaiCTPS, "CTPS");
+                case 4 -> tambahNilaiMatkul(NilaiMATDAS, "MATDAS");
+                case 5 -> tambahNilaiMatkul(NilaiBING_1, "BING_1");
+                case 6 -> tambahNilaiMatkul(NilaiDASPRO, "DASPRO");
+                case 7 -> tambahNilaiMatkul(NilaiPRAK_DASPRO, "PRAK_DASPRO");
+                case 8 -> tambahNilaiMatkul(NilaiK3, "K3");
             }
         }
     }
-    static void showNilaiPancasila(){
-        System.out.println("+-----+------------+---------------------------+---------------+-----------------+---------------+-------+");
-        
+
+    static void showNilai(String[][] Array) {
+
+        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
+        String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
+        System.out.println(horizonLine);
+        System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
+        System.out.println(horizonLine);
+        for (int i = 0; i < Array.length; i++) {
+            String[] takeNilai = Array[i];
+            System.out.printf(formatTable, i + 1, takeNilai[0], bioMahasiswa[i][1], takeNilai[1], takeNilai[2],
+                    takeNilai[3], takeNilai[4]);
+        }
+        System.out.println(horizonLine);
     }
-    static void tambahNilaiPancasila() {
+
+    static void tambahNilaiMatkul(String[][] Array, String matkul) {
         while (true) {
-            renderTitle("Tambah Nilai Pancasila");
-        showNilaiPancasila();
+            renderTitle("Tambah Nilai " + matkul);
+            showNilai(Array);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Tambah Nilai",
                     "Kembali",
             });
-            clearScreen();
             switch (userInput) {
                 case 1 -> {
                     String nim = getInputStringNumberwithLimit("NIM", 10, 10, false);
@@ -377,6 +453,7 @@ public class MainApps {
             }
         }
     }
+
     static void addNilaiPancasila(String... dataNilai) {
         String[][] nilaiBaru = new String[NilaiPancasila.length + 1][5];
         for (int i = 0; i < NilaiPancasila.length; i++) {
