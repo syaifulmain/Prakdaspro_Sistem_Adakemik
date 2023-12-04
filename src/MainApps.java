@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class MainApps {
@@ -209,7 +210,7 @@ public class MainApps {
             switch (userInput) {
                 case 1 -> hadleBiodataMahasiswa(nim);
                 case 2 -> hadleNilaiMahasiswa();
-                case 3 -> hadleJadwalMahasiswa();
+                case 3 -> hadleJadwalMahasiswa(nim);
                 case 4 -> hadlePresensiMahasiswa();
             }
         }
@@ -228,8 +229,8 @@ public class MainApps {
                 System.out.println("Jenis Kelamin: " + bioMahasiswa[i][2]);
                 System.out.println("Alamat: " + bioMahasiswa[i][3]);
                 System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
-                System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break; 
+                System.out.println("Kelas: " + bioMahasiswa[i][5]); 
+                
             }
         }
     
@@ -242,9 +243,42 @@ public class MainApps {
           
     }
 
-    static void hadleJadwalMahasiswa() {
+    static void hadleJadwalMahasiswa(String nim) {
+        
+        boolean userFound = false;
+    
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) {
+                userFound = true;
 
+                String kelas = bioMahasiswa[i][5];
+                        switch (kelas) {
+                            case "1A":
+                                System.out.println(jadwal_1A);
+                                break;
+                            case "1B":
+                                System.out.println(jadwal_1B);
+                                break;
+                            case "1C":
+                                System.out.println(jadwal_1C);
+                                break;
+                            case "1D":
+                                System.out.println(jadwal_1D);
+                                break;
+                            case "1E":
+                                System.out.println(jadwal_1E);
+                                break;
+                            default:
+                                System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
+                        }
+                        System.out.println(matkulTI);
+                        break;
+            }
+            System.out.println();
+            
+        }
     }
+        
 
     static void hadlePresensiMahasiswa() {
 
