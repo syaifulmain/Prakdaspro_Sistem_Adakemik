@@ -915,8 +915,8 @@ public class MainApps {
                 _2 = getInputStringNumberwithLimit("Index Kode matkul(1-8)", 1, 8, false);
                 _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
                 min += Integer.parseInt(_3);
-                System.out.printf("%s-%s-%s%n", _1, matkulTI[Integer.parseInt(_2)][2], _3);
-                tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2)][0] + "-" + _3;
+                System.out.printf("%s-%s-%s%n", _1, matkulTI[Integer.parseInt(_2)-1][2], _3);
+                tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2)-1][0] + "-" + _3;
                 if (min > 8)
                     break;
                 String next = getInputUniqueWord("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1, true,
