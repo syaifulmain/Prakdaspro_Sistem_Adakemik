@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 public class MainApps {
-    static int counter = 0;
     static Scanner scanner = new Scanner(System.in);
     static String[] role = { "ADMIN", "DOSEN", "MAHASISWA" };
 
@@ -18,10 +17,20 @@ public class MainApps {
     static String[][] bioMahasiswa;
     static String[][] userMahasiswa;
     /* Mahasiswa */
+    /* Nilai Matkul */
+    static String[][] transkipNilai;
 
-    static String[][] transkipNilai = {
-            {}
-    };
+    static String[][] NilaiPancasila;
+    static String[][] NilaiKTI;
+    static String[][] NilaiCTPS;
+    static String[][] NilaiMATDAS;
+    static String[][] NilaiBING_1;
+    static String[][] NilaiDASPRO;
+    static String[][] NilaiPRAK_DASPRO;
+    static String[][] NilaiK3;
+    /* Nilai Matkul */
+
+
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
 
     /* JADWAL */
@@ -31,29 +40,19 @@ public class MainApps {
     static String[][] jadwal_1C;
     static String[][] jadwal_1D;
     static String[][] jadwal_1E;
-    /* JADWAL */
 
+    /* JADWAL */
     static void fillJadwal() {
         matkulTI = new String[][] {
-            { "RTI231001", "PANCASILA", "Pancasila", "2" },
-            { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
-            { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" },
-            { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
-            { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
-            { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
-            { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
-            { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
+                { "RTI231001", "PANCASILA", "Pancasila", "2" },
+                { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
+                { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" },
+                { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
+                { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
+                { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
+                { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
+                { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
         };
-        // matkulTI = new String[][] {
-        //     { "RTI231007", "PRAK_DASPRO", "Praktikum Dasar Pemrograman", "6" },
-        //     { "RTI231001", "PANCASILA", "Pancasila", "2" },
-        //     { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
-        //     { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
-        //     { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
-        //     { "RTI231008", "K3", "Keselamatan dan Kesehatan Kerja", "4" },
-        //     { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
-        //     { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" }
-        // };
         jadwal_1A = new String[][] {
                 { "1-RTI231004-3", "6-RTI231007-6", null },
                 { "1-RTI231006-4", null, null },
@@ -91,10 +90,24 @@ public class MainApps {
         };
     }
 
+    static void FillNilaiMatkul(){
+        // kuis,tugas,uts,uas
+        NilaiPancasila = new String[][]{
+
+            {"1111111111","77","89","45", ""},
+            {"2222222222","77","89","45","89"},
+            {"3333333333","77","89","45",""},
+            {"4444444444","77","89","45",""},
+            {"5555555555","77","89","45",""},
+
+                
+        };
+    }
+
     /* <--- mengisi data array ---> */
     static void fillAdmin() {
-    userAdmin = new String[][] {
-            { "admin", "admin" }
+        userAdmin = new String[][] {
+                { "admin", "admin" }
         };
     }
 
@@ -107,8 +120,8 @@ public class MainApps {
                 { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
         };
         userDosen = new String[][] {
-                { "dosen1", "1" },
-                { "dosen2", "2" },
+                { "dosen", "dosen" },
+                { "dosen2", "dosen2" },
                 { "dosen3", "3" },
                 { "dosen4", "4" },
                 { "dosen5", "5" }
@@ -196,17 +209,17 @@ public class MainApps {
             }
             counter++;
             if (counter == 3) {
-                System.out.println("Anda telah mencoba 3 kali, silahkan ulangi program");
-                exit();
+                exitForce();
             }
         }
     }
 
     // untuk validasi username dan password
     static String validasi(String[][] userArray, String user, String pass) {
-        for (int i = 0; i < userArray.length; i++) 
-            if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1])) return userArray[i][0];
-        System.out.println("Username dan password salah/tidak ditemukan");      
+        for (int i = 0; i < userArray.length; i++)
+            if (user.equals(userArray[i][0]) && pass.equals(userArray[i][1]))
+                return userArray[i][0];
+        System.out.println("Username dan password salah/tidak ditemukan");
         return null;
     }
 
@@ -270,10 +283,109 @@ public class MainApps {
     /* DASHBOARD DOSEN */
 
     static void dashboardDosen(String user) {
+        while (true) {
+            renderTitle("Dashboard " + user);
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Penilaian Mahasiswa",
+                    "Presensi Mahasiswa",
+                    "Cek Jadwal",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> penilaianMahasiswa();
 
+            }
+        }
     }
 
-    /* DASHBOARD DOSEN */
+    static void penilaianMahasiswa() {
+        while (true) {
+            renderTitle("Penilian Mahasiswa");
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Tambah Nilai",
+                    "Edit Nilai",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> tambahNilai();
+                // case 1 -> tambahNilai();
+                // case 2 -> editNilai();
+            }
+        }
+    }
+
+    static void tambahNilai() {
+        while (true) {
+            renderTitle("Tambah Nilai");
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Pancasila",
+                    "KTI",
+                    "CTPS",
+                    "MATDAS",
+                    "BING_1",
+                    "DASPRO",
+                    "PRAK_DASPRO",
+                    "K3",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> tambahNilaiPancasila();
+                // case 2 -> tambahNilaiKTI();
+                // case 3 -> tambahNilaiCTPS();
+                // case 4 -> tambahNilaiMATDAS();
+                // case 5 -> tambahNilaiBING_1();
+                // case 6 -> tambahNilaiDASPRO();
+                // case 7 -> tambahNilaiPRAK_DASPRO();
+                // case 8 -> tambahNilaiK3();
+            }
+        }
+    }
+    static void showNilaiPancasila(){
+        System.out.println("+-----+------------+---------------------------+---------------+-----------------+---------------+-------+");
+        
+    }
+    static void tambahNilaiPancasila() {
+        while (true) {
+            renderTitle("Tambah Nilai Pancasila");
+        showNilaiPancasila();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Tambah Nilai",
+                    "Kembali",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> {
+                    String nim = getInputStringNumberwithLimit("NIM", 10, 10, false);
+                    if (has(NilaiPancasila, nim, 0)) {
+                        System.out.println("NIM " + nim + " sudah terdaftar");
+                        return;
+                    }
+                    String kuis = getInputStringNumberwithLimit("Kuis", 2, 2, false);
+                    String tugas = getInputStringNumberwithLimit("Tugas", 2, 2, false);
+                    String uts = getInputStringNumberwithLimit("UTS", 2, 2, false);
+                    String uas = getInputStringNumberwithLimit("UAS", 2, 2, false);
+                    String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
+                    clearScreen();
+                    if (userChoose.equalsIgnoreCase("y"))
+                        addNilaiPancasila(nim, kuis, tugas, uts, uas);
+                    else
+                        System.out.println("Dibatalkan");
+                }
+                case 2 -> {
+                    return;
+                }
+            }
+        }
+    }
+    static void addNilaiPancasila(String... dataNilai) {
+        String[][] nilaiBaru = new String[NilaiPancasila.length + 1][5];
+        for (int i = 0; i < NilaiPancasila.length; i++) {
+            nilaiBaru[i] = NilaiPancasila[i];
+        }
+        nilaiBaru[nilaiBaru.length - 1] = dataNilai;
+        NilaiPancasila = nilaiBaru;
+        System.out.println("Nilai telah berhasil ditambahkan");
+    }
 
     /* <--- DASHBOARD ADMIN ---> */
     // menu dashboard admin
@@ -487,7 +599,7 @@ public class MainApps {
 
     }
 
-    /*<--- modulMahasiswa --->*/
+    /* <--- modulMahasiswa ---> */
 
     /* <--- modulDosen ---> */
     static void modulDosen() {
@@ -722,9 +834,9 @@ public class MainApps {
             System.out.println("Masukan jadwal pada hari " + kumpulanHari[i]);
             int min = 1;
             for (int j = 0; j < tempJadawal[i].length; j++) {
-                _1 = getInputStringNumberwithLimit("{1}", min, 10, false);
-                _2 = getInputStringNumberwithLimit("{2}", 1, 8, false);
-                _3 = getInputStringNumberwithLimit("{3}", 1, 11 - min, false);
+                _1 = getInputStringNumberwithLimit("Mulai dari jam ke-" + min + "-11", min, 11, false);
+                _2 = getInputStringNumberwithLimit("Index Kode matkul(1-8)", 1, 8, false);
+                _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
                 min += Integer.parseInt(_3);
                 System.out.printf("%s-%s-%s%n", _1, matkulTI[Integer.parseInt(_2)][2], _3);
                 tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2)][0] + "-" + _3;
@@ -766,15 +878,17 @@ public class MainApps {
     // Fungsi untuk keluar
     static void exit() {
         clearScreen();
-        System.out.println("Keluar...");
+        System.out.println("Anda Telah Behasil Logout!!");
         System.exit(0);
     }
-    //When incorrect pasword  or username is entered 3 times, the program will exit
-     static void exitForce() {
+
+    // When incorrect pasword or username is entered 3 times, the program will exit
+    static void exitForce() {
         clearScreen();
         System.out.println("Anda telah mencoba 3 kali, silahkan ulangi program.....");
         System.exit(0);
     }
+
     // Funtuk mengecek apakah ada item di array
     static boolean has(String[][] items, String needle, int fieldIndex) {
         for (String[] item : items) {
@@ -830,9 +944,11 @@ public class MainApps {
     static String getInputStringNumber(String prompt, boolean allowEmpty) {
         while (true) {
             String userInput = getInputString(prompt, allowEmpty);
-            if (allowEmpty && userInput.isEmpty()) return userInput;
-            if (userInput.matches("[0-9]+")) return userInput;
-            System.out.println("Masukan hanya boleh angka");
+            if (allowEmpty && userInput.isEmpty())
+                return userInput;
+            if (userInput.matches("[0-9]+"))
+                return userInput;
+            System.out.println("Masukan hanya boleh angka !");
         }
     }
 
