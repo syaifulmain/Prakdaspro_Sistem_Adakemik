@@ -254,22 +254,19 @@ public class MainApps {
     }
 
     static void hadleJadwalMahasiswa(String nim) {
-        boolean userFound = false;
+
     
         for (int i = 0; i < bioMahasiswa.length; i++) {
             if (nim.equals(bioMahasiswa[i][0])) {
-                userFound = true;
 
                 String kelas = bioMahasiswa[i][5];
 
                 System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
 
-
                         switch (kelas) {
                             case "1A":
                             tampilkanJadwalBerdasarkanKelas(jadwal_1A);
                                 break;
-
                             case "1B":
                             tampilkanJadwalBerdasarkanKelas(jadwal_1B);
                                 break;
@@ -287,7 +284,7 @@ public class MainApps {
                         }
                         break;
             }
-
+            
         }
     
     }
