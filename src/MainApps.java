@@ -108,8 +108,6 @@ public class MainApps {
                 { "3333333333", "80", "83", "54", "87" },
                 { "4444444444", "99", "81", "60", "83" },
                 { "5555555555", "78", "81", "90", "82" },
-                // { "6666666666", "", "", "", "" }
-
         };
         NilaiKTI = new String[][] {
 
@@ -712,7 +710,7 @@ public class MainApps {
             case 2 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
             case 3 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
             case 4 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
-            case 5 -> input = getInputStringWithLimit("Tanggal lahir", 10, 10, false);
+            case 5 -> input = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
             case 6 -> {
                 clearScreen();
                 return;
