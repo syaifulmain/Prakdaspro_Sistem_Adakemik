@@ -17,6 +17,7 @@ public class MainApps {
     static String[][] bioMahasiswa;
     static String[][] userMahasiswa;
     /* Mahasiswa */
+
     /* Nilai Matkul */
     static String[][] transkipNilai;
 
@@ -39,8 +40,10 @@ public class MainApps {
     static String[][] jadwal_1C;
     static String[][] jadwal_1D;
     static String[][] jadwal_1E;
-
     /* JADWAL */
+
+
+    /* <--- mengisi data array ---> */
     static void fillJadwal() {
         matkulTI = new String[][] {
                 { "RTI231001", "PANCASILA", "Pancasila", "2" },
@@ -167,8 +170,7 @@ public class MainApps {
         };
 
     }
-
-    /* <--- mengisi data array ---> */
+    
     static void fillAdmin() {
         userAdmin = new String[][] {
                 { "admin", "admin" }
@@ -497,8 +499,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> handleListMahasiswa();
-                case 2 -> {
-                }
+                case 2 -> transkipNilai();
                 case 3 -> {
                 }
                 case 4 -> {
@@ -535,10 +536,9 @@ public class MainApps {
     // menampilkan data berdasarkan nim
     static void showDataBioMahasiswa(boolean isNIM, String... nim) {
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
+        String horizonLine     = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
         System.out.println(horizonLine);
-        System.out.format(
-                "| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
+        System.out.format("| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
         System.out.println(horizonLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
@@ -589,6 +589,52 @@ public class MainApps {
         }
         userBaru[userBaru.length - 1] = new String[] { dataBio[0], dataBio[0] };
         userMahasiswa = userBaru;
+    }
+
+    //add data nilai mahasiswa
+    static void addDataNilaiMahasiswa(String nim) {
+        int arrayLength = NilaiPancasila.length;
+        String[][] tempArrayNilai = new String[NilaiPancasila.length + 1][5];
+        tempArrayNilai[tempArrayNilai.length - 1] = new String[] { nim, "0", "0", "0", "0" };
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiPancasila[i];
+        }
+        NilaiPancasila = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiKTI[i];
+        }
+        NilaiKTI = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiCTPS[i];
+        }
+        NilaiCTPS = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiMATDAS[i];
+        }
+        NilaiMATDAS = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiBING_1[i];
+        }
+        NilaiBING_1 = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiDASPRO[i];
+        }
+        NilaiDASPRO = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiPRAK_DASPRO[i];
+        }
+        NilaiPRAK_DASPRO = tempArrayNilai;
+
+        for (int i = 0; i < arrayLength; i++) {
+            tempArrayNilai[i] = NilaiK3[i];
+        }
+        NilaiK3 = tempArrayNilai;
     }
 
     // edit data bio mahasiswa
@@ -673,7 +719,24 @@ public class MainApps {
 
     // transkip nilai
     static void transkipNilai() {
+        while (true) {
+            System.out.println("Siakad / Modul Mahasiswa / Transkip Nilai");
+            renderTitle("Transkip Nilai");
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Kembali",
+            });
+            clearScreen();
+            switch (userInput) {
+            }
+        }
+    }
 
+    static void tampilkanTranskipNilai() {
+        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
+        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
+        System.out.println(horizonLine);
+        System.out.format("| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+        System.out.println(horizonLine);
     }
 
     /* <--- modulMahasiswa ---> */
