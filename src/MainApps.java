@@ -42,7 +42,6 @@ public class MainApps {
     static String[][] jadwal_1E;
     /* JADWAL */
 
-
     /* <--- mengisi data array ---> */
     static void fillJadwal() {
         matkulTI = new String[][] {
@@ -170,7 +169,7 @@ public class MainApps {
         };
 
     }
-    
+
     static void fillAdmin() {
         userAdmin = new String[][] {
                 { "admin", "admin" }
@@ -243,9 +242,9 @@ public class MainApps {
             int userInput = pickMenu("Pilih masuk sebagai", role);
             clearScreen();
             switch (userInput) {
-                case 1 -> loginRole(role[0] );
-                case 2 -> loginRole(role[1] );
-                case 3 -> loginRole(role[2] );
+                case 1 -> loginRole(role[0]);
+                case 2 -> loginRole(role[1]);
+                case 3 -> loginRole(role[2]);
             }
         }
     }
@@ -262,7 +261,7 @@ public class MainApps {
             switch (level) {
                 case "ADMIN" -> {
                     userLogin = validasi(userAdmin, username, password);
-                    if (userLogin != null){
+                    if (userLogin != null) {
                         dashboardAdmin(userLogin);
                         return;
                     }
@@ -442,13 +441,15 @@ public class MainApps {
         while (true) {
             renderTitle("Tambah Nilai " + matkul);
             showNilai(Array);
-            String nim = getInputStringWithLimit("Masukan NIM", 10, 10, false);
+            String nim = getInputStringWithLimit("Masukan NIM", 10, 10, true);
 
             if (has(Array, nim, 0)) {
                 System.out.println("Nilai " + matkul + " dengan Nim : " + nim + " sudah terinput");
                 return;
-            }else if(!has(bioMahasiswa, nim, 0)){
+            } else if (!has(bioMahasiswa, nim, 0)) {
                 System.out.println("NIM " + nim + " tidak ditemukan");
+                return;
+            }else if (nim.equals(null)){
                 return;
             }
             String kuis = getInputStringNumberwithLimit("Kuis", 0, 100, false);
@@ -458,22 +459,38 @@ public class MainApps {
             String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
             clearScreen();
             if (userChoose.equalsIgnoreCase("y")) {
-                addNilai(Array, nim, kuis, tugas, uts, uas);
+                addNilai(Array, nim, kuis, tugas, uts, uas, matkul);
+                return;
             } else
                 System.out.println("Dibatalkan");
-            return;
-
+                return;
         }
     }
 
-    static void addNilai(String[][] Array, String... dataNilai) {
-        String[][] nilaiBaru = new String[Array.length + 1][5];
+    static void addNilai(String[][] Array, String nim, String kuis, String tugas, String uts, String uas,
+            String matkul) {
+        String[][] nilaiBaru = new String[Array.length + 1][4];
         for (int i = 0; i < Array.length; i++) {
             nilaiBaru[i] = Array[i];
         }
-        nilaiBaru[nilaiBaru.length - 1] = dataNilai;
-        Array = nilaiBaru;
-        System.out.println("Nilai telah berhasil ditambahkan");
+        nilaiBaru[nilaiBaru.length - 1] = new String[] { nim, kuis, tugas, uts, uas };
+        if (matkul.equals("Pancasila")) {
+            NilaiPancasila = nilaiBaru;
+        } else if (matkul.equals("KTI")) {
+            NilaiKTI = nilaiBaru;
+        } else if (matkul.equals("CTPS")) {
+            NilaiCTPS = nilaiBaru;
+        } else if (matkul.equals("MATDAS")) {
+            NilaiMATDAS = nilaiBaru;
+        } else if (matkul.equals("BING_1")) {
+            NilaiBING_1 = nilaiBaru;
+        } else if (matkul.equals("DASPRO")) {
+            NilaiDASPRO = nilaiBaru;
+        } else if (matkul.equals("PRAK_DASPRO")) {
+            NilaiPRAK_DASPRO = nilaiBaru;
+        } else if (matkul.equals("K3")) {
+            NilaiK3 = nilaiBaru;
+        }
     }
 
     /* <--- DASHBOARD ADMIN ---> */
@@ -552,7 +569,8 @@ public class MainApps {
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
         String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
         System.out.println(horizonLine);
-        System.out.format("| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
+        System.out.format(
+                "| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
         System.out.println(horizonLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
@@ -608,7 +626,7 @@ public class MainApps {
         addDataNilaiMahasiswa(dataBio[0]);
     }
 
-    //add data nilai mahasiswa
+    // add data nilai mahasiswa
     static void addDataNilaiMahasiswa(String nim) {
         int arrayLength = NilaiPancasila.length;
         String[][] tempArrayNilai = new String[NilaiPancasila.length + 1][5];
@@ -750,9 +768,10 @@ public class MainApps {
 
     static void tampilkanTranskipNilai() {
         String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine     = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
+        String horizonLine = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
         System.out.println(horizonLine);
-        System.out.format("| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+        System.out.format(
+                "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
         System.out.println(horizonLine);
     }
 
@@ -1115,7 +1134,7 @@ public class MainApps {
             String userInput = getInputStringNumber(prompt, allowEmpty);
             if (allowEmpty && userInput.isEmpty())
                 return userInput;
-             if (userInput.length() >= min && userInput.length() <= max)
+            if (userInput.length() >= min && userInput.length() <= max)
                 return userInput;
             System.out.println("Masukan minimal " + min + " karakter dan maksimal " + max + " karakter");
         }
