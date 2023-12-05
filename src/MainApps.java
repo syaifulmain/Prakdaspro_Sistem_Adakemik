@@ -98,7 +98,6 @@ public class MainApps {
                 { "4444444444", "80.75", "80.75", "77.5", "80.75", "80.75", "80.75", "78", "80.75" },
                 { "5555555555", "82.75", "82.75", "88", "82.75", "84.75", "82.75", "63.75", "82.75" },
 
-
         };
         NilaiPancasila = new String[][] {
 
@@ -107,6 +106,7 @@ public class MainApps {
                 { "3333333333", "80", "83", "54", "87" },
                 { "4444444444", "99", "81", "60", "83" },
                 { "5555555555", "78", "81", "90", "82" },
+                // { "6666666666", "", "", "", "" }
 
         };
         NilaiKTI = new String[][] {
@@ -194,18 +194,20 @@ public class MainApps {
 
     static void fillMahasiswa() {
         bioMahasiswa = new String[][] {
-                { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
-                { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
-                { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
-                { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
-                { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+                { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-2001", "1A" },
+                { "2222222222", "BERYL", "L", "BLITAR", "22-02-2002", "1B" },
+                { "3333333333", "SOMEONE", "L", "BLITAR", "03-03-2003", "1C" },
+                { "4444444444", "AHOMAD", "L", "BLITAR", "04-04-2004", "1D" },
+                { "5555555555", "TMI", "L", "BLITAR", "05-05-2005", "1E" },
+                { "6666666666", "RAULLLL", "L", "BOGOR", "16-06-2006", "1E" }
         };
         userMahasiswa = new String[][] {
                 { "1111111111", "1111111111" },
                 { "2222222222", "2222222222" },
                 { "3333333333", "3333333333" },
                 { "4444444444", "4444444444" },
-                { "5555555555", "5555555555" }
+                { "5555555555", "5555555555" },
+                { "6666666666", "6666666666" }
         };
     }
 
@@ -425,42 +427,37 @@ public class MainApps {
         while (true) {
             renderTitle("Tambah Nilai " + matkul);
             showNilai(Array);
-            int userInput = pickMenu("Menu : ", new String[] {
-                    "Tambah Nilai",
-                    "Kembali",
-            });
-            switch (userInput) {
-                case 1 -> {
-                    String nim = getInputStringNumberwithLimit("NIM", 10, 10, false);
-                    if (has(NilaiPancasila, nim, 0)) {
-                        System.out.println("NIM " + nim + " sudah terdaftar");
-                        return;
-                    }
-                    String kuis = getInputStringNumberwithLimit("Kuis", 2, 2, false);
-                    String tugas = getInputStringNumberwithLimit("Tugas", 2, 2, false);
-                    String uts = getInputStringNumberwithLimit("UTS", 2, 2, false);
-                    String uas = getInputStringNumberwithLimit("UAS", 2, 2, false);
-                    String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
-                    clearScreen();
-                    if (userChoose.equalsIgnoreCase("y"))
-                        addNilaiPancasila(nim, kuis, tugas, uts, uas);
-                    else
-                        System.out.println("Dibatalkan");
-                }
-                case 2 -> {
-                    return;
-                }
+            String nim = getInputStringWithLimit("Masukan NIM", 10, 10, false);
+
+            if (has(Array, nim, 0)) {
+                System.out.println("Nilai " + matkul + " dengan Nim : " + nim + " sudah terinput");
+                return;
+            }else if(!has(bioMahasiswa, nim, 0)){
+                System.out.println("NIM " + nim + " tidak ditemukan");
+                return;
             }
+            String kuis = getInputStringNumberwithLimit("Kuis", 0, 100, false);
+            String tugas = getInputStringNumberwithLimit("Tugas", 0, 100, false);
+            String uts = getInputStringNumberwithLimit("UTS", 0, 100, false);
+            String uas = getInputStringNumberwithLimit("UAS", 0, 100, false);
+            String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
+            clearScreen();
+            if (userChoose.equalsIgnoreCase("y")) {
+                addNilai(Array, nim, kuis, tugas, uts, uas);
+            } else
+                System.out.println("Dibatalkan");
+            return;
+
         }
     }
 
-    static void addNilaiPancasila(String... dataNilai) {
-        String[][] nilaiBaru = new String[NilaiPancasila.length + 1][5];
-        for (int i = 0; i < NilaiPancasila.length; i++) {
-            nilaiBaru[i] = NilaiPancasila[i];
+    static void addNilai(String[][] Array, String... dataNilai) {
+        String[][] nilaiBaru = new String[Array.length + 1][5];
+        for (int i = 0; i < Array.length; i++) {
+            nilaiBaru[i] = Array[i];
         }
         nilaiBaru[nilaiBaru.length - 1] = dataNilai;
-        NilaiPancasila = nilaiBaru;
+        Array = nilaiBaru;
         System.out.println("Nilai telah berhasil ditambahkan");
     }
 
@@ -915,8 +912,8 @@ public class MainApps {
                 _2 = getInputStringNumberwithLimit("Index Kode matkul(1-8)", 1, 8, false);
                 _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
                 min += Integer.parseInt(_3);
-                System.out.printf("%s-%s-%s%n", _1, matkulTI[Integer.parseInt(_2)-1][2], _3);
-                tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2)-1][0] + "-" + _3;
+                System.out.printf("%s-%s-%s%n", _1, matkulTI[Integer.parseInt(_2) - 1][2], _3);
+                tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2) - 1][0] + "-" + _3;
                 if (min > 8)
                     break;
                 String next = getInputUniqueWord("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1, true,
