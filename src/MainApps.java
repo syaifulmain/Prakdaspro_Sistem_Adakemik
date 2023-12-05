@@ -629,57 +629,28 @@ public class MainApps {
     // add data nilai mahasiswa
     static void addDataNilaiMahasiswa(String nim) {
         // instasiasi nilai matkul
-        int arrayLength = NilaiPancasila.length;
-        String[][] tempArrayNilai = new String[NilaiPancasila.length + 1][5];
-        tempArrayNilai[tempArrayNilai.length - 1] = new String[] { nim, "0", "0", "0", "0" };
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiPancasila[i];
-        }
-        NilaiPancasila = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiKTI[i];
-        }
-        NilaiKTI = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiCTPS[i];
-        }
-        NilaiCTPS = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiMATDAS[i];
-        }
-        NilaiMATDAS = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiBING_1[i];
-        }
-        NilaiBING_1 = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiDASPRO[i];
-        }
-        NilaiDASPRO = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiPRAK_DASPRO[i];
-        }
-        NilaiPRAK_DASPRO = tempArrayNilai;
-
-        for (int i = 0; i < arrayLength; i++) {
-            tempArrayNilai[i] = NilaiK3[i];
-        }
-        NilaiK3 = tempArrayNilai;
-
+        NilaiPancasila = addDataNilaiMahasiswa(nim, NilaiPancasila);
+        NilaiKTI = addDataNilaiMahasiswa(nim, NilaiKTI);
+        NilaiCTPS = addDataNilaiMahasiswa(nim, NilaiCTPS);
+        NilaiMATDAS = addDataNilaiMahasiswa(nim, NilaiMATDAS);
+        NilaiBING_1 = addDataNilaiMahasiswa(nim, NilaiBING_1);
+        NilaiDASPRO = addDataNilaiMahasiswa(nim, NilaiDASPRO);
+        NilaiPRAK_DASPRO = addDataNilaiMahasiswa(nim, NilaiPRAK_DASPRO);
+        NilaiK3 = addDataNilaiMahasiswa(nim, NilaiK3);
         // instasiasi nilai transkip
-        tempArrayNilai = new String[transkipNilai.length][9];
-        tempArrayNilai[tempArrayNilai.length - 1] = new String[] { nim, "0", "0", "0", "0", "0", "0", "0", "0" };
-        for (int i = 0; i < transkipNilai.length; i++) {
-            tempArrayNilai[i] = transkipNilai[i];
-        }
-        transkipNilai = tempArrayNilai;
+        transkipNilai = addDataNilaiMahasiswa(nim, transkipNilai);
+    }
 
+    // add data nilai mahasiswa
+    static String[][] addDataNilaiMahasiswa(String nim, String[][] arrayNilai) {
+        String[][] tempArrayNilai = new String[arrayNilai.length + 1][arrayNilai[0].length];
+        for (int i = 0; i < tempArrayNilai[0].length; i++) {
+            tempArrayNilai[tempArrayNilai.length - 1][i] = (i == 0) ? nim : "0";
+        }
+        for (int i = 0; i < arrayNilai.length; i++) {
+            tempArrayNilai[i] = arrayNilai[i];
+        }
+        return tempArrayNilai;
     }
 
     // edit data bio mahasiswa
@@ -749,15 +720,15 @@ public class MainApps {
             clearScreen();
             System.out.println("Mahasiswa dengan NIM " + nim + " tidak ada!");
         }
-        String[][] filteredStudents = new String[bioMahasiswa.length - 1][4];
+        String[][] tempArray = new String[bioMahasiswa.length - 1][4];
         int count = 0;
-        for (String[] student : bioMahasiswa) {
-            if (student[0].equals(nim))
+        for (String[] siswa : bioMahasiswa) {
+            if (siswa[0].equals(nim))
                 continue;
-            filteredStudents[count] = student;
+            tempArray[count] = siswa;
             count++;
         }
-        bioMahasiswa = filteredStudents;
+        bioMahasiswa = tempArray;
         clearScreen();
         System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
     }
