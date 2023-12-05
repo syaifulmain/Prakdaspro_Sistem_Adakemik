@@ -628,6 +628,7 @@ public class MainApps {
 
     // add data nilai mahasiswa
     static void addDataNilaiMahasiswa(String nim) {
+        // instasiasi nilai matkul
         int arrayLength = NilaiPancasila.length;
         String[][] tempArrayNilai = new String[NilaiPancasila.length + 1][5];
         tempArrayNilai[tempArrayNilai.length - 1] = new String[] { nim, "0", "0", "0", "0" };
@@ -670,6 +671,15 @@ public class MainApps {
             tempArrayNilai[i] = NilaiK3[i];
         }
         NilaiK3 = tempArrayNilai;
+
+        // instasiasi nilai transkip
+        tempArrayNilai = new String[transkipNilai.length][9];
+        tempArrayNilai[tempArrayNilai.length - 1] = new String[] { nim, "0", "0", "0", "0", "0", "0", "0", "0" };
+        for (int i = 0; i < transkipNilai.length; i++) {
+            tempArrayNilai[i] = transkipNilai[i];
+        }
+        transkipNilai = tempArrayNilai;
+
     }
 
     // edit data bio mahasiswa
