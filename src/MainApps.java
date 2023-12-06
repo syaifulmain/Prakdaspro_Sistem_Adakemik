@@ -511,6 +511,7 @@ public class MainApps {
                     "DASPRO",
                     "PRAK_DASPRO",
                     "K3",
+                    "Kembali"
             });
             clearScreen();
             switch (userInput) {
@@ -522,10 +523,15 @@ public class MainApps {
                 case 6 -> editNilaiMatkul(NilaiDASPRO, "DASPRO");
                 case 7 -> editNilaiMatkul(NilaiPRAK_DASPRO, "PRAK_DASPRO");
                 case 8 -> editNilaiMatkul(NilaiK3, "K3");
+                case 9 -> {
+                    clearScreen();
+                    return;
+                }
             }
         }
     }
     static void editNilaiMatkul(String[][] Array, String matkul) {
+        String ubah="";
         while (true) {
             renderTitle("Edit Nilai " + matkul);
             showNilai(Array);
@@ -536,8 +542,29 @@ public class MainApps {
             } else if (nim.equals(null)) {
                 return;
             }
+            int userInput =pickMenu("Pilih Nilai", new String[] {
+                    "Kuis",
+                    "Tugas",
+                    "UTS",
+                    "UAS",
+                    "Kembali"
+            });
+            switch (userInput) {
+                case 1 -> ubah= getInputStringNumberwithLimit("Ganti Kuis", 0, 100, false);
+                case 2 -> ubah= getInputStringNumberwithLimit("Ganti Tugas", 0, 100, false);
+                case 3 -> ubah= getInputStringNumberwithLimit("Ganti UTS", 0, 100, false);
+                case 4 -> ubah= getInputStringNumberwithLimit("Ganti UAS", 0, 100, false);
+                case 5 -> {
+                    clearScreen();
+                    return;
+                }
+            }
+            String userChoose = getInputUniqueWord("Ubah data? y/t", 1, 1, true, "y", "t");
+
+            }
         }
-    }
+    
+    
 
     /* <--- DASHBOARD ADMIN ---> */
     // menu dashboard admin
