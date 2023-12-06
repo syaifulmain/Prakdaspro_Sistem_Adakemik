@@ -395,8 +395,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> tambahNilai();
-                // case 1 -> tambahNilai();
-                // case 2 -> editNilai();
+                case 2 -> editNilai();
             }
         }
     }
@@ -499,6 +498,45 @@ public class MainApps {
         }
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
+    }
+    static void editNilai(){
+        while (true) {
+            renderTitle("Edit Nilai");
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Pancasila",
+                    "KTI",
+                    "CTPS",
+                    "MATDAS",
+                    "BING_1",
+                    "DASPRO",
+                    "PRAK_DASPRO",
+                    "K3",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> editNilaiMatkul(NilaiPancasila, "Pancasila");
+                case 2 -> editNilaiMatkul(NilaiKTI, "KTI");
+                case 3 -> editNilaiMatkul(NilaiCTPS, "CTPS");
+                case 4 -> editNilaiMatkul(NilaiMATDAS, "MATDAS");
+                case 5 -> editNilaiMatkul(NilaiBING_1, "BING_1");
+                case 6 -> editNilaiMatkul(NilaiDASPRO, "DASPRO");
+                case 7 -> editNilaiMatkul(NilaiPRAK_DASPRO, "PRAK_DASPRO");
+                case 8 -> editNilaiMatkul(NilaiK3, "K3");
+            }
+        }
+    }
+    static void editNilaiMatkul(String[][] Array, String matkul) {
+        while (true) {
+            renderTitle("Edit Nilai " + matkul);
+            showNilai(Array);
+            String nim = getInputStringWithLimit("Masukan NIM", 10, 10, true);
+            if (!has(bioMahasiswa, nim, 0)) {
+                System.out.println("NIM " + nim + " tidak ditemukan");
+                return;
+            } else if (nim.equals(null)) {
+                return;
+            }
+        }
     }
 
     /* <--- DASHBOARD ADMIN ---> */
