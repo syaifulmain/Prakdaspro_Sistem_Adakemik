@@ -478,46 +478,24 @@ public class MainApps {
                 break;
             }
         }
+        String[][] nilaiBaru = new String[Array.length][4];
+        nilaiBaru[studentIndex] = new String[] { nim, kuis, tugas, uts, uas };
         if (matkul.equals("Pancasila")) {
-            NilaiPancasila[studentIndex][1] = kuis;
-            NilaiPancasila[studentIndex][2] = tugas;
-            NilaiPancasila[studentIndex][3] = uts;
-            NilaiPancasila[studentIndex][4] = uas;
+            NilaiPancasila[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("KTI")) {
-            NilaiKTI[studentIndex][1] = kuis;
-            NilaiKTI[studentIndex][2] = tugas;
-            NilaiKTI[studentIndex][3] = uts;
-            NilaiKTI[studentIndex][4] = uas;
+            NilaiKTI[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("CTPS")) {
-            NilaiCTPS[studentIndex][1] = kuis;
-            NilaiCTPS[studentIndex][2] = tugas;
-            NilaiCTPS[studentIndex][3] = uts;
-            NilaiCTPS[studentIndex][4] = uas;
+            NilaiCTPS[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("MATDAS")) {
-            NilaiMATDAS[studentIndex][1] = kuis;
-            NilaiMATDAS[studentIndex][2] = tugas;
-            NilaiMATDAS[studentIndex][3] = uts;
-            NilaiMATDAS[studentIndex][4] = uas;
+            NilaiMATDAS[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("BING_1")) {
-            NilaiBING_1[studentIndex][1] = kuis;
-            NilaiBING_1[studentIndex][2] = tugas;
-            NilaiBING_1[studentIndex][3] = uts;
-            NilaiBING_1[studentIndex][4] = uas;
+            NilaiBING_1[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("DASPRO")) {
-            NilaiDASPRO[studentIndex][1] = kuis;
-            NilaiDASPRO[studentIndex][2] = tugas;
-            NilaiDASPRO[studentIndex][3] = uts;
-            NilaiDASPRO[studentIndex][4] = uas;
+            NilaiDASPRO[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("PRAK_DASPRO")) {
-            NilaiPRAK_DASPRO[studentIndex][1] = kuis;
-            NilaiPRAK_DASPRO[studentIndex][2] = tugas;
-            NilaiPRAK_DASPRO[studentIndex][3] = uts;
-            NilaiPRAK_DASPRO[studentIndex][4] = uas;
+            NilaiPRAK_DASPRO[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("K3")) {
-            NilaiK3[studentIndex][1] = kuis;
-            NilaiK3[studentIndex][2] = tugas;
-            NilaiK3[studentIndex][3] = uts;
-            NilaiK3[studentIndex][4] = uas;
+            NilaiK3[studentIndex] = nilaiBaru[studentIndex];
         }
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
