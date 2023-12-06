@@ -117,7 +117,7 @@ public class MainApps {
                 { "3333333333", "80", "83", "54", "87" },
                 { "4444444444", "99", "81", "60", "83" },
                 { "5555555555", "78", "81", "90", "82" },
-                 { "6666666666", "0", "0", "0", "0" }
+                { "6666666666", "0", "0", "0", "0" }
         };
         NilaiCTPS = new String[][] {
 
@@ -499,7 +499,8 @@ public class MainApps {
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
     }
-    static void editNilai(){
+
+    static void editNilai() {
         while (true) {
             renderTitle("Edit Nilai");
             int userInput = pickMenu("Menu : ", new String[] {
@@ -530,8 +531,9 @@ public class MainApps {
             }
         }
     }
+
     static void editNilaiMatkul(String[][] Array, String matkul) {
-        String ubah="";
+        String ubah = "";
         while (true) {
             renderTitle("Edit Nilai " + matkul);
             showNilai(Array);
@@ -542,7 +544,14 @@ public class MainApps {
             } else if (nim.equals(null)) {
                 return;
             }
-            int userInput =pickMenu("Pilih Nilai", new String[] {
+            int studentIndex = -1;
+            for (int i = 0; i < Array.length; i++) {
+                if (Array[i][0].equals(nim)) {
+                    studentIndex = i;
+                    break;
+                }
+            }
+            int userInput = pickMenu("Pilih Nilai", new String[] {
                     "Kuis",
                     "Tugas",
                     "UTS",
@@ -550,21 +559,64 @@ public class MainApps {
                     "Kembali"
             });
             switch (userInput) {
-                case 1 -> ubah= getInputStringNumberwithLimit("Ganti Kuis", 0, 100, false);
-                case 2 -> ubah= getInputStringNumberwithLimit("Ganti Tugas", 0, 100, false);
-                case 3 -> ubah= getInputStringNumberwithLimit("Ganti UTS", 0, 100, false);
-                case 4 -> ubah= getInputStringNumberwithLimit("Ganti UAS", 0, 100, false);
+                case 1 -> ubah = getInputStringNumberwithLimit("Ganti Nilai Kuis", 0, 100, false);
+                case 2 -> ubah = getInputStringNumberwithLimit("Ganti Nilai Tugas", 0, 100, false);
+                case 3 -> ubah = getInputStringNumberwithLimit("Ganti Nilai UTS", 0, 100, false);
+                case 4 -> ubah = getInputStringNumberwithLimit("Ganti Nilai UAS", 0, 100, false);
                 case 5 -> {
                     clearScreen();
                     return;
                 }
             }
             String userChoose = getInputUniqueWord("Ubah data? y/t", 1, 1, true, "y", "t");
+            if (userChoose.equalsIgnoreCase("y")) {
+                if (matkul.equals("Pancasila")) {
+                    NilaiPancasila[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else if (matkul.equals("KTI")) {
+                    NilaiKTI[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else if (matkul.equals("CTPS")) {
+                    NilaiCTPS[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else if (matkul.equals("MATDAS")) {
+                    NilaiMATDAS[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else if (matkul.equals("BING_1")) {
+                    NilaiBING_1[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else if (matkul.equals("DASPRO")) {
+                    NilaiDASPRO[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    return;
+                } else if (matkul.equals("PRAK_DASPRO")) {
+                    NilaiPRAK_DASPRO[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else if (matkul.equals("K3")) {
+                    NilaiK3[studentIndex][userInput] = ubah;
+                    clearScreen();
+                    System.out.println("Berhasil mengubah nilai " + matkul);
+                    return;
+                } else {
+                    System.out.println("Dibatalkan");
+                    return;
+                }
 
             }
         }
-    
-    
+    }
 
     /* <--- DASHBOARD ADMIN ---> */
     // menu dashboard admin
