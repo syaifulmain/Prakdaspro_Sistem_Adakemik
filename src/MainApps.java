@@ -42,7 +42,24 @@ public class MainApps {
     static String[][] jadwal_1E;
     /* JADWAL */
 
+    /* Presensi Mahasiswa */
+    static String[][] presensiMahasiswa;
+    /* Presensi Mahasiswa */
+
     /* <--- mengisi data array ---> */
+
+    static void fillPresensi() {
+        // NIM, ALPHA, IZIN, SAKIT
+        presensiMahasiswa = new String[][] {
+                { "1111111111", "0", "0", "0" },
+                { "2222222222", "0", "0", "0" },
+                { "3333333333", "0", "0", "0" },
+                { "4444444444", "0", "0", "0" },
+                { "5555555555", "0", "0", "0" },
+                { "6666666666", "0", "0", "0" },
+        };
+    }
+
     static void fillJadwal() {
         matkulTI = new String[][] {
                 { "RTI231001", "PANCASILA", "Pancasila", "2" },
@@ -94,11 +111,12 @@ public class MainApps {
     static void FillNilaiMatkul() {
         // kuis,tugas,uts,uas
         transkipNilai = new String[][] {
-                { "1111111111", "72,75", "72.75", "84.75", "72.75", "76.5", "75.25", "76.25", "75.25" },
+                { "1111111111", "72.75", "72.75", "84.75", "72.75", "76.5", "75.25", "76.25", "75.25" },
                 { "2222222222", "78.25", "78.25", "87.25", "72.75", "78.25", "78.25", "90.25", "78.25" },
                 { "3333333333", "76", "76", "74.25", "75", "85", "76", "86.5", "76" },
                 { "4444444444", "80.75", "80.75", "77.5", "80.75", "80.75", "80.75", "78", "80.75" },
                 { "5555555555", "82.75", "82.75", "88", "82.75", "84.75", "82.75", "63.75", "82.75" },
+                { "6666666666", "0", "0", "0", "0", "0", "0", "0", "0" }
 
         };
         NilaiPancasila = new String[][] {
@@ -189,6 +207,7 @@ public class MainApps {
                 { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
                 { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
                 { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+
         };
         userDosen = new String[][] {
                 { "dosen", "dosen" },
@@ -224,6 +243,7 @@ public class MainApps {
         fillDosen();
         fillMahasiswa();
         FillNilaiMatkul();
+        fillPresensi();
     }
     /* <--- mengisi data array ---> */
 
@@ -625,7 +645,7 @@ public class MainApps {
     }
 
     static void checkNilai() {
-         int studentIndex = -1;
+        int studentIndex = -1;
         renderTitle("Check Nilai");
 
         renderTitle("Pancasila");
@@ -654,28 +674,28 @@ public class MainApps {
             } else if (nim.equals(null)) {
                 return;
             } else
-            for (int i = 0; i < bioMahasiswa.length; i++) {
-                if (bioMahasiswa[i][0].equals(nim)) {
-                    studentIndex = i;
-                    break;
+                for (int i = 0; i < bioMahasiswa.length; i++) {
+                    if (bioMahasiswa[i][0].equals(nim)) {
+                        studentIndex = i;
+                        break;
+                    }
                 }
-            }
             renderTitle("Pancasila");
-            showNilaiMahasiswa(NilaiPancasila,studentIndex);
+            showNilaiMahasiswa(NilaiPancasila, studentIndex);
             renderTitle("Konsep Teknologi Informasi");
-            showNilaiMahasiswa(NilaiKTI,studentIndex);
+            showNilaiMahasiswa(NilaiKTI, studentIndex);
             renderTitle("Critical Thinking dan Problem Solving");
-            showNilaiMahasiswa(NilaiCTPS,studentIndex);
+            showNilaiMahasiswa(NilaiCTPS, studentIndex);
             renderTitle("Matekmatika Dasar");
-            showNilaiMahasiswa(NilaiMATDAS,studentIndex);
+            showNilaiMahasiswa(NilaiMATDAS, studentIndex);
             renderTitle("Bahasa Inggris 1");
-            showNilaiMahasiswa(NilaiBING_1,studentIndex);
+            showNilaiMahasiswa(NilaiBING_1, studentIndex);
             renderTitle("Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiDASPRO,studentIndex);
+            showNilaiMahasiswa(NilaiDASPRO, studentIndex);
             renderTitle("Praktikum Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiPRAK_DASPRO,studentIndex);
+            showNilaiMahasiswa(NilaiPRAK_DASPRO, studentIndex);
             renderTitle("Keselamatan dan Kesehatan Kerja");
-            showNilaiMahasiswa(NilaiK3,studentIndex);
+            showNilaiMahasiswa(NilaiK3, studentIndex);
             return;
         } else
             System.out.println("Dibatalkan");
@@ -688,9 +708,10 @@ public class MainApps {
         System.out.println(horizonLine);
         System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
-            String[] takeNilai = Array[studentIndex];
-            System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex], takeNilai[1], takeNilai[2],
-                    takeNilai[3], takeNilai[4]);
+        String[] takeNilai = Array[studentIndex];
+        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex],
+                takeNilai[1], takeNilai[2],
+                takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
     }
 
@@ -732,8 +753,7 @@ public class MainApps {
             switch (userInput) {
                 case 1 -> handleListMahasiswa();
                 case 2 -> transkipNilai();
-                case 3 -> {
-                }
+                case 3 -> presensiMahasiswa();
                 case 4 -> {
                     return;
                 }
@@ -823,7 +843,7 @@ public class MainApps {
         userBaru[userBaru.length - 1] = new String[] { dataBio[0], dataBio[0] };
         userMahasiswa = userBaru;
 
-        // add nilai mahasiswa
+        // instansisasi nilai,transkip,presensi mahasiswa
         addDataNilaiMahasiswa(dataBio[0]);
     }
 
@@ -840,6 +860,9 @@ public class MainApps {
         NilaiK3 = addDataNilaiMahasiswa(nim, NilaiK3);
         // instasiasi nilai transkip
         transkipNilai = addDataNilaiMahasiswa(nim, transkipNilai);
+
+        // instasi nilai presensi
+        presensiMahasiswa = addDataNilaiMahasiswa(nim, presensiMahasiswa);
     }
 
     // add data nilai mahasiswa
@@ -939,21 +962,71 @@ public class MainApps {
         while (true) {
             System.out.println("Siakad / Modul Mahasiswa / Transkip Nilai");
             renderTitle("Transkip Nilai");
+            tampilkanTranskipNilai();
             int userInput = pickMenu("Menu : ", new String[] {
                     "Kembali",
             });
             clearScreen();
             switch (userInput) {
+                case 1 -> {
+                    return;
+                }
             }
         }
     }
 
     static void tampilkanTranskipNilai() {
-        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
+        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
         System.out.println(horizonLine);
         System.out.format(
-                "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+            "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+            System.out.println(horizonLine);
+        for (int i = 0; i < transkipNilai.length; i++) {
+            String[] takeTranskip = transkipNilai[i];
+            System.out.printf(formatTable, (i + 1), takeTranskip[0], bioMahasiswa[i][1], bioMahasiswa[i][5],
+                    takeTranskip[1], takeTranskip[2], takeTranskip[3], takeTranskip[4], takeTranskip[5],
+                    takeTranskip[6], takeTranskip[7], takeTranskip[8], rataRataNilai(i));
+        }
+        System.out.println(horizonLine);
+    }
+
+    static String rataRataNilai(int index) {
+        float total = 0;
+        for (int i = 1; i < transkipNilai[index].length; i++) {
+            total += Float.parseFloat(transkipNilai[index][i]);
+        }    
+        return String.format("%.2f", total / 8);
+    }
+
+    static void presensiMahasiswa() {
+        while (true) {
+            System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
+            renderTitle("Presensi Mahasiswa");
+            tampilkanPresensiMahasiswa();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Kembali",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> {
+                    return;
+                }
+            }
+        }
+    }
+
+    static void tampilkanPresensiMahasiswa() {
+        String formatTable = "| %-3s | %-10s | %-25s | %-2s  | %-2s  | %-2s  |%n";
+        String horizonLine = "+-----+------------+---------------------------+-----+-----+-----+";
+        System.out.println(horizonLine);
+        System.out.format("| NO  | NIM        | NAMA                      |  A  |  I  |  S  |%n");
+        System.out.println(horizonLine);
+        for (int i = 0; i < presensiMahasiswa.length; i++) {
+            String[] takePresensi = presensiMahasiswa[i];
+            System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
+                    takePresensi[2], takePresensi[3]);
+        }
         System.out.println(horizonLine);
     }
 
