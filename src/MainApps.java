@@ -387,15 +387,21 @@ public class MainApps {
 
     static void penilaianMahasiswa() {
         while (true) {
-            renderTitle("Penilian Mahasiswa");
+            renderTitle("Penilaian Mahasiswa");
             int userInput = pickMenu("Menu : ", new String[] {
                     "Tambah Nilai",
                     "Edit Nilai",
+                    "Check Nilai",
+                    "Kembali",
             });
             clearScreen();
             switch (userInput) {
                 case 1 -> tambahNilai();
                 case 2 -> editNilai();
+                case 3 -> checkNilai();
+                case 4 -> {
+                    return;
+                }
             }
         }
     }
@@ -616,6 +622,76 @@ public class MainApps {
 
             }
         }
+    }
+
+    static void checkNilai() {
+         int studentIndex = -1;
+        renderTitle("Check Nilai");
+
+        renderTitle("Pancasila");
+        showNilai(NilaiPancasila);
+        renderTitle("Konsep Teknologi Informasi");
+        showNilai(NilaiKTI);
+        renderTitle("Critical Thinking dan Problem Solving");
+        showNilai(NilaiCTPS);
+        renderTitle("Matekmatika Dasar");
+        showNilai(NilaiMATDAS);
+        renderTitle("Bahasa Inggris 1");
+        showNilai(NilaiBING_1);
+        renderTitle("Dasar Pemrograman");
+        showNilai(NilaiDASPRO);
+        renderTitle("Praktikum Dasar Pemrograman");
+        showNilai(NilaiPRAK_DASPRO);
+        renderTitle("Keselamatan dan Kesehatan Kerja");
+        showNilai(NilaiK3);
+        String userChoose = getInputUniqueWord("Cari Nilai Seorang Mahasiswa ? y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("y")) {
+            String nim = getInputStringWithLimit("Masukan NIM", 10, 10, true);
+            if (!has(bioMahasiswa, nim, 0)) {
+                System.out.println("NIM " + nim + " tidak ditemukan");
+                return;
+            } else if (nim.equals(null)) {
+                return;
+            } else
+            for (int i = 0; i < bioMahasiswa.length; i++) {
+                if (bioMahasiswa[i][0].equals(nim)) {
+                    studentIndex = i;
+                    break;
+                }
+            }
+            renderTitle("Pancasila");
+            showNilaiMahasiswa(NilaiPancasila,studentIndex);
+            renderTitle("Konsep Teknologi Informasi");
+            showNilaiMahasiswa(NilaiKTI,studentIndex);
+            renderTitle("Critical Thinking dan Problem Solving");
+            showNilaiMahasiswa(NilaiCTPS,studentIndex);
+            renderTitle("Matekmatika Dasar");
+            showNilaiMahasiswa(NilaiMATDAS,studentIndex);
+            renderTitle("Bahasa Inggris 1");
+            showNilaiMahasiswa(NilaiBING_1,studentIndex);
+            renderTitle("Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiDASPRO,studentIndex);
+            renderTitle("Praktikum Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiPRAK_DASPRO,studentIndex);
+            renderTitle("Keselamatan dan Kesehatan Kerja");
+            showNilaiMahasiswa(NilaiK3,studentIndex);
+            return;
+        } else
+            System.out.println("Dibatalkan");
+        return;
+    }
+
+    static void showNilaiMahasiswa(String[][] Array, int studentIndex) {
+        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
+        String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
+        System.out.println(horizonLine);
+        System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
+        System.out.println(horizonLine);
+            String[] takeNilai = Array[studentIndex];
+            System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex], takeNilai[1], takeNilai[2],
+                    takeNilai[3], takeNilai[4]);
+        System.out.println(horizonLine);
     }
 
     /* <--- DASHBOARD ADMIN ---> */
