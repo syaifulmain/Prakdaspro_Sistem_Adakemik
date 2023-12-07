@@ -90,6 +90,7 @@ public class MainApps {
                 { "1-RTI231006-4", "8-RTI231003-4", null },
         };
     }
+
     // array untuk mengisi nilai matakuliah
     static void FillNilaiMatkul() {
         // kuis,tugas,uts,uas
@@ -165,7 +166,6 @@ public class MainApps {
                 { "6666666666", "0", "0", "0", "0" }
         };
         NilaiK3 = new String[][] {
-
                 { "1111111111", "87", "89", "45", "80" },
                 { "2222222222", "90", "84", "50", "89" },
                 { "3333333333", "80", "83", "54", "87" },
@@ -384,7 +384,8 @@ public class MainApps {
             }
         }
     }
-    //meilih menu penilaian mahasiswa
+
+    // meilih menu penilaian mahasiswa
     static void penilaianMahasiswa() {
         while (true) {
             renderTitle("Penilaian Mahasiswa");
@@ -405,6 +406,7 @@ public class MainApps {
             }
         }
     }
+
     // memilih matakuliah untuk menambahkan nilai
     static void tambahNilai() {
         while (true) {
@@ -432,7 +434,8 @@ public class MainApps {
             }
         }
     }
-    //fungsi menampilkan nilai
+
+    // fungsi menampilkan nilai
     static void showNilai(String[][] Array) {
 
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
@@ -447,7 +450,8 @@ public class MainApps {
         }
         System.out.println(horizonLine);
     }
-    //interface menambahkan nilai
+
+    // interface menambahkan nilai
     static void tambahNilaiMatkul(String[][] Array, String matkul) {
         while (true) {
             renderTitle("Tambah Nilai " + matkul);
@@ -506,7 +510,8 @@ public class MainApps {
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
     }
-    //Edit Nilai
+
+    // Edit Nilai
     static void editNilai() {
         while (true) {
             renderTitle("Edit Nilai");
@@ -538,7 +543,8 @@ public class MainApps {
             }
         }
     }
-    //Edit Nilai mata kuliah
+
+    // Edit Nilai mata kuliah
     static void editNilaiMatkul(String[][] Array, String matkul) {
         String ubah = "";
         while (true) {
@@ -624,9 +630,10 @@ public class MainApps {
             }
         }
     }
-    //fitur check nilai
+
+    // fitur check nilai
     static void checkNilai() {
-         int studentIndex = -1;
+        int studentIndex = -1;
         renderTitle("Check Nilai");
         renderTitle("Pancasila");
         showNilai(NilaiPancasila);
@@ -654,27 +661,28 @@ public class MainApps {
             } else if (nim.equals(null)) {
                 return;
             } else
-            for (int i = 0; i < bioMahasiswa.length; i++) {
-                if (bioMahasiswa[i][0].equals(nim)) {
-                    studentIndex = i;
-                    break;
+                for (int i = 0; i < bioMahasiswa.length; i++) {
+                    if (bioMahasiswa[i][0].equals(nim)) {
+                        studentIndex = i;
+                        break;
+                    }
                 }
-            }
             clearScreen();
-            renderTitle("Check Nilai Mahasiswa dengan NIM: "+nim);
-            showNilaiMahasiswa(NilaiPancasila,studentIndex,"Pancasila");
-            showNilaiMahasiswa(NilaiKTI,studentIndex,"Konsep Teknologi Informasi");
-            showNilaiMahasiswa(NilaiCTPS,studentIndex,"Critical Thinking dan Problem Solving");
-            showNilaiMahasiswa(NilaiMATDAS,studentIndex,"Matekmatika Dasar");
-            showNilaiMahasiswa(NilaiBING_1,studentIndex,"Bahasa Inggris 1");
-            showNilaiMahasiswa(NilaiDASPRO,studentIndex,"Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiPRAK_DASPRO,studentIndex,"Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiK3,studentIndex,"Keselamatan dan Kesehatan Kerja");
+            renderTitle("Check Nilai Mahasiswa dengan NIM: " + nim);
+            showNilaiMahasiswa(NilaiPancasila, studentIndex, "Pancasila");
+            showNilaiMahasiswa(NilaiKTI, studentIndex, "Konsep Teknologi Informasi");
+            showNilaiMahasiswa(NilaiCTPS, studentIndex, "Critical Thinking dan Problem Solving");
+            showNilaiMahasiswa(NilaiMATDAS, studentIndex, "Matekmatika Dasar");
+            showNilaiMahasiswa(NilaiBING_1, studentIndex, "Bahasa Inggris 1");
+            showNilaiMahasiswa(NilaiDASPRO, studentIndex, "Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiPRAK_DASPRO, studentIndex, "Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiK3, studentIndex, "Keselamatan dan Kesehatan Kerja");
         } else
             System.out.println("Dibatalkan");
         return;
     }
-    //Menampilkan nilai mahasiswa per orang
+
+    // Menampilkan nilai mahasiswa per orang
     static void showNilaiMahasiswa(String[][] Array, int studentIndex, String matkul) {
         renderTitle(matkul);
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
@@ -682,9 +690,10 @@ public class MainApps {
         System.out.println(horizonLine);
         System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
-            String[] takeNilai = Array[studentIndex];
-            System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][1], takeNilai[1], takeNilai[2],
-                    takeNilai[3], takeNilai[4]);
+        String[] takeNilai = Array[studentIndex];
+        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][1], takeNilai[1],
+                takeNilai[2],
+                takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
         return;
     }
