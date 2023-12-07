@@ -627,7 +627,6 @@ public class MainApps {
     static void checkNilai() {
          int studentIndex = -1;
         renderTitle("Check Nilai");
-
         renderTitle("Pancasila");
         showNilai(NilaiPancasila);
         renderTitle("Konsep Teknologi Informasi");
@@ -645,8 +644,8 @@ public class MainApps {
         renderTitle("Keselamatan dan Kesehatan Kerja");
         showNilai(NilaiK3);
         String userChoose = getInputUniqueWord("Cari Nilai Seorang Mahasiswa ? y/t", 1, 1, true, "y", "t");
-        clearScreen();
         if (userChoose.equalsIgnoreCase("y")) {
+            clearScreen();
             String nim = getInputStringWithLimit("Masukan NIM", 10, 10, true);
             if (!has(bioMahasiswa, nim, 0)) {
                 System.out.println("NIM " + nim + " tidak ditemukan");
@@ -660,29 +659,23 @@ public class MainApps {
                     break;
                 }
             }
-            renderTitle("Pancasila");
-            showNilaiMahasiswa(NilaiPancasila,studentIndex);
-            renderTitle("Konsep Teknologi Informasi");
-            showNilaiMahasiswa(NilaiKTI,studentIndex);
-            renderTitle("Critical Thinking dan Problem Solving");
-            showNilaiMahasiswa(NilaiCTPS,studentIndex);
-            renderTitle("Matekmatika Dasar");
-            showNilaiMahasiswa(NilaiMATDAS,studentIndex);
-            renderTitle("Bahasa Inggris 1");
-            showNilaiMahasiswa(NilaiBING_1,studentIndex);
-            renderTitle("Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiDASPRO,studentIndex);
-            renderTitle("Praktikum Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiPRAK_DASPRO,studentIndex);
-            renderTitle("Keselamatan dan Kesehatan Kerja");
-            showNilaiMahasiswa(NilaiK3,studentIndex);
-            return;
+            clearScreen();
+            renderTitle("Check Nilai Mahasiswa dengan NIM: "+nim);
+            showNilaiMahasiswa(NilaiPancasila,studentIndex,"Pancasila");
+            showNilaiMahasiswa(NilaiKTI,studentIndex,"Konsep Teknologi Informasi");
+            showNilaiMahasiswa(NilaiCTPS,studentIndex,"Critical Thinking dan Problem Solving");
+            showNilaiMahasiswa(NilaiMATDAS,studentIndex,"Matekmatika Dasar");
+            showNilaiMahasiswa(NilaiBING_1,studentIndex,"Bahasa Inggris 1");
+            showNilaiMahasiswa(NilaiDASPRO,studentIndex,"Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiPRAK_DASPRO,studentIndex,"Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiK3,studentIndex,"Keselamatan dan Kesehatan Kerja");
         } else
             System.out.println("Dibatalkan");
         return;
     }
 
-    static void showNilaiMahasiswa(String[][] Array, int studentIndex) {
+    static void showNilaiMahasiswa(String[][] Array, int studentIndex, String matkul) {
+        renderTitle(matkul);
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
         System.out.println(horizonLine);
@@ -692,6 +685,7 @@ public class MainApps {
             System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex], takeNilai[1], takeNilai[2],
                     takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
+        return;
     }
 
     /* <--- DASHBOARD ADMIN ---> */
