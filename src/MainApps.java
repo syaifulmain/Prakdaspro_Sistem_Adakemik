@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class MainApps {
@@ -44,6 +45,9 @@ public class MainApps {
 
     /* Presensi Mahasiswa */
     static String[][] presensiMahasiswa;
+
+    /* Array Lomba */
+    static String[][] lomba;
     /* Presensi Mahasiswa */
 
     /* <--- mengisi data array ---> */
@@ -237,6 +241,14 @@ public class MainApps {
         };
     }
 
+    static void fillLomba() {
+        lomba = new String[][] {
+                { "ROAD TO MAIN EVENT DIES NATALIS BK KE-59", "https://www.instagram.com/p/CzioxbgP0LE/?img_index=1" },
+                { "ENSPIRIT 5.0 [INTERNATIONAL BUSINESS CASE COMPETITION]","https://www.instagram.com/p/C0imfHuvPzI/" },
+                { "[OPEN REGISTRATION AUDIT CASE CHALLENGE THE 23RD ATV ]", "https://www.instagram.com/p/C0gppzgPkJN/" }
+        };
+    }
+
     static void fill() {
         fillJadwal();
         fillAdmin();
@@ -244,6 +256,7 @@ public class MainApps {
         fillMahasiswa();
         FillNilaiMatkul();
         fillPresensi();
+        fillLomba();
     }
     /* <--- mengisi data array ---> */
 
@@ -710,9 +723,10 @@ public class MainApps {
         System.out.println(horizonLine);
         System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
-            String[] takeNilai = Array[studentIndex];
-            System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex], takeNilai[1], takeNilai[2],
-                    takeNilai[3], takeNilai[4]);
+        String[] takeNilai = Array[studentIndex];
+        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex],
+                takeNilai[1], takeNilai[2],
+                takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
         return;
     }
@@ -982,8 +996,8 @@ public class MainApps {
         String horizonLine = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
         System.out.println(horizonLine);
         System.out.format(
-            "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
-            System.out.println(horizonLine);
+                "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+        System.out.println(horizonLine);
         for (int i = 0; i < transkipNilai.length; i++) {
             String[] takeTranskip = transkipNilai[i];
             System.out.printf(formatTable, (i + 1), takeTranskip[0], bioMahasiswa[i][1], bioMahasiswa[i][5],
@@ -997,7 +1011,7 @@ public class MainApps {
         float total = 0;
         for (int i = 1; i < transkipNilai[index].length; i++) {
             total += Float.parseFloat(transkipNilai[index][i]);
-        }    
+        }
         return String.format("%.2f", total / 8);
     }
 
@@ -1048,13 +1062,14 @@ public class MainApps {
             int userInput = pickMenu("Menu : ", new String[] {
                     "Penempatan Kelas Mahasiswa",
                     "Penjadwalan",
-                    "Penembatan Matkul dan Kelas Pengajar",
+                    "Info Lomba",
                     "Kembali"
             });
             clearScreen();
             switch (userInput) {
                 case 1 -> penempatanKelasMahasiswa();
                 case 2 -> penjadwalan();
+                case 3 -> infoLomba();
                 // case 3 ->
                 case 4 -> {
                     return;
@@ -1298,6 +1313,43 @@ public class MainApps {
     }
 
     /* <--- modulKursus ---> */
+
+    // Info Lomba
+    static void infoLomba() {
+        while (true) {
+            renderTitle("Info Lomba");
+            showLomba();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Tambah Lomba",
+                    "Edit Lomba",
+                    "Hapus Lomba",
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                // case 1 -> tambahLomba();
+                // case 2 -> editLomba();
+                // case 3 -> hapusLomba();
+                case 4 -> {
+                    return;
+                }
+            }
+        }
+    }
+
+    static void showLomba() {
+        String formatTable = "| %-3s | %-50s |%-50s  |%n";
+        String horizonLine = "+-----+-----------------------------------------------+---------------------------";
+        System.out.println(horizonLine);
+        System.out.format("| NO  | NAMA                                   |Deskripsi               |%n");
+        System.out.println(horizonLine);
+        for (int i = 0; i < lomba.length; i++) {
+            String[] isi = lomba[i];
+            System.out.printf(formatTable, i + 1, isi[0], isi[1]);
+        }
+        System.out.println(horizonLine);
+        
+    }
     /* <--- DASHBOARD ADMIN ---> */
 
     /* <--- HELPER ---> */
