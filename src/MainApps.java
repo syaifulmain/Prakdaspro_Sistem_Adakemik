@@ -387,15 +387,21 @@ public class MainApps {
 
     static void penilaianMahasiswa() {
         while (true) {
-            renderTitle("Penilian Mahasiswa");
+            renderTitle("Penilaian Mahasiswa");
             int userInput = pickMenu("Menu : ", new String[] {
                     "Tambah Nilai",
                     "Edit Nilai",
+                    "Check Nilai",
+                    "Kembali",
             });
             clearScreen();
             switch (userInput) {
                 case 1 -> tambahNilai();
                 case 2 -> editNilai();
+                case 3 -> checkNilai();
+                case 4 -> {
+                    return;
+                }
             }
         }
     }
@@ -616,6 +622,27 @@ public class MainApps {
 
             }
         }
+    }
+    static void checkNilai(){
+        renderTitle("Check Nilai");
+
+        renderTitle("Pancasila");
+        showNilai(NilaiPancasila);
+        renderTitle("Konsep Teknologi Informasi");
+        showNilai(NilaiKTI);
+        renderTitle("Critical Thinking dan Problem Solving");
+        showNilai(NilaiCTPS);
+        renderTitle("Matekmatika Dasar");
+        showNilai(NilaiMATDAS);
+        renderTitle("Bahasa Inggris 1");
+        showNilai(NilaiBING_1);
+        renderTitle("Dasar Pemrograman");
+        showNilai(NilaiDASPRO);
+        renderTitle("Praktikum Dasar Pemrograman");
+        showNilai(NilaiPRAK_DASPRO);
+        renderTitle("Keselamatan dan Kesehatan Kerja");
+        showNilai(NilaiK3);
+
     }
 
     /* <--- DASHBOARD ADMIN ---> */
