@@ -90,7 +90,7 @@ public class MainApps {
                 { "1-RTI231006-4", "8-RTI231003-4", null },
         };
     }
-
+    // array untuk mengisi nilai matakuliah
     static void FillNilaiMatkul() {
         // kuis,tugas,uts,uas
         transkipNilai = new String[][] {
@@ -384,7 +384,7 @@ public class MainApps {
             }
         }
     }
-
+    //meilih menu penilaian mahasiswa
     static void penilaianMahasiswa() {
         while (true) {
             renderTitle("Penilaian Mahasiswa");
@@ -405,7 +405,7 @@ public class MainApps {
             }
         }
     }
-
+    // memilih matakuliah untuk menambahkan nilai
     static void tambahNilai() {
         while (true) {
             renderTitle("Tambah Nilai");
@@ -432,7 +432,7 @@ public class MainApps {
             }
         }
     }
-
+    //fungsi menampilkan nilai
     static void showNilai(String[][] Array) {
 
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
@@ -447,7 +447,7 @@ public class MainApps {
         }
         System.out.println(horizonLine);
     }
-
+    //interface menambahkan nilai
     static void tambahNilaiMatkul(String[][] Array, String matkul) {
         while (true) {
             renderTitle("Tambah Nilai " + matkul);
@@ -474,6 +474,7 @@ public class MainApps {
         }
     }
 
+    // fungsi menambahkan nilai
     static void addNilai(String[][] Array, String nim, String kuis, String tugas, String uts, String uas,
             String matkul) {
         int studentIndex = -1;
@@ -505,7 +506,7 @@ public class MainApps {
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
     }
-
+    //Edit Nilai
     static void editNilai() {
         while (true) {
             renderTitle("Edit Nilai");
@@ -537,7 +538,7 @@ public class MainApps {
             }
         }
     }
-
+    //Edit Nilai mata kuliah
     static void editNilaiMatkul(String[][] Array, String matkul) {
         String ubah = "";
         while (true) {
@@ -623,7 +624,7 @@ public class MainApps {
             }
         }
     }
-
+    //fitur check nilai
     static void checkNilai() {
          int studentIndex = -1;
         renderTitle("Check Nilai");
@@ -673,7 +674,7 @@ public class MainApps {
             System.out.println("Dibatalkan");
         return;
     }
-
+    //Menampilkan nilai mahasiswa per orang
     static void showNilaiMahasiswa(String[][] Array, int studentIndex, String matkul) {
         renderTitle(matkul);
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
@@ -682,7 +683,7 @@ public class MainApps {
         System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
             String[] takeNilai = Array[studentIndex];
-            System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex], takeNilai[1], takeNilai[2],
+            System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][1], takeNilai[1], takeNilai[2],
                     takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
         return;
