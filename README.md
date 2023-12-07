@@ -60,7 +60,7 @@ Login
   │   └──Moddul Kursus
   │       ├──Penetapan Kelas Mahasiswa
   │       ├──Penjadwalan
-  │       └──Penetapan Matkul dan Kelas Pengajar
+  │       └──Tambah Info Lomba
   ├──Dosen
   │   ├──Penilaian Mahasiswa
   │   │   ├──Tambah Nilai  
@@ -73,7 +73,8 @@ Login
       ├──Cek Biodata
       ├──Cek Nilai
       ├──Cek Presensi
-      └──Cek Jadwal
+      ├──Cek Jadwal
+      └──Cek Lomba
 ```
 ## Meet The Team 
 1. <a href="https://github.com/Noklent-Fardian"> Noklent Fardian Erix</a> (TI-1E)
