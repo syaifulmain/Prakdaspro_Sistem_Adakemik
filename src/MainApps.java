@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class MainApps {
@@ -44,6 +45,9 @@ public class MainApps {
 
     /* Presensi Mahasiswa */
     static String[][] presensiMahasiswa;
+
+    /* Array Lomba */
+    static String[][] lomba;
     /* Presensi Mahasiswa */
 
     /* <--- mengisi data array ---> */
@@ -108,6 +112,7 @@ public class MainApps {
         };
     }
 
+    // array untuk mengisi nilai matakuliah
     static void FillNilaiMatkul() {
         // kuis,tugas,uts,uas
         transkipNilai = new String[][] {
@@ -183,7 +188,6 @@ public class MainApps {
                 { "6666666666", "0", "0", "0", "0" }
         };
         NilaiK3 = new String[][] {
-
                 { "1111111111", "87", "89", "45", "80" },
                 { "2222222222", "90", "84", "50", "89" },
                 { "3333333333", "80", "83", "54", "87" },
@@ -202,11 +206,11 @@ public class MainApps {
 
     static void fillDosen() {
         bioDosen = new String[][] {
-                { "1111111111", "NOKLENT", "L", "JAKARTA", "11-11-1111", "1A" },
-                { "2222222222", "BERYL", "L", "BLITAR", "22-22-2222", "1B" },
-                { "3333333333", "SOMEONE", "L", "BLITAR", "33-33-3333", "1C" },
-                { "4444444444", "AHOMAD", "L", "BLITAR", "44-44-4444", "1D" },
-                { "5555555555", "TMI", "L", "BLITAR", "55-55-5555", "1E" }
+                { "1111111111", "Mungki Astiningrum, ST., M.Kom", "P", "JAKARTA", "11-11-1111", "Daspro" },
+                { "2222222222", "Noprianto, S.Kom., M.Eng", "L", "BLITAR", "22-22-2222", "Daspro" },
+                { "3333333333", "Meyti Eka Apriyani ST., MT.", "P", "BLITAR", "33-33-3333", "Daspro" },
+                { "4444444444", "Irsyad Arif Mashudi, M.Kom", "L", "BLITAR", "44-44-4444", "Daspro" },
+                { "5555555555", "Yuri Ariyanto, S.Kom., M.Kom", "L", "BLITAR", "55-55-5555", "Dosen" }
 
         };
         userDosen = new String[][] {
@@ -237,6 +241,15 @@ public class MainApps {
         };
     }
 
+    static void fillLomba() {
+        lomba = new String[][] {
+                { "ROAD TO MAIN EVENT DIES NATALIS BK KE-59", "https://www.instagram.com/p/CzioxbgP0LE/?img_index=1" },
+                { "ENSPIRIT 5.0 [INTERNATIONAL BUSINESS CASE COMPETITION]",
+                        "https://www.instagram.com/p/C0imfHuvPzI/" },
+                { "[OPEN REGISTRATION AUDIT CASE CHALLENGE THE 23RD ATV ]", "https://www.instagram.com/p/C0gppzgPkJN/" }
+        };
+    }
+
     static void fill() {
         fillJadwal();
         fillAdmin();
@@ -244,6 +257,7 @@ public class MainApps {
         fillMahasiswa();
         FillNilaiMatkul();
         fillPresensi();
+        fillLomba();
     }
     /* <--- mengisi data array ---> */
 
@@ -311,6 +325,7 @@ public class MainApps {
             counter++;
             if (counter == 3) {
                 exitForce();
+                return;
             }
         }
     }
@@ -391,8 +406,18 @@ public class MainApps {
 
     // menu dashboard dosen
     static void dashboardDosen(String user) {
+        int index = -1;
+        String name = "";
+
         while (true) {
-            renderTitle("Dashboard " + user);
+            for (int i = 0; i < bioDosen.length; i++) {
+                if (userDosen[i][0].equals(user)) {
+                    index = i;
+                    name = bioDosen[index][1];
+                    break;
+                }
+            }
+            renderTitle("Dashboard " + name);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Penilaian Mahasiswa",
                     "Presensi Mahasiswa",
@@ -409,7 +434,7 @@ public class MainApps {
         }
     }
 
-    // menu penilaian mahasiswa
+    // meilih menu penilaian mahasiswa
     static void penilaianMahasiswa() {
         while (true) {
             renderTitle("Penilaian Mahasiswa");
@@ -431,7 +456,7 @@ public class MainApps {
         }
     }
 
-    // menu pilih kelas untuk penilaian mahasiswa
+    // memilih matakuliah untuk menambahkan nilai
     static void tambahNilai() {
         while (true) {
             renderTitle("Tambah Nilai");
@@ -459,7 +484,6 @@ public class MainApps {
         }
     }
 
-    // menampilkan nilai mahasiswa berdasarkan matkul
     static void showNilai(String[][] Array) {
 
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
@@ -475,6 +499,7 @@ public class MainApps {
         System.out.println(horizonLine);
     }
 
+    // interface menambahkan nilai
     static void tambahNilaiMatkul(String[][] Array, String matkul) {
         while (true) {
             renderTitle("Tambah Nilai " + matkul);
@@ -501,6 +526,7 @@ public class MainApps {
         }
     }
 
+    // fungsi menambahkan nilai
     static void addNilai(String[][] Array, String nim, String kuis, String tugas, String uts, String uas,
             String matkul) {
         int studentIndex = -1;
@@ -533,6 +559,7 @@ public class MainApps {
 
     }
 
+    // Edit Nilai
     static void editNilai() {
         while (true) {
             renderTitle("Edit Nilai");
@@ -565,6 +592,7 @@ public class MainApps {
         }
     }
 
+    // Edit Nilai mata kuliah
     static void editNilaiMatkul(String[][] Array, String matkul) {
         String ubah = "";
         while (true) {
@@ -651,10 +679,10 @@ public class MainApps {
         }
     }
 
+    // fitur check nilai
     static void checkNilai() {
         int studentIndex = -1;
         renderTitle("Check Nilai");
-
         renderTitle("Pancasila");
         showNilai(NilaiPancasila);
         renderTitle("Konsep Teknologi Informasi");
@@ -672,8 +700,8 @@ public class MainApps {
         renderTitle("Keselamatan dan Kesehatan Kerja");
         showNilai(NilaiK3);
         String userChoose = getInputUniqueWord("Cari Nilai Seorang Mahasiswa ? y/t", 1, 1, true, "y", "t");
-        clearScreen();
         if (userChoose.equalsIgnoreCase("y")) {
+            clearScreen();
             String nim = getInputStringWithLimit("Masukan NIM", 10, 10, true);
             if (!has(bioMahasiswa, nim, 0)) {
                 System.out.println("NIM " + nim + " tidak ditemukan");
@@ -687,29 +715,24 @@ public class MainApps {
                         break;
                     }
                 }
-            renderTitle("Pancasila");
-            showNilaiMahasiswa(NilaiPancasila, studentIndex);
-            renderTitle("Konsep Teknologi Informasi");
-            showNilaiMahasiswa(NilaiKTI, studentIndex);
-            renderTitle("Critical Thinking dan Problem Solving");
-            showNilaiMahasiswa(NilaiCTPS, studentIndex);
-            renderTitle("Matekmatika Dasar");
-            showNilaiMahasiswa(NilaiMATDAS, studentIndex);
-            renderTitle("Bahasa Inggris 1");
-            showNilaiMahasiswa(NilaiBING_1, studentIndex);
-            renderTitle("Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiDASPRO, studentIndex);
-            renderTitle("Praktikum Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiPRAK_DASPRO, studentIndex);
-            renderTitle("Keselamatan dan Kesehatan Kerja");
-            showNilaiMahasiswa(NilaiK3, studentIndex);
-            return;
+            clearScreen();
+            renderTitle("Check Nilai Mahasiswa dengan NIM: " + nim);
+            showNilaiMahasiswa(NilaiPancasila, studentIndex, "Pancasila");
+            showNilaiMahasiswa(NilaiKTI, studentIndex, "Konsep Teknologi Informasi");
+            showNilaiMahasiswa(NilaiCTPS, studentIndex, "Critical Thinking dan Problem Solving");
+            showNilaiMahasiswa(NilaiMATDAS, studentIndex, "Matekmatika Dasar");
+            showNilaiMahasiswa(NilaiBING_1, studentIndex, "Bahasa Inggris 1");
+            showNilaiMahasiswa(NilaiDASPRO, studentIndex, "Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiPRAK_DASPRO, studentIndex, "Dasar Pemrograman");
+            showNilaiMahasiswa(NilaiK3, studentIndex, "Keselamatan dan Kesehatan Kerja");
         } else
             System.out.println("Dibatalkan");
         return;
     }
 
-    static void showNilaiMahasiswa(String[][] Array, int studentIndex) {
+    // Menampilkan nilai mahasiswa per orang
+    static void showNilaiMahasiswa(String[][] Array, int studentIndex, String matkul) {
+        renderTitle(matkul);
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
         String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
         System.out.println(horizonLine);
@@ -720,6 +743,7 @@ public class MainApps {
                 takeNilai[1], takeNilai[2],
                 takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
+        return;
     }
 
     /* <--- DASHBOARD ADMIN ---> */
@@ -1003,8 +1027,8 @@ public class MainApps {
         String horizonLine = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
         System.out.println(horizonLine);
         System.out.format(
-            "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
-            System.out.println(horizonLine);
+                "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+        System.out.println(horizonLine);
         for (int i = 0; i < transkipNilai.length; i++) {
             String[] takeTranskip = transkipNilai[i];
             System.out.printf(formatTable, (i + 1), takeTranskip[0], bioMahasiswa[i][1], bioMahasiswa[i][5],
@@ -1018,7 +1042,7 @@ public class MainApps {
         float total = 0;
         for (int i = 1; i < transkipNilai[index].length; i++) {
             total += Float.parseFloat(transkipNilai[index][i]);
-        }    
+        }
         return String.format("%.2f", total / 8);
     }
 
@@ -1069,13 +1093,14 @@ public class MainApps {
             int userInput = pickMenu("Menu : ", new String[] {
                     "Penempatan Kelas Mahasiswa",
                     "Penjadwalan",
-                    "Penembatan Matkul dan Kelas Pengajar",
+                    "Info Lomba",
                     "Kembali"
             });
             clearScreen();
             switch (userInput) {
                 case 1 -> penempatanKelasMahasiswa();
                 case 2 -> penjadwalan();
+                case 3 -> infoLomba();
                 // case 3 ->
                 case 4 -> {
                     return;
@@ -1319,6 +1344,43 @@ public class MainApps {
     }
 
     /* <--- modulKursus ---> */
+
+    // Info Lomba
+    static void infoLomba() {
+        while (true) {
+            renderTitle("Info Lomba");
+            showLomba();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Tambah Lomba",
+                    "Edit Lomba",
+                    "Hapus Lomba",
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                // case 1 -> tambahLomba();
+                // case 2 -> editLomba();
+                // case 3 -> hapusLomba();
+                case 4 -> {
+                    return;
+                }
+            }
+        }
+    }
+
+    static void showLomba() {
+        String formatTable = "| %-3s | %-60s | %-61s |%n";
+        String horizonLine = "+-----+" + "-".repeat(62) + "+" + "-".repeat(63) + "+";
+        System.out.println(horizonLine);
+        System.out.println("| NO  | NAMA" + " ".repeat(57) + "|Deskripsi" + " ".repeat(54) + "|");
+        System.out.println(horizonLine);
+        for (int i = 0; i < lomba.length; i++) {
+            String[] isi = lomba[i];
+            System.out.printf(formatTable, i + 1, isi[0], isi[1]);
+        }
+        System.out.println(horizonLine);
+
+    }
     /* <--- DASHBOARD ADMIN ---> */
 
     /* <--- HELPER ---> */
@@ -1340,8 +1402,31 @@ public class MainApps {
     // When incorrect pasword or username is entered 3 times, the program will exit
     static void exitForce() {
         clearScreen();
-        System.out.println("Anda telah mencoba 3 kali, silahkan ulangi program.....");
-        System.exit(0);
+        System.out.println("Anda telah gagal mencoba 3 kali, silahkan tunggu 1 menit");
+        try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+
+            }
+        int detik = 60;
+        int left = detik / 60, right = detik % 60;
+        for (int j = 0; j < detik; j++) {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            System.out.printf("Input salah 3x silahkan tunggu %d:%02d%n", left, right);
+            try {
+                Thread.sleep(250);
+            } catch (InterruptedException e) {
+
+            }
+            if (right == 0) {
+                left--;
+                right = 59;
+            } else
+                right--;
+        }
+         System.out.print("\033[H\033[2J");
+         System.out.println("Anda dapat mencoba login kembali");
     }
 
     // Funtuk mengecek apakah ada item di array 2 dimensional
