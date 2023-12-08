@@ -887,7 +887,7 @@ public class MainApps {
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
                         takeBio[5]);
                 break;
-            } else
+            } if (!isNIM)
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
                         takeBio[5]);
         }
@@ -1013,7 +1013,7 @@ public class MainApps {
         }
         String userChoose = getInputUniqueWord("Simpan " + input + " Sebagai perubahan y/t", 1, 1, true, "y", "t");
         if (userChoose.equalsIgnoreCase("y")) {
-            bioMahasiswa[studentIndex][userInput - 1] = input;
+            bioMahasiswa[studentIndex][userInput] = input;
             System.out.println("Berhasil mengedit");
         } else {
             System.out.println("Dibatalkan");
