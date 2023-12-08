@@ -350,13 +350,12 @@ public class MainApps {
                     "Nilai",
                     "Jadwal",
                     "Presesi",
-                    "Logout",
             });
             clearScreen();
             switch (userInput) {
                 case 1 -> hadleBiodataMahasiswa(nim);
-                case 2 -> hadleNilaiMahasiswa();
-                case 3 -> hadleJadwalMahasiswa();
+                case 2 -> hadleNilaiMahasiswa(nim);
+                case 3 -> hadleJadwalMahasiswa(nim);
                 case 4 -> hadlePresensiMahasiswa();
                 case 5 -> {
                     return;
@@ -380,7 +379,7 @@ public class MainApps {
                 System.out.println("Alamat: " + bioMahasiswa[i][3]);
                 System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
                 System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break;
+                break; 
             }
         }
 
@@ -389,12 +388,69 @@ public class MainApps {
         }
     }
 
-    static void hadleNilaiMahasiswa() {
+    static void hadleNilaiMahasiswa(String nim) {
+
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) { 
+
+                int nilai = i;
+
+                renderTitle("NILAI AKADEMIK MAHASISWA:");
+                    renderTitle("Pancasila");
+                    showNilaiMahasiswa(NilaiPancasila, nilai);
+                    renderTitle("KTI");
+                    showNilaiMahasiswa(NilaiKTI, nilai);
+                    renderTitle("CTPS");
+                    showNilaiMahasiswa(NilaiCTPS, nilai);
+                    renderTitle("Matematika Dasar");
+                    showNilaiMahasiswa(NilaiMATDAS, nilai);
+                    renderTitle("Bahasa Inggris");
+                    showNilaiMahasiswa(NilaiBING_1, nilai);
+                    renderTitle("Praktikum Dasar Pemrograman");
+                    showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai);
+                    renderTitle("Dasar Pemrograman");
+                    showNilaiMahasiswa(NilaiDASPRO, nilai);
+                    renderTitle("Keselamatan Kesehatan Kerja");
+                    showNilaiMahasiswa(NilaiK3, nilai);
+
+            }
+        }
 
     }
 
-    static void hadleJadwalMahasiswa() {
+    static void hadleJadwalMahasiswa(String nim) {
+    
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) {
 
+                String kelas = bioMahasiswa[i][5];
+
+                System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
+
+                        switch (kelas) {
+                            case "1A":
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1A);
+                                break;
+                            case "1B":
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1B);
+                                break;
+                            case "1C":
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1C);
+                                break;
+                            case "1D":
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1D);
+                                break;
+                            case "1E":
+                            tampilkanJadwalBerdasarkanKelas(jadwal_1E);
+                                break;
+                            default:
+                                System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
+                        }
+                        break;
+            }
+            
+        }
+    
     }
 
     static void hadlePresensiMahasiswa() {
