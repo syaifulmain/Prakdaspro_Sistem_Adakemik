@@ -31,7 +31,6 @@ Sistem informasi akademik (SIAKAD) adalah suatu sistem informasi yang digunakan 
 - Edit Nilai
 - Presensi Mahasiswa
 - Edit Presensi
-- Show Jadwal
 ## 4. Mahasiswa
 - Show Biodata
 - CekPresensi
@@ -68,8 +67,8 @@ Login
   │   │   └──Edit Nilai
   │   ├──Presensi Mahasiswa
   │   │   ├──Presensi
-  │   │   └──Edit Presensi
-  │   └──Cek Jadwal
+  │       └──Edit Presensi
+  │   
   └──Mahasiswa
       ├──Cek Biodata
       ├──Cek Nilai
