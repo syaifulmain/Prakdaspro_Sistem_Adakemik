@@ -342,8 +342,17 @@ public class MainApps {
     /* DASHBOARD MAHASISWA */
     // menu dashboard mahasiswa
     static void dashboardMahasiswa(String nim) {
+        int index = -1;
+        String name = "";
+        for (int i = 0; i < bioDosen.length; i++) {
+                if (userMahasiswa[i][0].equals(nim)) {
+                    index = i;
+                    name = bioMahasiswa[index][1];
+                    break;
+                }
+            }
         while (true) {
-            renderTitle("Selamat Datang " + nim);
+            renderTitle("Selamat Datang " + name);
             System.out.println("=== Dashboard Mahasiswa ===");
             int userInput = pickMenu("Menu : ", new String[] {
                     "Biodata",
