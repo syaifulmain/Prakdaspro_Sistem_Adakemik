@@ -951,17 +951,33 @@ public class MainApps {
             clearScreen();
             System.out.println("Mahasiswa dengan NIM " + nim + " tidak ada!");
         }
-        String[][] tempArray = new String[bioMahasiswa.length - 1][4];
+        bioMahasiswa = removeDataBioMahasiswa(bioMahasiswa, nim);
+        userMahasiswa = removeDataBioMahasiswa(userMahasiswa, nim);
+        NilaiPancasila = removeDataBioMahasiswa(NilaiPancasila, nim);
+        NilaiKTI = removeDataBioMahasiswa(NilaiKTI, nim);
+        NilaiCTPS = removeDataBioMahasiswa(NilaiCTPS, nim);
+        NilaiMATDAS = removeDataBioMahasiswa(NilaiMATDAS, nim);
+        NilaiBING_1 = removeDataBioMahasiswa(NilaiBING_1, nim);
+        NilaiDASPRO = removeDataBioMahasiswa(NilaiDASPRO, nim);
+        NilaiPRAK_DASPRO = removeDataBioMahasiswa(NilaiPRAK_DASPRO, nim);
+        NilaiK3 = removeDataBioMahasiswa(NilaiK3, nim);
+        transkipNilai = removeDataBioMahasiswa(transkipNilai, nim);
+
+        clearScreen();
+        System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
+    }
+
+    // remove semua data bio mahasiswa
+    static String[][] removeDataBioMahasiswa(String[][] array, String nim) {
+        String[][] tempArray = new String[array.length - 1][array[0].length];
         int count = 0;
-        for (String[] siswa : bioMahasiswa) {
+        for (String[] siswa : array) {
             if (siswa[0].equals(nim))
                 continue;
             tempArray[count] = siswa;
             count++;
         }
-        bioMahasiswa = tempArray;
-        clearScreen();
-        System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
+        return tempArray;
     }
 
     // transkip nilai
