@@ -905,7 +905,7 @@ public class MainApps {
         clearScreen();
         showDataBioMahasiswa(true, oldNim);
         int userInput = pickMenu("Ubah data", new String[] {
-                "NIM",
+                // "NIM",
                 "Nama",
                 "Jenis Kelamin",
                 "Alamat",
@@ -913,19 +913,19 @@ public class MainApps {
                 "Batal"
         });
         switch (userInput) {
-            case 1 -> {
-                while (true) {
-                    input = getInputStringWithLimit("NIM", 10, 10, false);
-                    if (has(bioMahasiswa, input, 0))
-                        break;
-                    System.out.println("NIM " + input + " sudah terdaftar");
-                }
-            }
-            case 2 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
-            case 3 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
-            case 4 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
-            case 5 -> input = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
-            case 6 -> {
+            // case 1 -> {
+            //     while (true) {
+            //         input = getInputStringWithLimit("NIM", 10, 10, false);
+            //         if (has(bioMahasiswa, input, 0))
+            //             break;
+            //         System.out.println("NIM " + input + " sudah terdaftar");
+            //     }
+            // }
+            case 1 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
+            case 2 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
+            case 3 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
+            case 4 -> input = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
+            case 5 -> {
                 clearScreen();
                 return;
             }
