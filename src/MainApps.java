@@ -338,7 +338,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> hadleBiodataMahasiswa(nim);
-                case 2 -> hadleNilaiMahasiswa();
+                case 2 -> hadleNilaiMahasiswa(nim);
                 case 3 -> hadleJadwalMahasiswa(nim);
                 case 4 -> hadlePresensiMahasiswa();
                 case 5 -> {
@@ -371,12 +371,37 @@ public class MainApps {
         }
     }
 
-    static void hadleNilaiMahasiswa() {
+    static void hadleNilaiMahasiswa(String nim) {
+
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) { 
+
+                int nilai = i;
+
+                renderTitle("NILAI AKADEMIK MAHASISWA:");
+                    renderTitle("Pancasila");
+                    showNilaiMahasiswa(NilaiPancasila, nilai);
+                    renderTitle("KTI");
+                    showNilaiMahasiswa(NilaiKTI, nilai);
+                    renderTitle("CTPS");
+                    showNilaiMahasiswa(NilaiCTPS, nilai);
+                    renderTitle("Matematika Dasar");
+                    showNilaiMahasiswa(NilaiMATDAS, nilai);
+                    renderTitle("Bahasa Inggris");
+                    showNilaiMahasiswa(NilaiBING_1, nilai);
+                    renderTitle("Praktikum Dasar Pemrograman");
+                    showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai);
+                    renderTitle("Dasar Pemrograman");
+                    showNilaiMahasiswa(NilaiDASPRO, nilai);
+                    renderTitle("Keselamatan Kesehatan Kerja");
+                    showNilaiMahasiswa(NilaiK3, nilai);
+
+            }
+        }
 
     }
 
     static void hadleJadwalMahasiswa(String nim) {
-
     
         for (int i = 0; i < bioMahasiswa.length; i++) {
             if (nim.equals(bioMahasiswa[i][0])) {
