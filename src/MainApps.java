@@ -261,6 +261,7 @@ public class MainApps {
     }
     /* <--- mengisi data array ---> */
 
+    // main function
     public static void main(String[] args) {
         run();
     }
@@ -339,6 +340,7 @@ public class MainApps {
     }
 
     /* DASHBOARD MAHASISWA */
+    // menu dashboard mahasiswa
     static void dashboardMahasiswa(String nim) {
         while (true) {
             renderTitle("Selamat Datang " + nim);
@@ -363,6 +365,7 @@ public class MainApps {
         }
     }
 
+    // menampilkan biodata mahasiswa
     static void hadleBiodataMahasiswa(String nim) {
 
         boolean userFound = false;
@@ -401,6 +404,7 @@ public class MainApps {
 
     /* DASHBOARD DOSEN */
 
+    // menu dashboard dosen
     static void dashboardDosen(String user) {
         int index = -1;
         String name = "";
@@ -480,7 +484,6 @@ public class MainApps {
         }
     }
 
-    // fungsi menampilkan nilai
     static void showNilai(String[][] Array) {
 
         String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
@@ -926,7 +929,7 @@ public class MainApps {
         clearScreen();
         showDataBioMahasiswa(true, oldNim);
         int userInput = pickMenu("Ubah data", new String[] {
-                "NIM",
+                // "NIM",
                 "Nama",
                 "Jenis Kelamin",
                 "Alamat",
@@ -934,19 +937,19 @@ public class MainApps {
                 "Batal"
         });
         switch (userInput) {
-            case 1 -> {
-                while (true) {
-                    input = getInputStringWithLimit("NIM", 10, 10, false);
-                    if (has(bioMahasiswa, input, 0))
-                        break;
-                    System.out.println("NIM " + input + " sudah terdaftar");
-                }
-            }
-            case 2 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
-            case 3 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
-            case 4 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
-            case 5 -> input = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
-            case 6 -> {
+            // case 1 -> {
+            //     while (true) {
+            //         input = getInputStringWithLimit("NIM", 10, 10, false);
+            //         if (has(bioMahasiswa, input, 0))
+            //             break;
+            //         System.out.println("NIM " + input + " sudah terdaftar");
+            //     }
+            // }
+            case 1 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
+            case 2 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
+            case 3 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
+            case 4 -> input = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
+            case 5 -> {
                 clearScreen();
                 return;
             }
@@ -972,17 +975,33 @@ public class MainApps {
             clearScreen();
             System.out.println("Mahasiswa dengan NIM " + nim + " tidak ada!");
         }
-        String[][] tempArray = new String[bioMahasiswa.length - 1][4];
+        bioMahasiswa = removeDataBioMahasiswa(bioMahasiswa, nim);
+        userMahasiswa = removeDataBioMahasiswa(userMahasiswa, nim);
+        NilaiPancasila = removeDataBioMahasiswa(NilaiPancasila, nim);
+        NilaiKTI = removeDataBioMahasiswa(NilaiKTI, nim);
+        NilaiCTPS = removeDataBioMahasiswa(NilaiCTPS, nim);
+        NilaiMATDAS = removeDataBioMahasiswa(NilaiMATDAS, nim);
+        NilaiBING_1 = removeDataBioMahasiswa(NilaiBING_1, nim);
+        NilaiDASPRO = removeDataBioMahasiswa(NilaiDASPRO, nim);
+        NilaiPRAK_DASPRO = removeDataBioMahasiswa(NilaiPRAK_DASPRO, nim);
+        NilaiK3 = removeDataBioMahasiswa(NilaiK3, nim);
+        transkipNilai = removeDataBioMahasiswa(transkipNilai, nim);
+
+        clearScreen();
+        System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
+    }
+
+    // remove semua data bio mahasiswa
+    static String[][] removeDataBioMahasiswa(String[][] array, String nim) {
+        String[][] tempArray = new String[array.length - 1][array[0].length];
         int count = 0;
-        for (String[] siswa : bioMahasiswa) {
+        for (String[] siswa : array) {
             if (siswa[0].equals(nim))
                 continue;
             tempArray[count] = siswa;
             count++;
         }
-        bioMahasiswa = tempArray;
-        clearScreen();
-        System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
+        return tempArray;
     }
 
     // transkip nilai
@@ -1127,7 +1146,7 @@ public class MainApps {
         }
     }
 
-    // sortir berdasarkan kelas
+    // melakukan sortir berdasarkan kelas
     static void sortirBerdasarkanKelas() {
         while (true) {
             System.out.println("1A|1B|1C|1D|1E|");
@@ -1379,6 +1398,7 @@ public class MainApps {
         System.exit(0);
     }
 
+    // untuk login pertama ketika user salah memasukan password atau username 3x
     // When incorrect pasword or username is entered 3 times, the program will exit
     static void exitForce() {
         clearScreen();
@@ -1409,7 +1429,7 @@ public class MainApps {
          System.out.println("Anda dapat mencoba login kembali");
     }
 
-    // Funtuk mengecek apakah ada item di array
+    // Funtuk mengecek apakah ada item di array 2 dimensional
     static boolean has(String[][] items, String needle, int fieldIndex) {
         for (String[] item : items) {
             if (item[fieldIndex].equals(needle))
@@ -1418,7 +1438,7 @@ public class MainApps {
         return false;
     }
 
-    // melakukan print title
+    // melakukan print title/judul
     static void renderTitle(String title) {
         int paddingSize = 4;
         int titleLength = title.length();
@@ -1448,7 +1468,7 @@ public class MainApps {
         }
     }
 
-    // mengembalikan input String user, kosong/tidak, dengan limit
+    // mengembalikan input String user dengan limit jumlah karakter
     static String getInputStringWithLimit(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
             String userInput = getInputString(prompt, allowEmpty);
@@ -1460,7 +1480,7 @@ public class MainApps {
         }
     }
 
-    // mengembalikan input String number user, kosong/tidak
+    // mengembalikan input String number/angka
     static String getInputStringNumber(String prompt, boolean allowEmpty) {
         while (true) {
             String userInput = getInputString(prompt, allowEmpty);
@@ -1472,7 +1492,7 @@ public class MainApps {
         }
     }
 
-    // mengembalikan input String number user, kosong/tidak, dengan limit
+    // mengembalikan input String number/angka user dengan limit jumlah karakter
     static String getInputStringNumberwithLimitChar(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
             String userInput = getInputStringNumber(prompt, allowEmpty);
@@ -1484,7 +1504,7 @@ public class MainApps {
         }
     }
 
-    // mengembalikan input String number user, kosong/tidak, dengan limit
+    // mengembalikan input String number user dengan limit angka
     static String getInputStringNumberwithLimit(String prompt, int min, int max, boolean allowEmpty) {
         while (true) {
             String userInput = getInputStringNumber(prompt, allowEmpty);
@@ -1496,7 +1516,7 @@ public class MainApps {
         }
     }
 
-    // mengembalikan input String kata unik user, ignorecase/tidak, dengan limit
+    // mengembalikan input String dengan kata unik
     static String getInputUniqueWord(String prompt, int min, int max, boolean ignoreCase, String... uniqueWord) {
         while (true) {
             String userInput = getInputString(prompt, false);
@@ -1510,7 +1530,7 @@ public class MainApps {
         }
     }
 
-    // membuat menu dengan input number
+    // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam array dan mengembalikan input integer
     static int pickMenu(String menuTitle, String[] menus) {
         System.out.println(menuTitle);
         int i = 0;
