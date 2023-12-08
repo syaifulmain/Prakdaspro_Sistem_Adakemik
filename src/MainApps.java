@@ -1043,6 +1043,7 @@ public class MainApps {
         NilaiPRAK_DASPRO = removeDataBioMahasiswa(NilaiPRAK_DASPRO, nim);
         NilaiK3 = removeDataBioMahasiswa(NilaiK3, nim);
         transkipNilai = removeDataBioMahasiswa(transkipNilai, nim);
+        presensiMahasiswa = removeDataBioMahasiswa(presensiMahasiswa, nim);
 
         clearScreen();
         System.out.println("Mahasiswa " + nim + " telah berhasil dihapus!");
