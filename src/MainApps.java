@@ -342,8 +342,17 @@ public class MainApps {
     /* DASHBOARD MAHASISWA */
     // menu dashboard mahasiswa
     static void dashboardMahasiswa(String nim) {
+        int index = -1;
+        String name = "";
+        for (int i = 0; i < bioDosen.length; i++) {
+                if (userMahasiswa[i][0].equals(nim)) {
+                    index = i;
+                    name = bioMahasiswa[index][1];
+                    break;
+                }
+            }
         while (true) {
-            renderTitle("Selamat Datang " + nim);
+            renderTitle("Selamat Datang " + name);
             System.out.println("=== Dashboard Mahasiswa ===");
             int userInput = pickMenu("Menu : ", new String[] {
                     "Biodata",
@@ -396,22 +405,14 @@ public class MainApps {
                 int nilai = i;
 
                 renderTitle("NILAI AKADEMIK MAHASISWA:");
-                    renderTitle("Pancasila");
-                    showNilaiMahasiswa(NilaiPancasila, nilai);
-                    renderTitle("KTI");
-                    showNilaiMahasiswa(NilaiKTI, nilai);
-                    renderTitle("CTPS");
-                    showNilaiMahasiswa(NilaiCTPS, nilai);
-                    renderTitle("Matematika Dasar");
-                    showNilaiMahasiswa(NilaiMATDAS, nilai);
-                    renderTitle("Bahasa Inggris");
-                    showNilaiMahasiswa(NilaiBING_1, nilai);
-                    renderTitle("Praktikum Dasar Pemrograman");
-                    showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai);
-                    renderTitle("Dasar Pemrograman");
-                    showNilaiMahasiswa(NilaiDASPRO, nilai);
-                    renderTitle("Keselamatan Kesehatan Kerja");
-                    showNilaiMahasiswa(NilaiK3, nilai);
+                    showNilaiMahasiswa(NilaiPancasila, nilai,"Pancasila");
+                    showNilaiMahasiswa(NilaiKTI, nilai,"Konsep Teknologi Informasi");
+                    showNilaiMahasiswa(NilaiCTPS, nilai,"Critical Thinking dan Problem Solving");
+                    showNilaiMahasiswa(NilaiMATDAS, nilai,"Matematika Dasar");
+                    showNilaiMahasiswa(NilaiBING_1, nilai,"Bahasa Inggris 1");
+                    showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai,"Praktikum Dasar Pemrograman");
+                    showNilaiMahasiswa(NilaiDASPRO, nilai,"Dasar Pemrograman");
+                    showNilaiMahasiswa(NilaiK3, nilai,"Keselamatan dan Kesehatan Kerja");
 
             }
         }
@@ -795,7 +796,7 @@ public class MainApps {
         System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
         String[] takeNilai = Array[studentIndex];
-        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][studentIndex],
+        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][1],
                 takeNilai[1], takeNilai[2],
                 takeNilai[3], takeNilai[4]);
         System.out.println(horizonLine);
