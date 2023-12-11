@@ -30,7 +30,7 @@ public class MainApps {
     static String[][] NilaiDASPRO;
     static String[][] NilaiPRAK_DASPRO;
     static String[][] NilaiK3;
-    static String[] listMatkul = { "Pancasila", "Konsep Teknologi Informasi", "Critical Thinking And Problem Sorlving", "Matematika Dasar", "Bahasa Inggris 1", "Dasar Pemrograman", "Praktik Dasar Pemrograman", "Keselamatan Dan Kesehatan Kerja" };
+    static String[] listMatkul = { "Pancasila", "Konsep Teknologi Informasi", "Critical Thinking And Problem Solving", "Matematika Dasar", "Bahasa Inggris 1", "Dasar Pemrograman", "Praktik Dasar Pemrograman", "Keselamatan Dan Kesehatan Kerja" };
     /* Nilai Matkul */
 
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
@@ -69,7 +69,7 @@ public class MainApps {
         matkulTI = new String[][] {
                 { "RTI231001", "PANCASILA", "Pancasila", "2" },
                 { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
-                { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" },
+                { "RTI231003", "CTPS", "Critical Thinking And Problem Solving", "4" },
                 { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
                 { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
                 { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
@@ -784,10 +784,10 @@ public class MainApps {
     // Menampilkan nilai mahasiswa per orang
     static void showNilaiMahasiswa( int studentIndex) {
         renderTitle("List Nilai "+bioMahasiswa[studentIndex][1]);
-        String formatTable = "| %-3s |%-35s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
-        String horizonLine = "+------------------+---------------------------+-------+-------+-------+-------+";
+        String formatTable = "| %-3s |%-50s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
+        String horizonLine = "+-----+---------------------------------------------------+-------+-------+-------+-------+";
         System.out.println(horizonLine);
-        System.out.println("| NO  |Mata Kuliah                             | Kuis  | Tugas |  UTS  |  UAS  |");
+        System.out.println("| NO  |Mata Kuliah                                        | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
         for (int i = 0; i < 8; i++) {
             String[] takeNilai = NilaiPancasila[studentIndex];
