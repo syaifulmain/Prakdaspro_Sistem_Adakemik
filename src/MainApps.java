@@ -273,7 +273,7 @@ public class MainApps {
     static void run() {
         fill();
         clearScreen();
-        // penjadwalan();
+        penjadwalan();
         // penjadwalan();
         firstLogin();
         // aturJadwal(0);
@@ -1528,6 +1528,51 @@ public class MainApps {
         }
     }
 
+    static void tampilkanJadwalPerHari(String hari, String[] jadwal) {
+        System.out.println("+------+" + "-----+".repeat(11));
+        System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
+        System.out.println("+------+" + "-----+".repeat(11));
+        String formatJadwal = "|%-6s|%-66s%n";
+        int begin = 0;
+        int howLong = 0;
+        String matkul = "";
+        int column = 0;
+        String simpanJadwal = "";
+        int jadwalLenght = 0;
+        String[] tempArray;
+        for (int j = 1; j <= 11; j++) {
+            if (jadwalLenght < jadwal.length) {
+                if (jadwal[column] == null) {
+                    begin = 0;
+                } else {
+                    tempArray = jadwal[column].split("-");
+                    if (Integer.parseInt(tempArray[0]) == j) {
+                        begin = Integer.parseInt(tempArray[0]);
+                        howLong = Integer.parseInt(tempArray[2]);
+                        for (int k = 0; k < matkulTI.length; k++) {
+                            if (tempArray[1].equals(matkulTI[k][0])) {
+                                matkul = matkulTI[k][1];
+                                break;
+                            }
+                        }
+                        jadwalLenght++;
+                    }
+                }
+            } else
+                begin = 0;
+            if (j == begin) {
+                simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length()) + "|";
+                j += howLong - 1;
+                column++;
+            } else
+                simpanJadwal += "-".repeat(5) + "|";
+        }
+
+        System.out.printf(formatJadwal, hari, simpanJadwal);
+        String line = "+------+" + "-".repeat(65) + "+%n";
+        System.out.printf(line);
+    }
+
     // menmapilkan matkul
     static void tampilkanMatkul(String[][] matkulTI, int[] sks) {
         String formatTable = "|  {%s}  | %-8s | %-40s |  %-2s |%n";
@@ -1546,6 +1591,7 @@ public class MainApps {
     // untuk mengatur/edit jadwal
     static void aturJadwal(String stringKelas, String[][] arrayKelas) {
         String[][] tempJadawal = new String[5][3];
+        String[] tempJadwalPerHari = new String[3];
         int[] tempSKS = SKS;
         tampilkanJadwalBerdasarkanKelas(arrayKelas);
         String _1,_3;
@@ -1585,7 +1631,9 @@ public class MainApps {
                     }
                 }
                 min += Integer.parseInt(_3);
-                System.out.printf("%s-%s-%s%n", _1, matkulTI[_2 - 1][2], _3);
+                tempJadwalPerHari[j] = _1 + "-" + matkulTI[_2 - 1][0] + "-" + _3;
+                tampilkanJadwalPerHari(kumpulanHari[i], tempJadwalPerHari);
+                // System.out.printf("%s-%s-%s%n", _1, matkulTI[_2 - 1][2], _3);
                 tempJadawal[i][j] = _1 + "-" + matkulTI[_2 - 1][0] + "-" + _3;
                 if (min > 8)
                     break;
