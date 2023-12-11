@@ -579,7 +579,7 @@ public class MainApps {
         }
     }
 
-    // fungsi menambahkan nilai
+    // fungsi menambahkan nilai tersambung ke transkip nilai
     static void addNilai(String[][] Array, String nim, String kuis, String tugas, String uts, String uas,
             String matkul) {
         int studentIndex = -1;
@@ -666,7 +666,7 @@ public class MainApps {
         }
     }
 
-    // Edit Nilai mata kuliah
+    // Edit Nilai mata kuliah tersambung ke transkip nilai
     static void editNilaiMatkul(String[][] Array, String matkul) {
         String ubah = "";
         while (true) {
@@ -881,7 +881,6 @@ public class MainApps {
                     System.out.println("Dibatalkan");
                     return;
                 }
-
             }
         }
     }
