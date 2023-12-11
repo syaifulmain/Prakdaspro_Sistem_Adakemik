@@ -30,7 +30,9 @@ public class MainApps {
     static String[][] NilaiDASPRO;
     static String[][] NilaiPRAK_DASPRO;
     static String[][] NilaiK3;
-    static String[] listMatkul = { "Pancasila", "Konsep Teknologi Informasi", "Critical Thinking And Problem Solving", "Matematika Dasar", "Bahasa Inggris 1", "Dasar Pemrograman", "Praktik Dasar Pemrograman", "Keselamatan Dan Kesehatan Kerja" };
+    static String[] listMatkul = { "Pancasila", "Konsep Teknologi Informasi", "Critical Thinking And Problem Solving",
+            "Matematika Dasar", "Bahasa Inggris 1", "Dasar Pemrograman", "Praktik Dasar Pemrograman",
+            "Keselamatan Dan Kesehatan Kerja" };
     /* Nilai Matkul */
 
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
@@ -346,12 +348,12 @@ public class MainApps {
         int index = -1;
         String name = "";
         for (int i = 0; i < bioDosen.length; i++) {
-                if (userMahasiswa[i][0].equals(nim)) {
-                    index = i;
-                    name = bioMahasiswa[index][1];
-                    break;
-                }
+            if (userMahasiswa[i][0].equals(nim)) {
+                index = i;
+                name = bioMahasiswa[index][1];
+                break;
             }
+        }
         while (true) {
             renderTitle("Selamat Datang " + name);
             System.out.println("=== Dashboard Mahasiswa ===");
@@ -389,7 +391,7 @@ public class MainApps {
                 System.out.println("Alamat: " + bioMahasiswa[i][3]);
                 System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
                 System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break; 
+                break;
             }
         }
 
@@ -401,7 +403,7 @@ public class MainApps {
     static void hadleNilaiMahasiswa(String nim) {
 
         for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) { 
+            if (nim.equals(bioMahasiswa[i][0])) {
                 renderTitle("NILAI AKADEMIK MAHASISWA:");
                 showNilaiMahasiswa(i);
             }
@@ -410,37 +412,37 @@ public class MainApps {
     }
 
     static void hadleJadwalMahasiswa(String nim) {
-    
+
         for (int i = 0; i < bioMahasiswa.length; i++) {
             if (nim.equals(bioMahasiswa[i][0])) {
 
                 String kelas = bioMahasiswa[i][5];
 
                 System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
-                        switch (kelas) {
-                            case "1A":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1A);
-                                break;
-                            case "1B":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1B);
-                                break;
-                            case "1C":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1C);
-                                break;
-                            case "1D":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1D);
-                                break;
-                            case "1E":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1E);
-                                break;
-                            default:
-                                System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
-                        }
+                switch (kelas) {
+                    case "1A":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1A);
                         break;
+                    case "1B":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1B);
+                        break;
+                    case "1C":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1C);
+                        break;
+                    case "1D":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1D);
+                        break;
+                    case "1E":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1E);
+                        break;
+                    default:
+                        System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
+                }
+                break;
             }
-            
+
         }
-    
+
     }
 
     static void hadlePresensiMahasiswa() {
@@ -589,28 +591,42 @@ public class MainApps {
         }
         String[][] nilaiBaru = new String[Array.length][4];
         nilaiBaru[studentIndex] = new String[] { nim, kuis, tugas, uts, uas };
-        double kuis1=Double.parseDouble(kuis);
-        double tugas1=Double.parseDouble(tugas);
-        double uts1=Double.parseDouble(uts);
-        double uas1=Double.parseDouble(uas);
+        double kuis1 = Double.parseDouble(kuis);
+        double tugas1 = Double.parseDouble(tugas);
+        double uts1 = Double.parseDouble(uts);
+        double uas1 = Double.parseDouble(uas);
         if (matkul.equals("Pancasila")) {
             NilaiPancasila[studentIndex] = nilaiBaru[studentIndex];
-            String temp = String.valueOf((kuis1 *0.25)+(tugas1 *0.25)+(uts1 *0.25)+(uas1 *0.25));
-            transkipNilai[studentIndex][1] =temp;
+            String temp = String.valueOf((kuis1 * 0.25) + (tugas1 * 0.25) + (uts1 * 0.25) + (uas1 * 0.25));
+            transkipNilai[studentIndex][1] = temp;
         } else if (matkul.equals("KTI")) {
             NilaiKTI[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.3));
+            transkipNilai[studentIndex][2] = temp;
         } else if (matkul.equals("CTPS")) {
             NilaiCTPS[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.3) + (tugas1 * 0.3) + (uts1 * 0.1) + (uas1 * 0.3));
+            transkipNilai[studentIndex][3] = temp;
         } else if (matkul.equals("MATDAS")) {
             NilaiMATDAS[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.1) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.4));
+            transkipNilai[studentIndex][4] = temp;
         } else if (matkul.equals("BING_1")) {
             NilaiBING_1[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][5] = temp;
         } else if (matkul.equals("DASPRO")) {
             NilaiDASPRO[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][6] = temp;
         } else if (matkul.equals("PRAK_DASPRO")) {
             NilaiPRAK_DASPRO[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.1) + (tugas1 * 0.4) + (uts1 * 0.25) + (uas1 * 0.25));
+            transkipNilai[studentIndex][7] = temp;
         } else if (matkul.equals("K3")) {
             NilaiK3[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][8] = temp;
         }
 
         System.out.println("Berhasil menambahkan nilai " + matkul);
@@ -782,12 +798,13 @@ public class MainApps {
     }
 
     // Menampilkan nilai mahasiswa per orang
-    static void showNilaiMahasiswa( int studentIndex) {
-        renderTitle("List Nilai "+bioMahasiswa[studentIndex][1]);
+    static void showNilaiMahasiswa(int studentIndex) {
+        renderTitle("List Nilai " + bioMahasiswa[studentIndex][1]);
         String formatTable = "| %-3s |%-50s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
         String horizonLine = "+-----+---------------------------------------------------+-------+-------+-------+-------+";
         System.out.println(horizonLine);
-        System.out.println("| NO  |Mata Kuliah                                        | Kuis  | Tugas |  UTS  |  UAS  |");
+        System.out
+                .println("| NO  |Mata Kuliah                                        | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
         for (int i = 0; i < 8; i++) {
             String[] takeNilai = NilaiPancasila[studentIndex];
@@ -1000,12 +1017,12 @@ public class MainApps {
         });
         switch (userInput) {
             // case 1 -> {
-            //     while (true) {
-            //         input = getInputStringWithLimit("NIM", 10, 10, false);
-            //         if (has(bioMahasiswa, input, 0))
-            //             break;
-            //         System.out.println("NIM " + input + " sudah terdaftar");
-            //     }
+            // while (true) {
+            // input = getInputStringWithLimit("NIM", 10, 10, false);
+            // if (has(bioMahasiswa, input, 0))
+            // break;
+            // System.out.println("NIM " + input + " sudah terdaftar");
+            // }
             // }
             case 1 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
             case 2 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
@@ -1466,10 +1483,10 @@ public class MainApps {
         clearScreen();
         System.out.println("Anda telah gagal mencoba 3 kali, silahkan tunggu 1 menit");
         try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
 
-            }
+        }
         int detik = 60;
         int left = detik / 60, right = detik % 60;
         for (int j = 0; j < detik; j++) {
@@ -1487,8 +1504,8 @@ public class MainApps {
             } else
                 right--;
         }
-         System.out.print("\033[H\033[2J");
-         System.out.println("Anda dapat mencoba login kembali");
+        System.out.print("\033[H\033[2J");
+        System.out.println("Anda dapat mencoba login kembali");
     }
 
     // Funtuk mengecek apakah ada item di array 2 dimensional
@@ -1592,7 +1609,8 @@ public class MainApps {
         }
     }
 
-    // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam array dan mengembalikan input integer
+    // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam
+    // array dan mengembalikan input integer
     static int pickMenu(String menuTitle, String[] menus) {
         System.out.println(menuTitle);
         int i = 0;
