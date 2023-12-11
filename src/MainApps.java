@@ -30,6 +30,9 @@ public class MainApps {
     static String[][] NilaiDASPRO;
     static String[][] NilaiPRAK_DASPRO;
     static String[][] NilaiK3;
+    static String[] listMatkul = { "Pancasila", "Konsep Teknologi Informasi", "Critical Thinking And Problem Solving",
+            "Matematika Dasar", "Bahasa Inggris 1", "Dasar Pemrograman", "Praktik Dasar Pemrograman",
+            "Keselamatan Dan Kesehatan Kerja" };
     /* Nilai Matkul */
 
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
@@ -68,7 +71,7 @@ public class MainApps {
         matkulTI = new String[][] {
                 { "RTI231001", "PANCASILA", "Pancasila", "2" },
                 { "RTI231002", "KTI", "Konsep Teknologi Informasi", "4" },
-                { "RTI231003", "CTPS", "Critical Thinking dan Problem Solving", "4" },
+                { "RTI231003", "CTPS", "Critical Thinking And Problem Solving", "4" },
                 { "RTI231004", "MATDAS", "Matematika Dasar", "6" },
                 { "RTI231005", "BING_1", "Bahasa Inggris 1", "4" },
                 { "RTI231006", "DASPRO", "Dasar Pemrograman", "4" },
@@ -345,12 +348,12 @@ public class MainApps {
         int index = -1;
         String name = "";
         for (int i = 0; i < bioDosen.length; i++) {
-                if (userMahasiswa[i][0].equals(nim)) {
-                    index = i;
-                    name = bioMahasiswa[index][1];
-                    break;
-                }
+            if (userMahasiswa[i][0].equals(nim)) {
+                index = i;
+                name = bioMahasiswa[index][1];
+                break;
             }
+        }
         while (true) {
             renderTitle("Selamat Datang " + name);
             System.out.println("=== Dashboard Mahasiswa ===");
@@ -388,7 +391,7 @@ public class MainApps {
                 System.out.println("Alamat: " + bioMahasiswa[i][3]);
                 System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
                 System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break; 
+                break;
             }
         }
 
@@ -400,58 +403,46 @@ public class MainApps {
     static void hadleNilaiMahasiswa(String nim) {
 
         for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) { 
-
-                int nilai = i;
-
+            if (nim.equals(bioMahasiswa[i][0])) {
                 renderTitle("NILAI AKADEMIK MAHASISWA:");
-                    showNilaiMahasiswa(NilaiPancasila, nilai,"Pancasila");
-                    showNilaiMahasiswa(NilaiKTI, nilai,"Konsep Teknologi Informasi");
-                    showNilaiMahasiswa(NilaiCTPS, nilai,"Critical Thinking dan Problem Solving");
-                    showNilaiMahasiswa(NilaiMATDAS, nilai,"Matematika Dasar");
-                    showNilaiMahasiswa(NilaiBING_1, nilai,"Bahasa Inggris 1");
-                    showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai,"Praktikum Dasar Pemrograman");
-                    showNilaiMahasiswa(NilaiDASPRO, nilai,"Dasar Pemrograman");
-                    showNilaiMahasiswa(NilaiK3, nilai,"Keselamatan dan Kesehatan Kerja");
-
+                showNilaiMahasiswa(i);
             }
         }
 
     }
 
     static void hadleJadwalMahasiswa(String nim) {
-    
+
         for (int i = 0; i < bioMahasiswa.length; i++) {
             if (nim.equals(bioMahasiswa[i][0])) {
 
                 String kelas = bioMahasiswa[i][5];
 
                 System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
-
-                        switch (kelas) {
-                            case "1A":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1A);
-                                break;
-                            case "1B":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1B);
-                                break;
-                            case "1C":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1C);
-                                break;
-                            case "1D":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1D);
-                                break;
-                            case "1E":
-                            tampilkanJadwalBerdasarkanKelas(jadwal_1E);
-                                break;
-                            default:
-                                System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
-                        }
+                switch (kelas) {
+                    case "1A":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1A);
                         break;
+                    case "1B":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1B);
+                        break;
+                    case "1C":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1C);
+                        break;
+                    case "1D":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1D);
+                        break;
+                    case "1E":
+                        tampilkanJadwalBerdasarkanKelas(jadwal_1E);
+                        break;
+                    default:
+                        System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
+                }
+                break;
             }
-            
+
         }
-    
+
     }
 
     static void hadlePresensiMahasiswa() {
@@ -526,6 +517,7 @@ public class MainApps {
                     "DASPRO",
                     "PRAK_DASPRO",
                     "K3",
+                    "Kembali"
             });
             clearScreen();
             switch (userInput) {
@@ -537,6 +529,10 @@ public class MainApps {
                 case 6 -> tambahNilaiMatkul(NilaiDASPRO, "DASPRO");
                 case 7 -> tambahNilaiMatkul(NilaiPRAK_DASPRO, "PRAK_DASPRO");
                 case 8 -> tambahNilaiMatkul(NilaiK3, "K3");
+                case 9 -> {
+                    clearScreen();
+                    return;
+                }
             }
         }
     }
@@ -595,23 +591,44 @@ public class MainApps {
         }
         String[][] nilaiBaru = new String[Array.length][4];
         nilaiBaru[studentIndex] = new String[] { nim, kuis, tugas, uts, uas };
+        double kuis1 = Double.parseDouble(kuis);
+        double tugas1 = Double.parseDouble(tugas);
+        double uts1 = Double.parseDouble(uts);
+        double uas1 = Double.parseDouble(uas);
         if (matkul.equals("Pancasila")) {
             NilaiPancasila[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.25) + (tugas1 * 0.25) + (uts1 * 0.25) + (uas1 * 0.25));
+            transkipNilai[studentIndex][1] = temp;
         } else if (matkul.equals("KTI")) {
             NilaiKTI[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.3));
+            transkipNilai[studentIndex][2] = temp;
         } else if (matkul.equals("CTPS")) {
             NilaiCTPS[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.3) + (tugas1 * 0.3) + (uts1 * 0.1) + (uas1 * 0.3));
+            transkipNilai[studentIndex][3] = temp;
         } else if (matkul.equals("MATDAS")) {
             NilaiMATDAS[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.1) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.4));
+            transkipNilai[studentIndex][4] = temp;
         } else if (matkul.equals("BING_1")) {
             NilaiBING_1[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][5] = temp;
         } else if (matkul.equals("DASPRO")) {
             NilaiDASPRO[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][6] = temp;
         } else if (matkul.equals("PRAK_DASPRO")) {
             NilaiPRAK_DASPRO[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.1) + (tugas1 * 0.4) + (uts1 * 0.25) + (uas1 * 0.25));
+            transkipNilai[studentIndex][7] = temp;
         } else if (matkul.equals("K3")) {
             NilaiK3[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][8] = temp;
         }
+
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
     }
@@ -669,6 +686,10 @@ public class MainApps {
                     break;
                 }
             }
+            double kuis = Double.parseDouble(Array[studentIndex][1]);
+            double tugas = Double.parseDouble(Array[studentIndex][2]);
+            double uts = Double.parseDouble(Array[studentIndex][3]);
+            double uas = Double.parseDouble(Array[studentIndex][4]);
             int userInput = pickMenu("Pilih Nilai", new String[] {
                     "Kuis",
                     "Tugas",
@@ -688,42 +709,171 @@ public class MainApps {
             }
             String userChoose = getInputUniqueWord("Ubah data? y/t", 1, 1, true, "y", "t");
             if (userChoose.equalsIgnoreCase("y")) {
+                double temp = Double.parseDouble(ubah);
                 if (matkul.equals("Pancasila")) {
-                    NilaiPancasila[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiPancasila[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][1] = String
+                                .valueOf((temp * 0.25) + (tugas * 0.25) + (uts * 0.25) + (uas * 0.25));
+                    } else if (userInput == 2) {
+                        NilaiPancasila[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][1] = String
+                                .valueOf((kuis * 0.25) + (temp * 0.25) + (uts * 0.25) + (uas * 0.25));
+                    } else if (userInput == 3) {
+                        NilaiPancasila[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][1] = String
+                                .valueOf((kuis * 0.25) + (tugas * 0.25) + (temp * 0.25) + (uas * 0.25));
+                    } else if (userInput == 4) {
+                        NilaiPancasila[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][1] = String
+                                .valueOf((kuis * 0.25) + (tugas * 0.25) + (uts * 0.25) + (temp * 0.25));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
                 } else if (matkul.equals("KTI")) {
-                    NilaiKTI[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiKTI[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][2] = String
+                                .valueOf((temp * 0.2) + (tugas * 0.3) + (uts * 0.2) + (uas * 0.3));
+                    } else if (userInput == 2) {
+                        NilaiKTI[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][2] = String
+                                .valueOf((kuis * 0.2) + (temp * 0.3) + (uts * 0.2) + (uas * 0.3));
+                    } else if (userInput == 3) {
+                        NilaiKTI[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][2] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.3) + (temp * 0.2) + (uas * 0.3));
+                    } else if (userInput == 4) {
+                        NilaiKTI[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][2] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.3) + (uts * 0.2) + (temp * 0.3));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
                 } else if (matkul.equals("CTPS")) {
-                    NilaiCTPS[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiCTPS[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][3] = String
+                                .valueOf((temp * 0.3) + (tugas * 0.3) + (uts * 0.1) + (uas * 0.3));
+                    } else if (userInput == 2) {
+                        NilaiCTPS[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][3] = String
+                                .valueOf((kuis * 0.3) + (temp * 0.3) + (uts * 0.1) + (uas * 0.3));
+                    } else if (userInput == 3) {
+                        NilaiCTPS[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][3] = String
+                                .valueOf((kuis * 0.3) + (tugas * 0.3) + (temp * 0.1) + (uas * 0.3));
+                    } else if (userInput == 4) {
+                        NilaiCTPS[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][3] = String
+                                .valueOf((kuis * 0.3) + (tugas * 0.3) + (uts * 0.1) + (temp * 0.3));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
                 } else if (matkul.equals("MATDAS")) {
-                    NilaiMATDAS[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiMATDAS[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][4] = String
+                                .valueOf((temp * 0.1) + (tugas * 0.3) + (uts * 0.2) + (uas * 0.4));
+                    } else if (userInput == 2) {
+                        NilaiMATDAS[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][4] = String
+                                .valueOf((kuis * 0.1) + (temp * 0.3) + (uts * 0.2) + (uas * 0.4));
+                    } else if (userInput == 3) {
+                        NilaiMATDAS[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][4] = String
+                                .valueOf((kuis * 0.1) + (tugas * 0.3) + (temp * 0.2) + (uas * 0.4));
+                    } else if (userInput == 4) {
+                        NilaiMATDAS[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][4] = String
+                                .valueOf((kuis * 0.1) + (tugas * 0.3) + (uts * 0.2) + (temp * 0.4));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
                 } else if (matkul.equals("BING_1")) {
-                    NilaiBING_1[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiBING_1[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][5] = String
+                                .valueOf((temp * 0.2) + (tugas * 0.2) + (uts * 0.3) + (uas * 0.3));
+                    } else if (userInput == 2) {
+                        NilaiBING_1[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][5] = String
+                                .valueOf((kuis * 0.2) + (temp * 0.2) + (uts * 0.3) + (uas * 0.3));
+                    } else if (userInput == 3) {
+                        NilaiBING_1[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][5] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (temp * 0.3) + (uas * 0.3));
+                    } else if (userInput == 4) {
+                        NilaiBING_1[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][5] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (uts * 0.3) + (temp * 0.3));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
                 } else if (matkul.equals("DASPRO")) {
-                    NilaiDASPRO[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiDASPRO[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][6] = String
+                                .valueOf((temp * 0.2) + (tugas * 0.2) + (uts * 0.3) + (uas * 0.3));
+                    } else if (userInput == 2) {
+                        NilaiDASPRO[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][6] = String
+                                .valueOf((kuis * 0.2) + (temp * 0.2) + (uts * 0.3) + (uas * 0.3));
+                    } else if (userInput == 3) {
+                        NilaiDASPRO[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][6] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (temp * 0.3) + (uas * 0.3));
+                    } else if (userInput == 4) {
+                        NilaiDASPRO[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][6] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (uts * 0.3) + (temp * 0.3));
+                    }
                     clearScreen();
                     return;
                 } else if (matkul.equals("PRAK_DASPRO")) {
-                    NilaiPRAK_DASPRO[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiPRAK_DASPRO[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][7] = String
+                                .valueOf((temp * 0.1) + (tugas * 0.4) + (uts * 0.25) + (uas * 0.25));
+                    } else if (userInput == 2) {
+                        NilaiPRAK_DASPRO[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][7] = String
+                                .valueOf((kuis * 0.1) + (temp * 0.4) + (uts * 0.25) + (uas * 0.25));
+                    } else if (userInput == 3) {
+                        NilaiPRAK_DASPRO[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][7] = String
+                                .valueOf((kuis * 0.1) + (tugas * 0.4) + (temp * 0.25) + (uas * 0.25));
+                    } else if (userInput == 4) {
+                        NilaiPRAK_DASPRO[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][7] = String
+                                .valueOf((kuis * 0.1) + (tugas * 0.4) + (uts * 0.25) + (temp * 0.25));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
                 } else if (matkul.equals("K3")) {
-                    NilaiK3[studentIndex][userInput] = ubah;
+                    if (userInput == 1) {
+                        NilaiK3[studentIndex][1] = ubah;
+                        transkipNilai[studentIndex][8] = String
+                                .valueOf((temp * 0.2) + (tugas * 0.2) + (uts * 0.3) + (uas * 0.3));
+                    } else if (userInput == 2) {
+                        NilaiK3[studentIndex][2] = ubah;
+                        transkipNilai[studentIndex][8] = String
+                                .valueOf((kuis * 0.2) + (temp * 0.2) + (uts * 0.3) + (uas * 0.3));
+                    } else if (userInput == 3) {
+                        NilaiK3[studentIndex][3] = ubah;
+                        transkipNilai[studentIndex][8] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (temp * 0.3) + (uas * 0.3));
+                    } else if (userInput == 4) {
+                        NilaiK3[studentIndex][4] = ubah;
+                        transkipNilai[studentIndex][8] = String
+                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (uts * 0.3) + (temp * 0.3));
+                    }
                     clearScreen();
                     System.out.println("Berhasil mengubah nilai " + matkul);
                     return;
@@ -774,31 +924,36 @@ public class MainApps {
                 }
             clearScreen();
             renderTitle("Check Nilai Mahasiswa dengan NIM: " + nim);
-            showNilaiMahasiswa(NilaiPancasila, studentIndex, "Pancasila");
-            showNilaiMahasiswa(NilaiKTI, studentIndex, "Konsep Teknologi Informasi");
-            showNilaiMahasiswa(NilaiCTPS, studentIndex, "Critical Thinking dan Problem Solving");
-            showNilaiMahasiswa(NilaiMATDAS, studentIndex, "Matekmatika Dasar");
-            showNilaiMahasiswa(NilaiBING_1, studentIndex, "Bahasa Inggris 1");
-            showNilaiMahasiswa(NilaiDASPRO, studentIndex, "Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiPRAK_DASPRO, studentIndex, "Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiK3, studentIndex, "Keselamatan dan Kesehatan Kerja");
+            showNilaiMahasiswa(studentIndex);
         } else
             System.out.println("Dibatalkan");
         return;
     }
 
     // Menampilkan nilai mahasiswa per orang
-    static void showNilaiMahasiswa(String[][] Array, int studentIndex, String matkul) {
-        renderTitle(matkul);
-        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
-        String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
+    static void showNilaiMahasiswa(int studentIndex) {
+        renderTitle("List Nilai " + bioMahasiswa[studentIndex][1]);
+        String formatTable = "| %-3s |%-50s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
+        String horizonLine = "+-----+---------------------------------------------------+-------+-------+-------+-------+";
         System.out.println(horizonLine);
-        System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
+        System.out
+                .println("| NO  |Mata Kuliah                                        | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
-        String[] takeNilai = Array[studentIndex];
-        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][1],
-                takeNilai[1], takeNilai[2],
-                takeNilai[3], takeNilai[4]);
+        for (int i = 0; i < 8; i++) {
+            String[] takeNilai = NilaiPancasila[studentIndex];
+            switch (i) {
+                case 0 -> takeNilai = NilaiPancasila[studentIndex];
+                case 1 -> takeNilai = NilaiKTI[studentIndex];
+                case 2 -> takeNilai = NilaiCTPS[studentIndex];
+                case 3 -> takeNilai = NilaiMATDAS[studentIndex];
+                case 4 -> takeNilai = NilaiBING_1[studentIndex];
+                case 5 -> takeNilai = NilaiDASPRO[studentIndex];
+                case 6 -> takeNilai = NilaiPRAK_DASPRO[studentIndex];
+                case 7 -> takeNilai = NilaiK3[studentIndex];
+            }
+            System.out.printf(formatTable, i + 1, listMatkul[i], takeNilai[1], takeNilai[2], takeNilai[3],
+                    takeNilai[4]);
+        }
         System.out.println(horizonLine);
         return;
     }
@@ -995,12 +1150,12 @@ public class MainApps {
         });
         switch (userInput) {
             // case 1 -> {
-            //     while (true) {
-            //         input = getInputStringWithLimit("NIM", 10, 10, false);
-            //         if (has(bioMahasiswa, input, 0))
-            //             break;
-            //         System.out.println("NIM " + input + " sudah terdaftar");
-            //     }
+            // while (true) {
+            // input = getInputStringWithLimit("NIM", 10, 10, false);
+            // if (has(bioMahasiswa, input, 0))
+            // break;
+            // System.out.println("NIM " + input + " sudah terdaftar");
+            // }
             // }
             case 1 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
             case 2 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
@@ -1462,10 +1617,10 @@ public class MainApps {
         clearScreen();
         System.out.println("Anda telah gagal mencoba 3 kali, silahkan tunggu 1 menit");
         try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
 
-            }
+        }
         int detik = 60;
         int left = detik / 60, right = detik % 60;
         for (int j = 0; j < detik; j++) {
@@ -1483,8 +1638,8 @@ public class MainApps {
             } else
                 right--;
         }
-         System.out.print("\033[H\033[2J");
-         System.out.println("Anda dapat mencoba login kembali");
+        System.out.print("\033[H\033[2J");
+        System.out.println("Anda dapat mencoba login kembali");
     }
 
     // Funtuk mengecek apakah ada item di array 2 dimensional
@@ -1588,7 +1743,8 @@ public class MainApps {
         }
     }
 
-    // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam array dan mengembalikan input integer
+    // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam
+    // array dan mengembalikan input integer
     static int pickMenu(String menuTitle, String[] menus) {
         System.out.println(menuTitle);
         int i = 0;
