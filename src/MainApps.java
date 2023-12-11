@@ -273,7 +273,7 @@ public class MainApps {
     static void run() {
         fill();
         clearScreen();
-        penjadwalan();
+        // penjadwalan();
         // penjadwalan();
         firstLogin();
         // aturJadwal(0);
