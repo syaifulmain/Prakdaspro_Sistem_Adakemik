@@ -30,6 +30,7 @@ public class MainApps {
     static String[][] NilaiDASPRO;
     static String[][] NilaiPRAK_DASPRO;
     static String[][] NilaiK3;
+    static String[] listMatkul = { "Pancasila", "Konsep Teknologi Informasi", "Critical Thinking And Problem Sorlving", "Matematika Dasar", "Bahasa Inggris 1", "Dasar Pemrograman", "Praktik Dasar Pemrograman", "Keselamatan Dan Kesehatan Kerja" };
     /* Nilai Matkul */
 
     static String[] kumpulanHari = { "Senin", "Selasa", "Rabu", "Kamis", "Jumat" };
@@ -399,23 +400,23 @@ public class MainApps {
 
     static void hadleNilaiMahasiswa(String nim) {
 
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) { 
+        // for (int i = 0; i < bioMahasiswa.length; i++) {
+        //     if (nim.equals(bioMahasiswa[i][0])) { 
 
-                int nilai = i;
+        //         int nilai = i;
 
-                renderTitle("NILAI AKADEMIK MAHASISWA:");
-                    showNilaiMahasiswa(NilaiPancasila, nilai,"Pancasila");
-                    showNilaiMahasiswa(NilaiKTI, nilai,"Konsep Teknologi Informasi");
-                    showNilaiMahasiswa(NilaiCTPS, nilai,"Critical Thinking dan Problem Solving");
-                    showNilaiMahasiswa(NilaiMATDAS, nilai,"Matematika Dasar");
-                    showNilaiMahasiswa(NilaiBING_1, nilai,"Bahasa Inggris 1");
-                    showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai,"Praktikum Dasar Pemrograman");
-                    showNilaiMahasiswa(NilaiDASPRO, nilai,"Dasar Pemrograman");
-                    showNilaiMahasiswa(NilaiK3, nilai,"Keselamatan dan Kesehatan Kerja");
+        //         renderTitle("NILAI AKADEMIK MAHASISWA:");
+        //             showNilaiMahasiswa(NilaiPancasila, nilai,"Pancasila");
+        //             showNilaiMahasiswa(NilaiKTI, nilai,"Konsep Teknologi Informasi");
+        //             showNilaiMahasiswa(NilaiCTPS, nilai,"Critical Thinking dan Problem Solving");
+        //             showNilaiMahasiswa(NilaiMATDAS, nilai,"Matematika Dasar");
+        //             showNilaiMahasiswa(NilaiBING_1, nilai,"Bahasa Inggris 1");
+        //             showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai,"Praktikum Dasar Pemrograman");
+        //             showNilaiMahasiswa(NilaiDASPRO, nilai,"Dasar Pemrograman");
+        //             showNilaiMahasiswa(NilaiK3, nilai,"Keselamatan dan Kesehatan Kerja");
 
-            }
-        }
+        //     }
+        // }
 
     }
 
@@ -774,31 +775,35 @@ public class MainApps {
                 }
             clearScreen();
             renderTitle("Check Nilai Mahasiswa dengan NIM: " + nim);
-            showNilaiMahasiswa(NilaiPancasila, studentIndex, "Pancasila");
-            showNilaiMahasiswa(NilaiKTI, studentIndex, "Konsep Teknologi Informasi");
-            showNilaiMahasiswa(NilaiCTPS, studentIndex, "Critical Thinking dan Problem Solving");
-            showNilaiMahasiswa(NilaiMATDAS, studentIndex, "Matekmatika Dasar");
-            showNilaiMahasiswa(NilaiBING_1, studentIndex, "Bahasa Inggris 1");
-            showNilaiMahasiswa(NilaiDASPRO, studentIndex, "Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiPRAK_DASPRO, studentIndex, "Dasar Pemrograman");
-            showNilaiMahasiswa(NilaiK3, studentIndex, "Keselamatan dan Kesehatan Kerja");
+            showNilaiMahasiswa(studentIndex);
         } else
             System.out.println("Dibatalkan");
         return;
     }
 
     // Menampilkan nilai mahasiswa per orang
-    static void showNilaiMahasiswa(String[][] Array, int studentIndex, String matkul) {
-        renderTitle(matkul);
-        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
-        String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
+    static void showNilaiMahasiswa( int studentIndex) {
+        renderTitle("List Nilai "+bioMahasiswa[studentIndex][1]);
+        String formatTable = "| %-3s |%-35s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
+        String horizonLine = "+------------------+---------------------------+-------+-------+-------+-------+";
         System.out.println(horizonLine);
-        System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
+        System.out.println("| NO  |Mata Kuliah                             | Kuis  | Tugas |  UTS  |  UAS  |");
         System.out.println(horizonLine);
-        String[] takeNilai = Array[studentIndex];
-        System.out.printf(formatTable, studentIndex + 1, takeNilai[0], bioMahasiswa[studentIndex][1],
-                takeNilai[1], takeNilai[2],
-                takeNilai[3], takeNilai[4]);
+        for (int i = 0; i < 8; i++) {
+            String[] takeNilai = NilaiPancasila[studentIndex];
+            switch (i) {
+                case 0 -> takeNilai = NilaiPancasila[studentIndex];
+                case 1 -> takeNilai = NilaiKTI[studentIndex];
+                case 2 -> takeNilai = NilaiCTPS[studentIndex];
+                case 3 -> takeNilai = NilaiMATDAS[studentIndex];
+                case 4 -> takeNilai = NilaiBING_1[studentIndex];
+                case 5 -> takeNilai = NilaiDASPRO[studentIndex];
+                case 6 -> takeNilai = NilaiPRAK_DASPRO[studentIndex];
+                case 7 -> takeNilai = NilaiK3[studentIndex];
+            }
+            System.out.printf(formatTable, i + 1, listMatkul[i], takeNilai[1], takeNilai[2], takeNilai[3],
+                    takeNilai[4]);
+        }
         System.out.println(horizonLine);
         return;
     }
