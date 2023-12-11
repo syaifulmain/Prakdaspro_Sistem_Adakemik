@@ -400,23 +400,12 @@ public class MainApps {
 
     static void hadleNilaiMahasiswa(String nim) {
 
-        // for (int i = 0; i < bioMahasiswa.length; i++) {
-        //     if (nim.equals(bioMahasiswa[i][0])) { 
-
-        //         int nilai = i;
-
-        //         renderTitle("NILAI AKADEMIK MAHASISWA:");
-        //             showNilaiMahasiswa(NilaiPancasila, nilai,"Pancasila");
-        //             showNilaiMahasiswa(NilaiKTI, nilai,"Konsep Teknologi Informasi");
-        //             showNilaiMahasiswa(NilaiCTPS, nilai,"Critical Thinking dan Problem Solving");
-        //             showNilaiMahasiswa(NilaiMATDAS, nilai,"Matematika Dasar");
-        //             showNilaiMahasiswa(NilaiBING_1, nilai,"Bahasa Inggris 1");
-        //             showNilaiMahasiswa(NilaiPRAK_DASPRO, nilai,"Praktikum Dasar Pemrograman");
-        //             showNilaiMahasiswa(NilaiDASPRO, nilai,"Dasar Pemrograman");
-        //             showNilaiMahasiswa(NilaiK3, nilai,"Keselamatan dan Kesehatan Kerja");
-
-        //     }
-        // }
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) { 
+                renderTitle("NILAI AKADEMIK MAHASISWA:");
+                showNilaiMahasiswa(i);
+            }
+        }
 
     }
 
@@ -428,7 +417,6 @@ public class MainApps {
                 String kelas = bioMahasiswa[i][5];
 
                 System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
-
                         switch (kelas) {
                             case "1A":
                             tampilkanJadwalBerdasarkanKelas(jadwal_1A);
@@ -527,6 +515,7 @@ public class MainApps {
                     "DASPRO",
                     "PRAK_DASPRO",
                     "K3",
+                    "Kembali"
             });
             clearScreen();
             switch (userInput) {
@@ -538,6 +527,10 @@ public class MainApps {
                 case 6 -> tambahNilaiMatkul(NilaiDASPRO, "DASPRO");
                 case 7 -> tambahNilaiMatkul(NilaiPRAK_DASPRO, "PRAK_DASPRO");
                 case 8 -> tambahNilaiMatkul(NilaiK3, "K3");
+                case 9 -> {
+                    clearScreen();
+                    return;
+                }
             }
         }
     }
@@ -596,8 +589,14 @@ public class MainApps {
         }
         String[][] nilaiBaru = new String[Array.length][4];
         nilaiBaru[studentIndex] = new String[] { nim, kuis, tugas, uts, uas };
+        double kuis1=Double.parseDouble(kuis);
+        double tugas1=Double.parseDouble(tugas);
+        double uts1=Double.parseDouble(uts);
+        double uas1=Double.parseDouble(uas);
         if (matkul.equals("Pancasila")) {
             NilaiPancasila[studentIndex] = nilaiBaru[studentIndex];
+            String temp = String.valueOf((kuis1 *0.25)+(tugas1 *0.25)+(uts1 *0.25)+(uas1 *0.25));
+            transkipNilai[studentIndex][1] =temp;
         } else if (matkul.equals("KTI")) {
             NilaiKTI[studentIndex] = nilaiBaru[studentIndex];
         } else if (matkul.equals("CTPS")) {
@@ -613,6 +612,7 @@ public class MainApps {
         } else if (matkul.equals("K3")) {
             NilaiK3[studentIndex] = nilaiBaru[studentIndex];
         }
+
         System.out.println("Berhasil menambahkan nilai " + matkul);
 
     }
