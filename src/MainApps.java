@@ -39,6 +39,7 @@ public class MainApps {
 
     /* JADWAL */
     static String[][] matkulTI;
+    static int[] SKS = { 2, 4, 4, 6, 4, 4, 6, 4 };
     static String[][] jadwal_1A;
     static String[][] jadwal_1B;
     static String[][] jadwal_1C;
@@ -272,6 +273,7 @@ public class MainApps {
     static void run() {
         fill();
         clearScreen();
+        // penjadwalan();
         // penjadwalan();
         firstLogin();
         // aturJadwal(0);
@@ -990,6 +992,7 @@ public class MainApps {
                     "List Mahasiswa",
                     "Transkip Nilai",
                     "Presensi Mahasiswa",
+                    "Cek User",
                     "Kembali",
             });
             clearScreen();
@@ -997,7 +1000,8 @@ public class MainApps {
                 case 1 -> handleListMahasiswa();
                 case 2 -> transkipNilai();
                 case 3 -> presensiMahasiswa();
-                case 4 -> {
+                case 4 -> cekUserMahasiswa();
+                case 5 -> {
                     return;
                 }
             }
@@ -1149,14 +1153,6 @@ public class MainApps {
                 "Batal"
         });
         switch (userInput) {
-            // case 1 -> {
-            // while (true) {
-            // input = getInputStringWithLimit("NIM", 10, 10, false);
-            // if (has(bioMahasiswa, input, 0))
-            // break;
-            // System.out.println("NIM " + input + " sudah terdaftar");
-            // }
-            // }
             case 1 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
             case 2 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
             case 3 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
@@ -1257,6 +1253,39 @@ public class MainApps {
             total += Float.parseFloat(transkipNilai[index][i]);
         }
         return String.format("%.2f", total / 8);
+    }
+
+
+    static void cekUserMahasiswa() {
+        while (true) {
+            System.out.println("Siakad / Modul Mahasiswa / Cek User");
+            renderTitle("Cek User");
+            tampilkanDataUser();
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Kembali",
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> {
+                    return;
+                }
+            }
+        }
+    }
+
+    static void tampilkanDataUser() {
+        String formatTable = "| %-3s | %-10s | %-25s | %-10s | %-15s |%n";
+        String horizonLine = "+-----+------------+---------------------------+------------+-----------------+";
+        System.out.println(horizonLine);
+        System.out.format(
+                "| NO  | NIM        | NAMA                      | USER       | PASSWORD        |%n");
+        System.out.println(horizonLine);
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            String[] takeBio = bioMahasiswa[i];
+            String[] takeUser = userMahasiswa[i];
+            System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeUser[0], takeUser[1]);
+        }
+        System.out.println(horizonLine);
     }
 
     static void presensiMahasiswa() {
@@ -1500,16 +1529,16 @@ public class MainApps {
     }
 
     // menmapilkan matkul
-    static void tampilkanMatkul() {
-        String formatTable = "|  {%s}  | %-8s | %-40s |%n";
-        String horizonLine = "+-------+-----------+" + "-".repeat(42) + "+";
+    static void tampilkanMatkul(String[][] matkulTI, int[] sks) {
+        String formatTable = "|  {%s}  | %-8s | %-40s |  %-2s |%n";
+        String horizonLine = "+-------+-----------+" + "-".repeat(42) + "+" + "-".repeat(5) + "+";
         System.out.println(horizonLine);
-        System.out.println("| index | Kode      | Mata Kuliah" + " ".repeat(30) + "|");
+        System.out.println("| index | Kode      | Mata Kuliah" + " ".repeat(30) + "| SKS |");
         System.out.println(horizonLine);
         int number = 1;
         for (int i = 0; i < matkulTI.length; i++) {
             String[] takeMatkul = matkulTI[i];
-            System.out.printf(formatTable, number++, takeMatkul[0], takeMatkul[2]);
+            System.out.printf(formatTable, number++, takeMatkul[0], takeMatkul[2], sks[i]);
         }
         System.out.println(horizonLine);
     }
@@ -1517,24 +1546,50 @@ public class MainApps {
     // untuk mengatur/edit jadwal
     static void aturJadwal(String stringKelas, String[][] arrayKelas) {
         String[][] tempJadawal = new String[5][3];
+        int[] tempSKS = SKS;
         tampilkanJadwalBerdasarkanKelas(arrayKelas);
-        tampilkanMatkul();
-        String _1, _2, _3;
-        System.out.println("Format {1}-{2}-{3}");
-        System.out.println("1. Mulai dari jam ke-(1-11)\n2. Index Kode matkul\n3. Lama jam matkul(1-6)");
+        String _1,_3;
+        int _2;
         for (int i = 0; i < kumpulanHari.length; i++) {
-            System.out.println("Masukan jadwal pada hari " + kumpulanHari[i]);
             int min = 1;
+            boolean onceExecution = true;
+            String next;
             for (int j = 0; j < tempJadawal[i].length; j++) {
+                tampilkanMatkul(matkulTI, tempSKS);
+                System.out.println("Format {1}-{2}-{3}");
+                System.out.println("1. Mulai dari jam ke-(1-11)\n2. Index Kode matkul\n3. Lama jam matkul(1-6)");
+                if (onceExecution) {
+                    next = getInputUniqueWord("Jadwal kosong pada hari " + kumpulanHari[i] + " y/n (untuk input jadwal)", 1, 1, true,
+                    "y", "n");
+                    onceExecution = false;
+                    if (next.equals("Y"))
+                    break;
+                }
+                System.out.println("Masukan jadwal pada hari " + kumpulanHari[i]);
                 _1 = getInputStringNumberwithLimit("Mulai dari jam ke-" + min + "-11", min, 11, false);
-                _2 = getInputStringNumberwithLimit("Index Kode matkul(1-8)", 1, 8, false);
-                _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
+                while (true) {
+                    _2 = Integer.parseInt(getInputStringNumberwithLimit("Index Kode matkul", 1, 8, false));
+                    if (tempSKS[_2 - 1] > 0) {
+                        break;
+                    } else {
+                        System.out.println("SKS matkul sudah habis");
+                    }
+                }
+                while (true) {
+                    _3 = getInputStringNumberwithLimit("Lama jam matkul", 1, 11 - min, false);
+                    if (Integer.parseInt(_3) <= tempSKS[_2 - 1]) {
+                        tempSKS[_2 - 1] -= Integer.parseInt(_3);
+                        break;
+                    } else {
+                        System.out.println("SKS matkul tidak cukup");
+                    }
+                }
                 min += Integer.parseInt(_3);
-                System.out.printf("%s-%s-%s%n", _1, matkulTI[Integer.parseInt(_2) - 1][2], _3);
-                tempJadawal[i][j] = _1 + "-" + matkulTI[Integer.parseInt(_2) - 1][0] + "-" + _3;
+                System.out.printf("%s-%s-%s%n", _1, matkulTI[_2 - 1][2], _3);
+                tempJadawal[i][j] = _1 + "-" + matkulTI[_2 - 1][0] + "-" + _3;
                 if (min > 8)
                     break;
-                String next = getInputUniqueWord("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1, true,
+                next = getInputUniqueWord("Masukan matkul selanjutnya y/n(Lanjut hari berikutnya)", 1, 1, true,
                         "y", "n");
                 if (next.equals("N"))
                     break;
