@@ -1556,7 +1556,7 @@ public class MainApps {
 
     /* <--- modulKursus ---> */
 
-    // Info Lomba
+    // Info Lomba 
     static void infoLomba() {
         while (true) {
             renderTitle("Info Lomba");
@@ -1569,7 +1569,7 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                // case 1 -> tambahLomba();
+                case 1 -> tambahLomba();
                 // case 2 -> editLomba();
                 // case 3 -> hapusLomba();
                 case 4 -> {
@@ -1578,7 +1578,7 @@ public class MainApps {
             }
         }
     }
-
+    // fungsi menampilkan tabel lomba
     static void showLomba() {
         String formatTable = "| %-3s | %-60s | %-61s |%n";
         String horizonLine = "+-----+" + "-".repeat(62) + "+" + "-".repeat(63) + "+";
@@ -1591,6 +1591,28 @@ public class MainApps {
         }
         System.out.println(horizonLine);
 
+    }
+    // interface  menambahkan lomba
+    static void tambahLomba() {
+        String nama = getInputStringWithLimit("Nama Lomba", 1, 60, false);
+        String deskripsi = getInputStringWithLimit("Deskripsi Lomba", 1, 60, false);
+        String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("y"))
+            addLomba(nama, deskripsi);
+        else
+            System.out.println("Dibatalkan");
+    }
+    // fungsi menambahkan lomba
+    static void addLomba(String nama, String deskripsi) {
+        String[][] lombaBaru = new String[lomba.length + 1][2];
+        for (int i = 0; i < lomba.length; i++) {
+            lombaBaru[i] = lomba[i];
+        }
+        lombaBaru[lombaBaru.length - 1] = new String[] { nama, deskripsi };
+        lomba = lombaBaru;
+        clearScreen();
+        System.out.println("Lomba telah berhasil ditambahkan");
     }
     /* <--- DASHBOARD ADMIN ---> */
 
