@@ -359,6 +359,7 @@ public class MainApps {
                     "Nilai",
                     "Jadwal",
                     "Presesi",
+                    "Kembali"
             });
             clearScreen();
             switch (userInput) {
@@ -526,6 +527,7 @@ public class MainApps {
                     "DASPRO",
                     "PRAK_DASPRO",
                     "K3",
+                    "Kembali"
             });
             clearScreen();
             switch (userInput) {
@@ -537,6 +539,9 @@ public class MainApps {
                 case 6 -> tambahNilaiMatkul(NilaiDASPRO, "DASPRO");
                 case 7 -> tambahNilaiMatkul(NilaiPRAK_DASPRO, "PRAK_DASPRO");
                 case 8 -> tambahNilaiMatkul(NilaiK3, "K3");
+                case 9 -> {
+                    return;
+                }
             }
         }
     }
