@@ -735,10 +735,9 @@ public class MainApps {
             }
         }
     }
-
+    // Fungsi menambahkan nilai ke transkip nilai
     static void addTranskip(String Array[][], int userInput, int temp, int studentIndex, int indexMatkul,
             double bobot1, double bobot2, double bobot3, double bobot4) {
-
         double kuis = Double.parseDouble(Array[studentIndex][1]);
         double tugas = Double.parseDouble(Array[studentIndex][2]);
         double uts = Double.parseDouble(Array[studentIndex][3]);
