@@ -18,7 +18,7 @@ Sistem informasi akademik (SIAKAD) adalah suatu sistem informasi yang digunakan 
 ## 2.2 Halaman Kursus
 - Penempatan Kelas Mahasiswa (A-E)
 - Penjadlawan
-- Penetapan Mata Kuliah Pengajar
+- Info Lomba
 ## 2.3 Halaman  Dosen
 - Show List Dosen
 - Create Data Dosen
@@ -31,12 +31,12 @@ Sistem informasi akademik (SIAKAD) adalah suatu sistem informasi yang digunakan 
 - Edit Nilai
 - Presensi Mahasiswa
 - Edit Presensi
-- Show Jadwal
 ## 4. Mahasiswa
 - Show Biodata
-- Presensi
+- CekPresensi
 - Show Jadwal
 - Show Nilai
+- -Show Lomba
 ## Alur
 ```text
 Login
@@ -67,8 +67,8 @@ Login
   │   │   └──Edit Nilai
   │   ├──Presensi Mahasiswa
   │   │   ├──Presensi
-  │   │   └──Edit Presensi
-  │   └──Cek Jadwal
+  │       └──Edit Presensi
+  │   
   └──Mahasiswa
       ├──Cek Biodata
       ├──Cek Nilai
