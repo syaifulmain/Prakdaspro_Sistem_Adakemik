@@ -273,7 +273,7 @@ public class MainApps {
     static void run() {
         fill();
         clearScreen();
-        penjadwalan();
+        // penjadwalan();
         // penjadwalan();
         firstLogin();
         // aturJadwal(0);
@@ -581,7 +581,7 @@ public class MainApps {
         }
     }
 
-    // fungsi menambahkan nilai
+    // fungsi menambahkan nilai tersambung ke transkip nilai
     static void addNilai(String[][] Array, String nim, String kuis, String tugas, String uts, String uas,
             String matkul) {
         int studentIndex = -1;
@@ -668,7 +668,7 @@ public class MainApps {
         }
     }
 
-    // Edit Nilai mata kuliah
+    // Edit Nilai mata kuliah tersambung ke transkip nilai
     static void editNilaiMatkul(String[][] Array, String matkul) {
         String ubah = "";
         while (true) {
@@ -688,10 +688,6 @@ public class MainApps {
                     break;
                 }
             }
-            double kuis = Double.parseDouble(Array[studentIndex][1]);
-            double tugas = Double.parseDouble(Array[studentIndex][2]);
-            double uts = Double.parseDouble(Array[studentIndex][3]);
-            double uas = Double.parseDouble(Array[studentIndex][4]);
             int userInput = pickMenu("Pilih Nilai", new String[] {
                     "Kuis",
                     "Tugas",
@@ -711,181 +707,60 @@ public class MainApps {
             }
             String userChoose = getInputUniqueWord("Ubah data? y/t", 1, 1, true, "y", "t");
             if (userChoose.equalsIgnoreCase("y")) {
-                double temp = Double.parseDouble(ubah);
+                int temp = Integer.parseInt(ubah);
                 if (matkul.equals("Pancasila")) {
-                    if (userInput == 1) {
-                        NilaiPancasila[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][1] = String
-                                .valueOf((temp * 0.25) + (tugas * 0.25) + (uts * 0.25) + (uas * 0.25));
-                    } else if (userInput == 2) {
-                        NilaiPancasila[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][1] = String
-                                .valueOf((kuis * 0.25) + (temp * 0.25) + (uts * 0.25) + (uas * 0.25));
-                    } else if (userInput == 3) {
-                        NilaiPancasila[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][1] = String
-                                .valueOf((kuis * 0.25) + (tugas * 0.25) + (temp * 0.25) + (uas * 0.25));
-                    } else if (userInput == 4) {
-                        NilaiPancasila[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][1] = String
-                                .valueOf((kuis * 0.25) + (tugas * 0.25) + (uts * 0.25) + (temp * 0.25));
-                    }
-                    clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
+                    addTranskip(NilaiPancasila, userInput, temp, studentIndex, 1, 0.25, 0.25, 0.25, 0.25);
                 } else if (matkul.equals("KTI")) {
-                    if (userInput == 1) {
-                        NilaiKTI[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][2] = String
-                                .valueOf((temp * 0.2) + (tugas * 0.3) + (uts * 0.2) + (uas * 0.3));
-                    } else if (userInput == 2) {
-                        NilaiKTI[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][2] = String
-                                .valueOf((kuis * 0.2) + (temp * 0.3) + (uts * 0.2) + (uas * 0.3));
-                    } else if (userInput == 3) {
-                        NilaiKTI[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][2] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.3) + (temp * 0.2) + (uas * 0.3));
-                    } else if (userInput == 4) {
-                        NilaiKTI[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][2] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.3) + (uts * 0.2) + (temp * 0.3));
-                    }
-                    clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
+                    addTranskip(NilaiKTI, userInput, temp, studentIndex, 2, 0.2, 0.3, 0.2, 0.3);
                 } else if (matkul.equals("CTPS")) {
-                    if (userInput == 1) {
-                        NilaiCTPS[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][3] = String
-                                .valueOf((temp * 0.3) + (tugas * 0.3) + (uts * 0.1) + (uas * 0.3));
-                    } else if (userInput == 2) {
-                        NilaiCTPS[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][3] = String
-                                .valueOf((kuis * 0.3) + (temp * 0.3) + (uts * 0.1) + (uas * 0.3));
-                    } else if (userInput == 3) {
-                        NilaiCTPS[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][3] = String
-                                .valueOf((kuis * 0.3) + (tugas * 0.3) + (temp * 0.1) + (uas * 0.3));
-                    } else if (userInput == 4) {
-                        NilaiCTPS[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][3] = String
-                                .valueOf((kuis * 0.3) + (tugas * 0.3) + (uts * 0.1) + (temp * 0.3));
-                    }
-                    clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
+                    addTranskip(NilaiCTPS, userInput, temp, studentIndex, 3, 0.3, 0.3, 0.1, 0.3);
                 } else if (matkul.equals("MATDAS")) {
-                    if (userInput == 1) {
-                        NilaiMATDAS[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][4] = String
-                                .valueOf((temp * 0.1) + (tugas * 0.3) + (uts * 0.2) + (uas * 0.4));
-                    } else if (userInput == 2) {
-                        NilaiMATDAS[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][4] = String
-                                .valueOf((kuis * 0.1) + (temp * 0.3) + (uts * 0.2) + (uas * 0.4));
-                    } else if (userInput == 3) {
-                        NilaiMATDAS[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][4] = String
-                                .valueOf((kuis * 0.1) + (tugas * 0.3) + (temp * 0.2) + (uas * 0.4));
-                    } else if (userInput == 4) {
-                        NilaiMATDAS[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][4] = String
-                                .valueOf((kuis * 0.1) + (tugas * 0.3) + (uts * 0.2) + (temp * 0.4));
-                    }
-                    clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
+                    addTranskip(NilaiMATDAS, userInput, temp, studentIndex, 4, 0.1, 0.3, 0.2, 0.4);
                 } else if (matkul.equals("BING_1")) {
-                    if (userInput == 1) {
-                        NilaiBING_1[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][5] = String
-                                .valueOf((temp * 0.2) + (tugas * 0.2) + (uts * 0.3) + (uas * 0.3));
-                    } else if (userInput == 2) {
-                        NilaiBING_1[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][5] = String
-                                .valueOf((kuis * 0.2) + (temp * 0.2) + (uts * 0.3) + (uas * 0.3));
-                    } else if (userInput == 3) {
-                        NilaiBING_1[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][5] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (temp * 0.3) + (uas * 0.3));
-                    } else if (userInput == 4) {
-                        NilaiBING_1[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][5] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (uts * 0.3) + (temp * 0.3));
-                    }
+                    addTranskip(NilaiBING_1, userInput, temp, studentIndex, 5, 0.2, 0.2, 0.3, 0.3);
                     clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
                 } else if (matkul.equals("DASPRO")) {
-                    if (userInput == 1) {
-                        NilaiDASPRO[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][6] = String
-                                .valueOf((temp * 0.2) + (tugas * 0.2) + (uts * 0.3) + (uas * 0.3));
-                    } else if (userInput == 2) {
-                        NilaiDASPRO[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][6] = String
-                                .valueOf((kuis * 0.2) + (temp * 0.2) + (uts * 0.3) + (uas * 0.3));
-                    } else if (userInput == 3) {
-                        NilaiDASPRO[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][6] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (temp * 0.3) + (uas * 0.3));
-                    } else if (userInput == 4) {
-                        NilaiDASPRO[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][6] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (uts * 0.3) + (temp * 0.3));
-                    }
-                    clearScreen();
-                    return;
+                    addTranskip(NilaiDASPRO, userInput, temp, studentIndex, 6, 0.2, 0.2, 0.3, 0.3);
                 } else if (matkul.equals("PRAK_DASPRO")) {
-                    if (userInput == 1) {
-                        NilaiPRAK_DASPRO[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][7] = String
-                                .valueOf((temp * 0.1) + (tugas * 0.4) + (uts * 0.25) + (uas * 0.25));
-                    } else if (userInput == 2) {
-                        NilaiPRAK_DASPRO[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][7] = String
-                                .valueOf((kuis * 0.1) + (temp * 0.4) + (uts * 0.25) + (uas * 0.25));
-                    } else if (userInput == 3) {
-                        NilaiPRAK_DASPRO[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][7] = String
-                                .valueOf((kuis * 0.1) + (tugas * 0.4) + (temp * 0.25) + (uas * 0.25));
-                    } else if (userInput == 4) {
-                        NilaiPRAK_DASPRO[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][7] = String
-                                .valueOf((kuis * 0.1) + (tugas * 0.4) + (uts * 0.25) + (temp * 0.25));
-                    }
-                    clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
+                    addTranskip(NilaiPRAK_DASPRO, userInput, temp, studentIndex, 7, 0.1, 0.4, 0.25, 0.25);
                 } else if (matkul.equals("K3")) {
-                    if (userInput == 1) {
-                        NilaiK3[studentIndex][1] = ubah;
-                        transkipNilai[studentIndex][8] = String
-                                .valueOf((temp * 0.2) + (tugas * 0.2) + (uts * 0.3) + (uas * 0.3));
-                    } else if (userInput == 2) {
-                        NilaiK3[studentIndex][2] = ubah;
-                        transkipNilai[studentIndex][8] = String
-                                .valueOf((kuis * 0.2) + (temp * 0.2) + (uts * 0.3) + (uas * 0.3));
-                    } else if (userInput == 3) {
-                        NilaiK3[studentIndex][3] = ubah;
-                        transkipNilai[studentIndex][8] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (temp * 0.3) + (uas * 0.3));
-                    } else if (userInput == 4) {
-                        NilaiK3[studentIndex][4] = ubah;
-                        transkipNilai[studentIndex][8] = String
-                                .valueOf((kuis * 0.2) + (tugas * 0.2) + (uts * 0.3) + (temp * 0.3));
-                    }
-                    clearScreen();
-                    System.out.println("Berhasil mengubah nilai " + matkul);
-                    return;
+                    addTranskip(NilaiK3, userInput, temp, studentIndex, 8, 0.2, 0.2, 0.3, 0.3);
                 } else {
                     System.out.println("Dibatalkan");
                     return;
                 }
-
+                clearScreen();
+                System.out.println("Berhasil mengubah nilai " + matkul);
+                return;
             }
         }
+    }
+
+    static void addTranskip(String Array[][], int userInput, int temp, int studentIndex, int indexMatkul,
+            double bobot1, double bobot2, double bobot3, double bobot4) {
+
+        double kuis = Double.parseDouble(Array[studentIndex][1]);
+        double tugas = Double.parseDouble(Array[studentIndex][2]);
+        double uts = Double.parseDouble(Array[studentIndex][3]);
+        double uas = Double.parseDouble(Array[studentIndex][4]);
+        if (userInput == 1) {
+            Array[studentIndex][userInput] = String.valueOf(temp);
+            transkipNilai[studentIndex][indexMatkul] = String
+                    .valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3) + (uas * bobot4));
+        } else if (userInput == 2) {
+            Array[studentIndex][userInput] = String.valueOf(temp);
+            transkipNilai[studentIndex][indexMatkul] = String
+                    .valueOf((kuis * bobot1) + (temp * bobot2) + (uts * bobot3) + (uas * bobot4));
+        } else if (userInput == 3) {
+            Array[studentIndex][userInput] = String.valueOf(temp);
+            transkipNilai[studentIndex][indexMatkul] = String
+                    .valueOf((kuis * bobot1) + (tugas * bobot2) + (temp * bobot3) + (uas * bobot4));
+        } else if (userInput == 4) {
+            Array[studentIndex][userInput] = String.valueOf(temp);
+            transkipNilai[studentIndex][indexMatkul] = String
+                    .valueOf((kuis * bobot1) + (tugas * bobot2) + (uts * bobot3) + (temp * bobot4));
+        }
+        return;
     }
 
     // fitur check nilai
@@ -1046,7 +921,8 @@ public class MainApps {
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
                         takeBio[5]);
                 break;
-            } if (!isNIM)
+            }
+            if (!isNIM)
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
                         takeBio[5]);
         }
@@ -1254,7 +1130,6 @@ public class MainApps {
         }
         return String.format("%.2f", total / 8);
     }
-
 
     static void cekUserMahasiswa() {
         while (true) {
@@ -1594,7 +1469,7 @@ public class MainApps {
         String[] tempJadwalPerHari = new String[3];
         int[] tempSKS = SKS;
         tampilkanJadwalBerdasarkanKelas(arrayKelas);
-        String _1,_3;
+        String _1, _3;
         int _2;
         for (int i = 0; i < kumpulanHari.length; i++) {
             int min = 1;
@@ -1605,11 +1480,12 @@ public class MainApps {
                 System.out.println("Format {1}-{2}-{3}");
                 System.out.println("1. Mulai dari jam ke-(1-11)\n2. Index Kode matkul\n3. Lama jam matkul(1-6)");
                 if (onceExecution) {
-                    next = getInputUniqueWord("Jadwal kosong pada hari " + kumpulanHari[i] + " y/n (untuk input jadwal)", 1, 1, true,
-                    "y", "n");
+                    next = getInputUniqueWord(
+                            "Jadwal kosong pada hari " + kumpulanHari[i] + " y/n (untuk input jadwal)", 1, 1, true,
+                            "y", "n");
                     onceExecution = false;
                     if (next.equals("Y"))
-                    break;
+                        break;
                 }
                 System.out.println("Masukan jadwal pada hari " + kumpulanHari[i]);
                 _1 = getInputStringNumberwithLimit("Mulai dari jam ke-" + min + "-11", min, 11, false);
@@ -1674,7 +1550,7 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                // case 1 -> tambahLomba();
+                case 1 -> tambahLomba();
                 // case 2 -> editLomba();
                 // case 3 -> hapusLomba();
                 case 4 -> {
@@ -1684,6 +1560,7 @@ public class MainApps {
         }
     }
 
+    // fungsi menampilkan tabel lomba
     static void showLomba() {
         String formatTable = "| %-3s | %-60s | %-61s |%n";
         String horizonLine = "+-----+" + "-".repeat(62) + "+" + "-".repeat(63) + "+";
@@ -1696,6 +1573,30 @@ public class MainApps {
         }
         System.out.println(horizonLine);
 
+    }
+
+    // interface menambahkan lomba
+    static void tambahLomba() {
+        String nama = getInputStringWithLimit("Nama Lomba", 1, 60, false);
+        String deskripsi = getInputStringWithLimit("Deskripsi Lomba", 1, 60, false);
+        String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("y"))
+            addLomba(nama, deskripsi);
+        else
+            System.out.println("Dibatalkan");
+    }
+
+    // fungsi menambahkan lomba
+    static void addLomba(String nama, String deskripsi) {
+        String[][] lombaBaru = new String[lomba.length + 1][2];
+        for (int i = 0; i < lomba.length; i++) {
+            lombaBaru[i] = lomba[i];
+        }
+        lombaBaru[lombaBaru.length - 1] = new String[] { nama, deskripsi };
+        lomba = lombaBaru;
+        clearScreen();
+        System.out.println("Lomba telah berhasil ditambahkan");
     }
     /* <--- DASHBOARD ADMIN ---> */
 
