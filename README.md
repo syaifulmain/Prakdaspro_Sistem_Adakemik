@@ -67,14 +67,15 @@ Login
   │   │   └──Edit Nilai
   │   ├──Presensi Mahasiswa
   │   │   ├──Presensi
-  │       └──Edit Presensi
-  │   
+  │   │   └──Edit Presensi
+  │   └──Edit User
   └──Mahasiswa
       ├──Cek Biodata
       ├──Cek Nilai
       ├──Cek Presensi
       ├──Cek Jadwal
-      └──Cek Lomba
+      ├──Cek Lomba
+      └──Edit User
 ```
 ## Meet The Team 
 1. <a href="https://github.com/Noklent-Fardian"> Noklent Fardian Erix</a> (TI-1E)
