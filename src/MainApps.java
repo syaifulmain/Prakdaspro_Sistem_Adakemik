@@ -123,7 +123,7 @@ public class MainApps {
                 { "2222222222", "78.25", "78.25", "87.25", "72.75", "78.25", "78.25", "90.25", "78.25" },
                 { "3333333333", "76", "76", "74.25", "75", "85", "76", "86.5", "76" },
                 { "4444444444", "80.75", "80.75", "77.5", "80.75", "80.75", "80.75", "78", "80.75" },
-                { "5555555555", "82.75", "82.75", "88", "82.75", "84.75", "82.75", "63.75", "82.75" },
+                { "5555555555", "100.00", "100.00", "100.00", "100.00", "100.00", "100.00", "100.00", "100.00" },
                 { "6666666666", "0", "0", "0", "0", "0", "0", "0", "0" }
         };
         NilaiPancasila = new String[][] {
@@ -1011,11 +1011,11 @@ public class MainApps {
     }
 
     static void tampilkanTranskipNilai() {
-        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |  %-6s |%n";
-        String horizonLine = "+-----+------------+---------------------------+-------+---------+---------+---------+---------+---------+---------+---------+---------+---------+";
+        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |%n";
+        String horizonLine = "+-----+------------+---------------------------+-------+" + "------------+".repeat(9);
         System.out.println(horizonLine);
         System.out.format(
-                "| NO  | NIM        | NAMA                      | Kelas |PANCASILA|   KTI   |  CTPS   |   MAT   |  BING   |  DASP   | PRAK_DAS|   K3    |Rata-rata|%n");
+                "| NO  | NIM        | NAMA                      | Kelas |  PANCASILA |     KTI    |    CTPS    |     MAT    |    BING    |    DASP    |   PRAK_DAS |     K3     |  Rata-rata |%n");
         System.out.println(horizonLine);
         for (int i = 0; i < transkipNilai.length; i++) {
             String[] takeTranskip = transkipNilai[i];
