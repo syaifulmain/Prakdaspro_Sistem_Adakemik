@@ -1537,10 +1537,11 @@ public class MainApps {
 
     // melakukan print title/judul
     static void renderTitle(String title) {
-        int titleLength = title.length();
+        String fixTittle =(title.length() > 40) ? title.substring(0, 40) : title;
+        int titleLength = fixTittle.length();
         String horizontalBorder = "+" + "-".repeat(42) + "+";
         System.out.println(horizontalBorder);
-        System.out.println((titleLength%2==0)?"|" + " ".repeat((42-titleLength)/2) + title + " ".repeat((42-titleLength)/2) + "|" : "|" + " ".repeat((42-titleLength)/2) + title + " ".repeat((42-titleLength)/2+1) + "|");
+        System.out.println((titleLength%2==0)?"|" + " ".repeat((42-titleLength)/2) + fixTittle + " ".repeat((42-titleLength)/2) + "|" : "|" + " ".repeat((42-titleLength)/2) + title + " ".repeat((42-titleLength)/2+1) + "|");
         System.out.println(horizontalBorder);
     }
 
