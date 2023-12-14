@@ -1250,10 +1250,13 @@ public class MainApps {
 
     // menampilkan jadwal berdasarkan kelas
     static void tampilkanJadwalBerdasarkanKelas(String[][] arrayKelas) {
-        System.out.println("+------+" + "-----+".repeat(11));
-        System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
-        System.out.println("+------+" + "-----+".repeat(11));
-        String formatJadwal = "|%-6s|%-66s%n";
+        int[] indexLineAtas = {13, 19, 25, 31, 37, 43, 49, 55, 61, 67};
+        int[] indexLineBawah;
+        String firstLine = "╠══════" + "╬═════".repeat(11)+ "╣";
+        StringBuilder sbFirstLine = new StringBuilder(firstLine);
+        System.out.println("╔══════" + "╦═════".repeat(11)+ "╗");
+        System.out.println("║      ║  1  ║  2  ║  3  ║  4  ║  5  ║  6  ║  7  ║  8  ║  9  ║  10 ║  11 ║");
+        String formatJadwal = "║%-6s%-66s║%n";
         int row = 0;
         for (String hari : kumpulanHari) {
             int begin = 0;
@@ -1263,6 +1266,11 @@ public class MainApps {
             int jadwalLenght = 0;
             String[] tempArray;
             int column = 0;
+            int lineSekali = 0;
+            int gantiIndexBawah = 0;
+            int kelipatanIndexBawah = 13;
+            int loopKosong = 0;
+            indexLineBawah = new int[10];
             for (int j = 1; j <= 11; j++) {
                 if (jadwalLenght < arrayKelas[row].length) {
                     if (arrayKelas[row][column] == null) {
@@ -1284,17 +1292,80 @@ public class MainApps {
                 } else
                     begin = 0;
                 if (j == begin) {
-                    simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length()) + "|";
+                    simpanJadwal += "║"+ matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length());
                     j += howLong - 1;
                     column++;
-                } else
-                    simpanJadwal += "-".repeat(5) + "|";
+                    lineSekali = 0;
+                    if (gantiIndexBawah < 12) {
+                        for (int q = 0; q < loopKosong; q++) {
+                            gantiIndexBawah++;
+                            kelipatanIndexBawah += 6;
+                        }
+                        if (begin!=1) {
+                            indexLineBawah[gantiIndexBawah] = kelipatanIndexBawah;
+                            kelipatanIndexBawah += 6;
+                            gantiIndexBawah++;
+                        }
+                        for (int w = 0; w < howLong-1; w++) {
+                            kelipatanIndexBawah += 6;
+                            gantiIndexBawah++;
+                        }
+                        if (j <11) {
+                            indexLineBawah[gantiIndexBawah] = kelipatanIndexBawah;
+                        }
+                        loopKosong = 0;
+                    }
+                } else {
+
+                    if (lineSekali == 0) {
+                        simpanJadwal += "║"+" ".repeat(5);
+                        lineSekali++;
+                    }
+                    else{
+                        simpanJadwal += " ".repeat(6);
+                    }
+                    
+                    loopKosong++;
+                    if (j==1) {
+                        loopKosong--;
+                    }
+                }
             }
             row++;
+            int kelBah = 13;
+            for (int i = 0; i < indexLineBawah.length; i++) {
+                if (indexLineAtas[i] == indexLineBawah[i] && indexLineAtas[i] != 0 && indexLineBawah[i] != 0) {
+                    sbFirstLine.setCharAt(kelBah, '╬');
+                }
+                else if (indexLineAtas[i] > indexLineBawah[i]) {
+                    sbFirstLine.setCharAt(kelBah, '╩');
+                }
+                else if (indexLineAtas[i] < indexLineBawah[i]) {
+                    sbFirstLine.setCharAt(kelBah, '╦');
+                }
+                else{
+                    sbFirstLine.setCharAt(kelBah, '═');
+                }
+                kelBah += 6;
+            }
+            System.out.println(sbFirstLine);
             System.out.printf(formatJadwal, hari, simpanJadwal);
-            String line = "+------+" + "-".repeat(65) + "+%n";
-            System.out.printf(line);
+            indexLineAtas = indexLineBawah;
         }
+        String lastLine = "╚══════" + "╩═════".repeat(11)+ "╝";
+        StringBuilder sbLastLine = new StringBuilder(lastLine);
+        int kelBah = 13;
+            for (int i = 0; i < indexLineAtas.length; i++) {
+                if (indexLineAtas[i] > 0) {
+                    sbLastLine.setCharAt(kelBah, '╩');
+                }
+                else{
+                    sbLastLine.setCharAt(kelBah, '═');
+                }
+                kelBah += 6;
+            }
+            System.out.println(sbLastLine);
+        
     }
 
     static void tampilkanJadwalPerHari(String hari, String[] jadwal) {
