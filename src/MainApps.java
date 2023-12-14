@@ -1537,11 +1537,10 @@ public class MainApps {
 
     // melakukan print title/judul
     static void renderTitle(String title) {
-        int paddingSize = 4;
         int titleLength = title.length();
-        String horizontalBorder = "+" + "-".repeat(titleLength + paddingSize * 2) + "+";
+        String horizontalBorder = "+" + "-".repeat(42) + "+";
         System.out.println(horizontalBorder);
-        System.out.println("|" + " ".repeat(paddingSize) + title + " ".repeat(paddingSize) + "|");
+        System.out.println((titleLength%2==0)?"|" + " ".repeat((42-titleLength)/2) + title + " ".repeat((42-titleLength)/2) + "|" : "|" + " ".repeat((42-titleLength)/2) + title + " ".repeat((42-titleLength)/2+1) + "|");
         System.out.println(horizontalBorder);
     }
 
@@ -1628,13 +1627,21 @@ public class MainApps {
     // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam
     // array dan mengembalikan input integer
     static int pickMenu(String menuTitle, String[] menus) {
-        System.out.println(menuTitle);
         int i = 0;
+        String tempMenu;
+        String formatMenu = "| %-40s |%n";
+        String horizonLine = "+"+"-".repeat(42)+"+";
+        System.out.println(horizonLine);
+        System.out.printf(formatMenu, menuTitle);
+        System.out.println(horizonLine);
         while (i < menus.length) {
-            System.out.printf("%d. %s%n", i + 1, menus[i]);
+            tempMenu = String.format("%d. %s", i + 1, menus[i]);
+            System.out.printf(formatMenu, tempMenu); 
             i++;
         }
-        System.out.printf("%d. %s%n", i + 1, "Keluar");
+        tempMenu = String.format("%d. %s", i + 1, "Keluar");
+        System.out.printf(formatMenu, tempMenu);
+        System.out.println(horizonLine);
         while (true) {
             String userInput = getInputStringNumberwithLimit("Pilih menu", 1, menus.length + 1, false);
             int userNumber = Integer.parseInt(userInput);
