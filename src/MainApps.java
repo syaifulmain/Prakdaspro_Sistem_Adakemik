@@ -1628,22 +1628,19 @@ public class MainApps {
     // array dan mengembalikan input integer
     static int pickMenu(String menuTitle, String[] menus) {
         int i = 0;
-        String tempMenu;
         String formatMenu = "| %-40s |%n";
         String horizonLine = "+"+"-".repeat(42)+"+";
         System.out.println(horizonLine);
         System.out.printf(formatMenu, menuTitle);
         System.out.println(horizonLine);
         while (i < menus.length) {
-            tempMenu = String.format("%d. %s", i + 1, menus[i]);
-            System.out.printf(formatMenu, tempMenu); 
+            System.out.printf(formatMenu, String.format("%d. %s", i + 1, menus[i])); 
             i++;
         }
-        tempMenu = String.format("%d. %s", i + 1, "Keluar");
-        System.out.printf(formatMenu, tempMenu);
+        System.out.printf(formatMenu, String.format("%d. %s", i + 1, "Keluar"));
         System.out.println(horizonLine);
         while (true) {
-            String userInput = getInputStringNumberwithLimit("Pilih menu", 1, menus.length + 1, false);
+            String userInput = getInputStringNumberwithLimit("  Pilih menu", 1, menus.length + 1, false);
             int userNumber = Integer.parseInt(userInput);
             if (userNumber == menus.length + 1)
                 exit();
