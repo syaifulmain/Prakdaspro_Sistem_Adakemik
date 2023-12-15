@@ -203,7 +203,7 @@ public class MainApps {
                 { "2222222222", "Noprianto, S.Kom., M.Eng", "L", "BLITAR", "22-22-2222", "Daspro" },
                 { "3333333333", "Meyti Eka Apriyani ST., MT.", "P", "BLITAR", "33-33-3333", "Daspro" },
                 { "4444444444", "Irsyad Arif Mashudi, M.Kom", "L", "BLITAR", "44-44-4444", "Daspro" },
-                { "5555555555", "Yuri Ariyanto, S.Kom., M.Kom", "L", "BLITAR", "55-55-5555", "Dosen" }
+                { "5555555555", "Yuri Ariyanto, S.Kom., M.Kom", "L", "BLITAR", "55-55-5555", "BING" }
         };
         userDosen = new String[][] {
                 { "dosen", "dosen" },
@@ -1106,7 +1106,31 @@ public class MainApps {
 
     /* <--- modulDosen ---> */
     static void modulDosen() {
+        showDataBioDosen(false);
 
+    }
+    static void showDataBioDosen(boolean isId, String... id) {
+      String firstLine = "╔═════╦════════════╦══════════════════════════════════════════╦═══════════════╦═════════════════╦═══════════════╦══════════════╗";
+        String middleLine = "╠═════╬════════════╬══════════════════════════════════════════╬═══════════════╬═════════════════╬═══════════════╬══════════════╣";
+        String lastLine = "╚═════╩════════════╩══════════════════════════════════════════╩═══════════════╩═════════════════╩═══════════════╩══════════════╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-40s ║       %-7s ║ %-15s ║ %-13s ║   %-10s ║%n";
+        System.out.println(firstLine);
+        System.out.format(
+                "║ NO  ║ ID         ║ NAMA                                     ║ Jenis Kelamin ║ Alamat          ║ Tanggal Lahir ║ Mengajar     ║%n");
+        System.out.println(middleLine);
+        for (int i = 0; i < bioDosen.length; i++) {
+            String[] takeBio = bioDosen[i];
+            if (isId && id[0].equals(takeBio[0])) {
+                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
+                        takeBio[5]);
+                break;
+            }
+            if (!isId)
+                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
+                        takeBio[5]);
+        }
+        System.out.println(lastLine);
+        
     }
     /* <--- modulDosen ---> */
 
