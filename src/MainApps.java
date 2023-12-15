@@ -1528,7 +1528,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> tambahLomba();
-                // case 2 -> editLomba();
+                case 2 -> editLombaInterface();
                 // case 3 -> hapusLomba();
                 case 4 -> {
                     return;
@@ -1576,6 +1576,30 @@ public class MainApps {
         clearScreen();
         System.out.println("Lomba telah berhasil ditambahkan");
     }
+    static void editLombaInterface() {
+        while (true) {
+            showLomba();
+            String pilih= getInputStringNumber("Pilih lomba yang ingin diedit(Null untuk Kembali)", false);
+            clearScreen();
+            if (Integer.parseInt(pilih) == lomba.length + 1){
+                return;
+            }
+            String nama = getInputStringWithLimit("Nama Lomba", 1, 60, false);
+            String deskripsi = getInputStringWithLimit("Deskripsi Lomba", 1, 60, false);
+            String userChoose = getInputUniqueWord("Edit data? y/t", 1, 1, true, "y", "t");
+            clearScreen();
+            if (userChoose.equalsIgnoreCase("y"))
+                // editLomba(Integer.parseInt(pilih), nama, deskripsi);
+            else
+                System.out.println("Dibatalkan");
+        }
+    }
+    // static void editLomba(int index, String nama, String deskripsi) {
+    //     lomba[index - 1][0] = nama;
+    //     lomba[index - 1][1] = deskripsi;
+    //     clearScreen();
+    //     System.out.println("Lomba telah berhasil diedit");
+    // }
     /* <--- DASHBOARD ADMIN ---> */
 
     /* <--- HELPER ---> */
