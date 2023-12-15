@@ -1589,17 +1589,17 @@ public class MainApps {
             String userChoose = getInputUniqueWord("Edit data? y/t", 1, 1, true, "y", "t");
             clearScreen();
             if (userChoose.equalsIgnoreCase("y"))
-                // editLomba(Integer.parseInt(pilih), nama, deskripsi);
+                editLomba(Integer.parseInt(pilih), nama, deskripsi);
             else
                 System.out.println("Dibatalkan");
         }
     }
-    // static void editLomba(int index, String nama, String deskripsi) {
-    //     lomba[index - 1][0] = nama;
-    //     lomba[index - 1][1] = deskripsi;
-    //     clearScreen();
-    //     System.out.println("Lomba telah berhasil diedit");
-    // }
+    static void editLomba(int index, String nama, String deskripsi) {
+        lomba[index - 1][0] = nama;
+        lomba[index - 1][1] = deskripsi;
+        clearScreen();
+        System.out.println("Lomba telah berhasil diedit");
+    }
     /* <--- DASHBOARD ADMIN ---> */
 
     /* <--- HELPER ---> */
