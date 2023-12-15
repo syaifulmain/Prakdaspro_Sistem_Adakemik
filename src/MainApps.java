@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class MainApps {
     static Scanner scanner = new Scanner(System.in);
     static String[] role = { "ADMIN", "DOSEN", "MAHASISWA" };
-
+    // ═    ║   ╔   ╚   ╝   ╠   ╣   ╦  ╩	╬   ╗   doksli
     /* Admin */
     static String[][] userAdmin;
     /* Admin */
@@ -501,17 +501,19 @@ public class MainApps {
 
     static void showNilai(String[][] Array, String matkul) {
         renderTitle(matkul);
-        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
-        String horizonLine = "+-----+------------+---------------------------+-------+-------+-------+-------+";
-        System.out.println(horizonLine);
-        System.out.println("| NO  | NIM        | NAMA                      | Kuis  | Tugas |  UTS  |  UAS  |");
-        System.out.println(horizonLine);
+        String firstLine   = "╔═════╦════════════╦═══════════════════════════╦═══════╦═══════╦═══════╦═══════╗";
+        String middleLine  = "╠═════╬════════════╬═══════════════════════════╬═══════╬═══════╬═══════╬═══════╣";
+        String lastLine    = "╚═════╩════════════╩═══════════════════════════╩═══════╩═══════╩═══════╩═══════╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-25s ║  %-3s  ║  %-3s  ║  %-3s  ║  %-3s  ║%n";
+        System.out.println(firstLine);
+        System.out.println("║ NO  ║ NIM        ║ NAMA                      ║ Kuis  ║ Tugas ║  UTS  ║  UAS  ║");
+        System.out.println(middleLine);
         for (int i = 0; i < Array.length; i++) {
             String[] takeNilai = Array[i];
             System.out.printf(formatTable, i + 1, takeNilai[0], bioMahasiswa[i][1], takeNilai[1], takeNilai[2],
                     takeNilai[3], takeNilai[4]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     // interface menambahkan nilai
@@ -522,7 +524,7 @@ public class MainApps {
             if (!has(bioMahasiswa, nim, 0)) {
                 System.out.println("NIM " + nim + " tidak ditemukan");
                 return;
-            } else if (nim.equals(null)) 
+            } else if (nim.equals(null))
                 return;
             String kuis = getInputStringNumberwithLimit("Kuis", 0, 100, false);
             String tugas = getInputStringNumberwithLimit("Tugas", 0, 100, false);
@@ -556,28 +558,36 @@ public class MainApps {
         double uas1 = Double.parseDouble(uas);
         if (matkul.equals("Pancasila")) {
             NilaiPancasila[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][1] = String.valueOf((kuis1 * 0.25) + (tugas1 * 0.25) + (uts1 * 0.25) + (uas1 * 0.25));
+            transkipNilai[studentIndex][1] = String
+                    .valueOf((kuis1 * 0.25) + (tugas1 * 0.25) + (uts1 * 0.25) + (uas1 * 0.25));
         } else if (matkul.equals("KTI")) {
             NilaiKTI[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][2] = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.3));
+            transkipNilai[studentIndex][2] = String
+                    .valueOf((kuis1 * 0.2) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.3));
         } else if (matkul.equals("CTPS")) {
             NilaiCTPS[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][3] = String.valueOf((kuis1 * 0.3) + (tugas1 * 0.3) + (uts1 * 0.1) + (uas1 * 0.3));
+            transkipNilai[studentIndex][3] = String
+                    .valueOf((kuis1 * 0.3) + (tugas1 * 0.3) + (uts1 * 0.1) + (uas1 * 0.3));
         } else if (matkul.equals("MATDAS")) {
             NilaiMATDAS[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][4] = String.valueOf((kuis1 * 0.1) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.4));
+            transkipNilai[studentIndex][4] = String
+                    .valueOf((kuis1 * 0.1) + (tugas1 * 0.3) + (uts1 * 0.2) + (uas1 * 0.4));
         } else if (matkul.equals("BING_1")) {
             NilaiBING_1[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][5] = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][5] = String
+                    .valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
         } else if (matkul.equals("DASPRO")) {
             NilaiDASPRO[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][6] = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][6] = String
+                    .valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
         } else if (matkul.equals("PRAK_DASPRO")) {
             NilaiPRAK_DASPRO[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][7] = String.valueOf((kuis1 * 0.1) + (tugas1 * 0.4) + (uts1 * 0.25) + (uas1 * 0.25));
+            transkipNilai[studentIndex][7] = String
+                    .valueOf((kuis1 * 0.1) + (tugas1 * 0.4) + (uts1 * 0.25) + (uas1 * 0.25));
         } else if (matkul.equals("K3")) {
             NilaiK3[studentIndex] = nilaiBaru[studentIndex];
-            transkipNilai[studentIndex][8] = String.valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
+            transkipNilai[studentIndex][8] = String
+                    .valueOf((kuis1 * 0.2) + (tugas1 * 0.2) + (uts1 * 0.3) + (uas1 * 0.3));
         }
         System.out.println("Berhasil menambahkan nilai " + matkul);
     }
@@ -622,7 +632,7 @@ public class MainApps {
         if (!has(bioMahasiswa, nim, 0)) {
             System.out.println("NIM " + nim + " tidak ditemukan");
             return;
-        } else if (nim.equals(null)) 
+        } else if (nim.equals(null))
             return;
         int studentIndex = -1;
         for (int i = 0; i < Array.length; i++) {
@@ -653,13 +663,15 @@ public class MainApps {
         if (userChoose.equalsIgnoreCase("y")) {
             int temp = Integer.parseInt(ubah);
             switch (matkul) {
-                case "Pancasila" -> addTranskip(NilaiPancasila, userInput, temp, studentIndex, 1, 0.25, 0.25, 0.25, 0.25);
+                case "Pancasila" ->
+                    addTranskip(NilaiPancasila, userInput, temp, studentIndex, 1, 0.25, 0.25, 0.25, 0.25);
                 case "KTI" -> addTranskip(NilaiKTI, userInput, temp, studentIndex, 2, 0.2, 0.3, 0.2, 0.3);
                 case "CTPS" -> addTranskip(NilaiCTPS, userInput, temp, studentIndex, 3, 0.3, 0.3, 0.1, 0.3);
                 case "MATDAS" -> addTranskip(NilaiMATDAS, userInput, temp, studentIndex, 4, 0.1, 0.3, 0.2, 0.4);
                 case "BING_1" -> addTranskip(NilaiBING_1, userInput, temp, studentIndex, 5, 0.2, 0.2, 0.3, 0.3);
                 case "DASPRO" -> addTranskip(NilaiDASPRO, userInput, temp, studentIndex, 6, 0.2, 0.2, 0.3, 0.3);
-                case "PRAK_DASPRO" ->  addTranskip(NilaiPRAK_DASPRO, userInput, temp, studentIndex, 7, 0.1, 0.4, 0.25, 0.25);
+                case "PRAK_DASPRO" ->
+                    addTranskip(NilaiPRAK_DASPRO, userInput, temp, studentIndex, 7, 0.1, 0.4, 0.25, 0.25);
                 case "K3" -> addTranskip(NilaiK3, userInput, temp, studentIndex, 8, 0.2, 0.2, 0.3, 0.3);
             }
             System.out.println("Berhasil mengubah nilai " + matkul);
@@ -669,26 +681,21 @@ public class MainApps {
     }
 
     static void addTranskip(String Array[][], int userInput, int temp, int studentIndex, int indexMatkul,
-        double bobot1, double bobot2, double bobot3, double bobot4) {
+            double bobot1, double bobot2, double bobot3, double bobot4) {
         double kuis = Double.parseDouble(Array[studentIndex][1]);
         double tugas = Double.parseDouble(Array[studentIndex][2]);
         double uts = Double.parseDouble(Array[studentIndex][3]);
         double uas = Double.parseDouble(Array[studentIndex][4]);
-        if (userInput == 1) {
-            Array[studentIndex][userInput] = String.valueOf(temp);
-            transkipNilai[studentIndex][indexMatkul] = String
+        Array[studentIndex][userInput] = String.valueOf(temp);
+        // transkipNilai[studentIndex][indexMatkul] = (userInput!=1) ? (userInput!=2) ? (userInput!=3) ? (userInput!=4) ? "" : String.valueOf((kuis * bobot1) + (tugas * bobot2) + (uts * bobot3) + (temp * bobot4)) : String.valueOf((kuis * bobot1) + (tugas * bobot2) + (temp * bobot3) + (uas * bobot4)) : String.valueOf((kuis * bobot1) + (temp * bobot2) + (uts * bobot3) + (uas * bobot4)) : String.valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3) + (uas * bobot4));
+        switch (userInput) {
+            case 1 -> transkipNilai[studentIndex][indexMatkul] = String
                     .valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3) + (uas * bobot4));
-        } else if (userInput == 2) {
-            Array[studentIndex][userInput] = String.valueOf(temp);
-            transkipNilai[studentIndex][indexMatkul] = String
+            case 2 -> transkipNilai[studentIndex][indexMatkul] = String
                     .valueOf((kuis * bobot1) + (temp * bobot2) + (uts * bobot3) + (uas * bobot4));
-        } else if (userInput == 3) {
-            Array[studentIndex][userInput] = String.valueOf(temp);
-            transkipNilai[studentIndex][indexMatkul] = String
+            case 3 -> transkipNilai[studentIndex][indexMatkul] = String
                     .valueOf((kuis * bobot1) + (tugas * bobot2) + (temp * bobot3) + (uas * bobot4));
-        } else if (userInput == 4) {
-            Array[studentIndex][userInput] = String.valueOf(temp);
-            transkipNilai[studentIndex][indexMatkul] = String
+            case 4 -> transkipNilai[studentIndex][indexMatkul] = String
                     .valueOf((kuis * bobot1) + (tugas * bobot2) + (uts * bobot3) + (temp * bobot4));
         }
     }
@@ -731,12 +738,14 @@ public class MainApps {
     // Menampilkan nilai mahasiswa per orang
     static void showNilaiMahasiswa(int studentIndex) {
         renderTitle("List Nilai " + bioMahasiswa[studentIndex][1]);
-        String formatTable = "| %-3s |%-50s |  %-3s  |  %-3s  |  %-3s  |  %-3s  |%n";
-        String horizonLine = "+-----+---------------------------------------------------+-------+-------+-------+-------+";
-        System.out.println(horizonLine);
+        String firstLine   = "╔═════╦═══════════════════════════════════════════════════╦═══════╦═══════╦═══════╦═══════╗";
+        String middleLine  = "╠═════╬═══════════════════════════════════════════════════╬═══════╬═══════╬═══════╬═══════╣";
+        String lastLine    = "╚═════╩═══════════════════════════════════════════════════╩═══════╩═══════╩═══════╩═══════╝";
+        String formatTable = "║ %-3s ║%-50s ║  %-3s  ║  %-3s  ║  %-3s  ║  %-3s  ║%n";
+        System.out.println(firstLine);
         System.out
-                .println("| NO  |Mata Kuliah                                        | Kuis  | Tugas |  UTS  |  UAS  |");
-        System.out.println(horizonLine);
+                .println("║ NO  ║Mata Kuliah                                        ║ Kuis  ║ Tugas ║  UTS  ║  UAS  ║");
+        System.out.println(middleLine);
         for (int i = 0; i < 8; i++) {
             String[] takeNilai = NilaiPancasila[studentIndex];
             switch (i) {
@@ -752,7 +761,7 @@ public class MainApps {
             System.out.printf(formatTable, i + 1, listMatkul[i], takeNilai[1], takeNilai[2], takeNilai[3],
                     takeNilai[4]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
         return;
     }
 
@@ -830,12 +839,14 @@ public class MainApps {
     // menampilkan table data bio mahasiswa masukan parameter true dan nim untuk
     // menampilkan data berdasarkan nim
     static void showDataBioMahasiswa(boolean isNIM, String... nim) {
-        String formatTable = "| %-3s | %-10s | %-25s |       %-7s | %-15s | %-13s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+---------------+-----------------+---------------+-------+";
-        System.out.println(horizonLine);
+        String firstLine   = "╔═════╦════════════╦═══════════════════════════╦═══════════════╦═════════════════╦═══════════════╦═══════╗";
+        String middleLine  = "╠═════╬════════════╬═══════════════════════════╬═══════════════╬═════════════════╬═══════════════╬═══════╣";
+        String lastLine    = "╚═════╩════════════╩═══════════════════════════╩═══════════════╩═════════════════╩═══════════════╩═══════╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-25s ║       %-7s ║ %-15s ║ %-13s ║   %-3s ║%n";
+        System.out.println(firstLine);
         System.out.format(
-                "| NO  | NIM        | NAMA                      | Jenis Kelamin | Alamat          | Tanggal Lahir | Kelas |%n");
-        System.out.println(horizonLine);
+                "║ NO  ║ NIM        ║ NAMA                      ║ Jenis Kelamin ║ Alamat          ║ Tanggal Lahir ║ Kelas ║%n");
+        System.out.println(middleLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
             if (isNIM && nim[0].equals(takeBio[0])) {
@@ -847,7 +858,7 @@ public class MainApps {
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
                         takeBio[5]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     // add data bio mahasiswa
@@ -872,14 +883,14 @@ public class MainApps {
     // add data bio mahasiswa
     static void addDataBioMahasiswa(String... dataBio) {
         String[][] mahasiswaBaru = new String[bioMahasiswa.length + 1][6];
-        for (int i = 0; i < bioMahasiswa.length; i++) 
+        for (int i = 0; i < bioMahasiswa.length; i++)
             mahasiswaBaru[i] = bioMahasiswa[i];
         mahasiswaBaru[mahasiswaBaru.length - 1] = dataBio;
         bioMahasiswa = mahasiswaBaru;
         System.out.println("Mahasiswa telah berhasil ditambahkan");
         // add user mahasiswa
         String[][] userBaru = new String[userMahasiswa.length + 1][2];
-        for (int i = 0; i < userMahasiswa.length; i++) 
+        for (int i = 0; i < userMahasiswa.length; i++)
             userBaru[i] = userMahasiswa[i];
         userBaru[userBaru.length - 1] = new String[] { dataBio[0], dataBio[0] };
         userMahasiswa = userBaru;
@@ -907,9 +918,9 @@ public class MainApps {
     // add data nilai mahasiswa
     static String[][] addDataNilaiMahasiswa(String nim, String[][] arrayNilai) {
         String[][] tempArrayNilai = new String[arrayNilai.length + 1][arrayNilai[0].length];
-        for (int i = 0; i < tempArrayNilai[0].length; i++) 
+        for (int i = 0; i < tempArrayNilai[0].length; i++)
             tempArrayNilai[tempArrayNilai.length - 1][i] = (i == 0) ? nim : "0";
-        for (int i = 0; i < arrayNilai.length; i++) 
+        for (int i = 0; i < arrayNilai.length; i++)
             tempArrayNilai[i] = arrayNilai[i];
         return tempArrayNilai;
     }
@@ -1014,19 +1025,21 @@ public class MainApps {
     }
 
     static void tampilkanTranskipNilai() {
-        String formatTable = "| %-3s | %-10s | %-25s |  %-3s  |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |  %-9s |%n";
-        String horizonLine = "+-----+------------+---------------------------+-------+" + "------------+".repeat(9);
-        System.out.println(horizonLine);
+        String firstLine   = "╔═════╦════════════╦═══════════════════════════╦═══════"  + "╦════════════".repeat(9)+"╗";
+        String middleLine  = "╠═════╬════════════╬═══════════════════════════╬═══════"  + "╬════════════".repeat(9)+"╣";
+        String lastLine    = "╚═════╩════════════╩═══════════════════════════╩═══════"  + "╩════════════".repeat(9)+"╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-25s ║  %-3s  ║  %-9s ║  %-9s ║  %-9s ║  %-9s ║  %-9s ║  %-9s ║  %-9s ║  %-9s ║  %-9s ║%n";
+        System.out.println(firstLine);
         System.out.format(
-                "| NO  | NIM        | NAMA                      | Kelas |  PANCASILA |     KTI    |    CTPS    |     MAT    |    BING    |    DASP    |   PRAK_DAS |     K3     |  Rata-rata |%n");
-        System.out.println(horizonLine);
+                "║ NO  ║ NIM        ║ NAMA                      ║ Kelas ║  PANCASILA ║     KTI    ║    CTPS    ║     MAT    ║    BING    ║    DASP    ║   PRAK_DAS ║     K3     ║  Rata-rata ║%n");
+        System.out.println(middleLine);
         for (int i = 0; i < transkipNilai.length; i++) {
             String[] takeTranskip = transkipNilai[i];
             System.out.printf(formatTable, (i + 1), takeTranskip[0], bioMahasiswa[i][1], bioMahasiswa[i][5],
                     takeTranskip[1], takeTranskip[2], takeTranskip[3], takeTranskip[4], takeTranskip[5],
                     takeTranskip[6], takeTranskip[7], takeTranskip[8], rataRataNilai(i));
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     static String rataRataNilai(int index) {
@@ -1048,18 +1061,20 @@ public class MainApps {
     }
 
     static void tampilkanDataUser() {
-        String formatTable = "| %-3s | %-10s | %-25s | %-10s | %-15s |%n";
-        String horizonLine = "+-----+------------+---------------------------+------------+-----------------+";
-        System.out.println(horizonLine);
+        String firstLine   = "╔═════╦════════════╦═══════════════════════════╦════════════╦═════════════════╗";
+        String middleLine  = "╠═════╬════════════╬═══════════════════════════╬════════════╬═════════════════╣";
+        String lastLine    = "╚═════╩════════════╩═══════════════════════════╩════════════╩═════════════════╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-25s ║ %-10s ║ %-15s ║%n";
+        System.out.println(firstLine);
         System.out.format(
-                "| NO  | NIM        | NAMA                      | USER       | PASSWORD        |%n");
-        System.out.println(horizonLine);
+                "║ NO  ║ NIM        ║ NAMA                      ║ USER       ║ PASSWORD        ║%n");
+        System.out.println(middleLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
             String[] takeUser = userMahasiswa[i];
             System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeUser[0], takeUser[1]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     static void presensiMahasiswa() {
@@ -1073,17 +1088,20 @@ public class MainApps {
     }
 
     static void tampilkanPresensiMahasiswa() {
-        String formatTable = "| %-3s | %-10s | %-25s | %-2s  | %-2s  | %-2s  |%n";
+        String firstLine   = "╔═════╦════════════╦═══════════════════════════╦═════╦═════╦═════╗";
+        String middleLine  = "╠═════╬════════════╬═══════════════════════════╬═════╬═════╬═════╣";
+        String lastLine    = "╚═════╩════════════╩═══════════════════════════╩═════╩═════╩═════╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-25s ║ %-2s  ║ %-2s  ║ %-2s  ║%n";
         String horizonLine = "+-----+------------+---------------------------+-----+-----+-----+";
-        System.out.println(horizonLine);
-        System.out.format("| NO  | NIM        | NAMA                      |  A  |  I  |  S  |%n");
-        System.out.println(horizonLine);
+        System.out.println(firstLine);
+        System.out.format("║ NO  ║ NIM        ║ NAMA                      ║  A  ║  I  ║  S  ║%n");
+        System.out.println(middleLine);
         for (int i = 0; i < presensiMahasiswa.length; i++) {
             String[] takePresensi = presensiMahasiswa[i];
             System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
                     takePresensi[2], takePresensi[3]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     /* <--- modulMahasiswa ---> */
@@ -1119,17 +1137,19 @@ public class MainApps {
 
     // meanmpilkan table data nim,nama,kelas mahasiswa
     static void tampilkanMahasiswaBerdasarkanKelas(String kelas) {
-        String formatTable = "| %-3s | %-10s | %-25s |   %-3s |%n";
-        String horizonLine = "+-----+------------+---------------------------+-------+";
-        System.out.println(horizonLine);
-        System.out.format("| NO  | NIM        | NAMA                      | Kelas |%n");
-        System.out.println(horizonLine);
+        String formatTable = "║ %-3s ║ %-10s ║ %-25s ║   %-3s ║%n";
+        String firstLine   = "╔═════╦════════════╦═══════════════════════════╦═══════╗";
+        String middleLine  = "╠═════╬════════════╬═══════════════════════════╬═══════╣";
+        String lastLine    = "╚═════╩════════════╩═══════════════════════════╩═══════╝";
+        System.out.println(firstLine);
+        System.out.format("║ NO  ║ NIM        ║ NAMA                      ║ Kelas ║%n");
+        System.out.println(middleLine);
         for (int i = 0; i < bioMahasiswa.length; i++) {
             String[] takeBio = bioMahasiswa[i];
             if (takeBio[5].matches(kelas))
                 System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[5]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     // Penempatan kelas
@@ -1199,7 +1219,7 @@ public class MainApps {
         if (userChoose.equalsIgnoreCase("y")) {
             bioMahasiswa[studentIndex][5] = input;
             System.out.println("Berhasil mengedit");
-        } else 
+        } else
             System.out.println("Dibatalkan");
     }
 
@@ -1245,10 +1265,13 @@ public class MainApps {
 
     // menampilkan jadwal berdasarkan kelas
     static void tampilkanJadwalBerdasarkanKelas(String[][] arrayKelas) {
-        System.out.println("+------+" + "-----+".repeat(11));
-        System.out.println("|      |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |");
-        System.out.println("+------+" + "-----+".repeat(11));
-        String formatJadwal = "|%-6s|%-66s%n";
+        int[] indexLineAtas = {13, 19, 25, 31, 37, 43, 49, 55, 61, 67};
+        int[] indexLineBawah;
+        String firstLine = "╠══════" + "╬═════".repeat(11)+ "╣";
+        StringBuilder sbFirstLine = new StringBuilder(firstLine);
+        System.out.println("╔══════" + "╦═════".repeat(11)+ "╗");
+        System.out.println("║      ║  1  ║  2  ║  3  ║  4  ║  5  ║  6  ║  7  ║  8  ║  9  ║  10 ║  11 ║");
+        String formatJadwal = "║%-6s%-66s║%n";
         int row = 0;
         for (String hari : kumpulanHari) {
             int begin = 0;
@@ -1258,6 +1281,11 @@ public class MainApps {
             int jadwalLenght = 0;
             String[] tempArray;
             int column = 0;
+            int lineSekali = 0;
+            int gantiIndexBawah = 0;
+            int kelipatanIndexBawah = 13;
+            int loopKosong = 0;
+            indexLineBawah = new int[10];
             for (int j = 1; j <= 11; j++) {
                 if (jadwalLenght < arrayKelas[row].length) {
                     if (arrayKelas[row][column] == null) {
@@ -1279,17 +1307,80 @@ public class MainApps {
                 } else
                     begin = 0;
                 if (j == begin) {
-                    simpanJadwal += matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length()) + "|";
+                    simpanJadwal += "║"+ matkul + " ".repeat(howLong * 5 + (howLong - 1) - matkul.length());
                     j += howLong - 1;
                     column++;
-                } else
-                    simpanJadwal += "-".repeat(5) + "|";
+                    lineSekali = 0;
+                    if (gantiIndexBawah < 12) {
+                        for (int q = 0; q < loopKosong; q++) {
+                            gantiIndexBawah++;
+                            kelipatanIndexBawah += 6;
+                        }
+                        if (begin!=1) {
+                            indexLineBawah[gantiIndexBawah] = kelipatanIndexBawah;
+                            kelipatanIndexBawah += 6;
+                            gantiIndexBawah++;
+                        }
+                        for (int w = 0; w < howLong-1; w++) {
+                            kelipatanIndexBawah += 6;
+                            gantiIndexBawah++;
+                        }
+                        if (j <11) {
+                            indexLineBawah[gantiIndexBawah] = kelipatanIndexBawah;
+                        }
+                        loopKosong = 0;
+                    }
+                } else {
+
+                    if (lineSekali == 0) {
+                        simpanJadwal += "║"+" ".repeat(5);
+                        lineSekali++;
+                    }
+                    else{
+                        simpanJadwal += " ".repeat(6);
+                    }
+                    
+                    loopKosong++;
+                    if (j==1) {
+                        loopKosong--;
+                    }
+                }
             }
             row++;
+            int kelBah = 13;
+            for (int i = 0; i < indexLineBawah.length; i++) {
+                if (indexLineAtas[i] == indexLineBawah[i] && indexLineAtas[i] != 0 && indexLineBawah[i] != 0) {
+                    sbFirstLine.setCharAt(kelBah, '╬');
+                }
+                else if (indexLineAtas[i] > indexLineBawah[i]) {
+                    sbFirstLine.setCharAt(kelBah, '╩');
+                }
+                else if (indexLineAtas[i] < indexLineBawah[i]) {
+                    sbFirstLine.setCharAt(kelBah, '╦');
+                }
+                else{
+                    sbFirstLine.setCharAt(kelBah, '═');
+                }
+                kelBah += 6;
+            }
+            System.out.println(sbFirstLine);
             System.out.printf(formatJadwal, hari, simpanJadwal);
-            String line = "+------+" + "-".repeat(65) + "+%n";
-            System.out.printf(line);
+            indexLineAtas = indexLineBawah;
         }
+        String lastLine = "╚══════" + "╩═════".repeat(11)+ "╝";
+        StringBuilder sbLastLine = new StringBuilder(lastLine);
+        int kelBah = 13;
+            for (int i = 0; i < indexLineAtas.length; i++) {
+                if (indexLineAtas[i] > 0) {
+                    sbLastLine.setCharAt(kelBah, '╩');
+                }
+                else{
+                    sbLastLine.setCharAt(kelBah, '═');
+                }
+                kelBah += 6;
+            }
+            System.out.println(sbLastLine);
+        
     }
 
     static void tampilkanJadwalPerHari(String hari, String[] jadwal) {
@@ -1338,17 +1429,19 @@ public class MainApps {
 
     // menmapilkan matkul
     static void tampilkanMatkul(String[][] matkulTI, int[] sks) {
-        String formatTable = "|  {%s}  | %-8s | %-40s |  %-2s |%n";
-        String horizonLine = "+-------+-----------+" + "-".repeat(42) + "+" + "-".repeat(5) + "+";
-        System.out.println(horizonLine);
-        System.out.println("| index | Kode      | Mata Kuliah" + " ".repeat(30) + "| SKS |");
-        System.out.println(horizonLine);
+        String formatTable = "║  {%s}  ║ %-8s ║ %-40s ║  %-2s ║%n";
+        String firstLine   = "╔═══════╦═══════════╦" + "═".repeat(42) + "╦" + "═".repeat(5) + "╗";
+        String middleLine  = "╠═══════╬═══════════╬" + "═".repeat(42) + "╬" + "═".repeat(5) + "╣";
+        String lastLine    = "╚═══════╩═══════════╩" + "═".repeat(42) + "╩" + "═".repeat(5) + "╝";
+        System.out.println(firstLine);
+        System.out.println("║ index ║ Kode      ║ Mata Kuliah" + " ".repeat(30) + "║ SKS ║");
+        System.out.println(middleLine);
         int number = 1;
         for (int i = 0; i < matkulTI.length; i++) {
             String[] takeMatkul = matkulTI[i];
             System.out.printf(formatTable, number++, takeMatkul[0], takeMatkul[2], sks[i]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     // untuk mengatur/edit jadwal
@@ -1379,9 +1472,9 @@ public class MainApps {
                 _1 = getInputStringNumberwithLimit("Mulai dari jam ke-" + min + "-11", min, 11, false);
                 while (true) {
                     _2 = Integer.parseInt(getInputStringNumberwithLimit("Index Kode matkul", 1, 8, false));
-                    if (tempSKS[_2 - 1] > 0) 
+                    if (tempSKS[_2 - 1] > 0)
                         break;
-                    else 
+                    else
                         System.out.println("SKS matkul sudah habis");
                 }
                 while (true) {
@@ -1389,7 +1482,7 @@ public class MainApps {
                     if (Integer.parseInt(_3) <= tempSKS[_2 - 1]) {
                         tempSKS[_2 - 1] -= Integer.parseInt(_3);
                         break;
-                    } else 
+                    } else
                         System.out.println("SKS matkul tidak cukup");
                 }
                 min += Integer.parseInt(_3);
@@ -1446,16 +1539,18 @@ public class MainApps {
 
     // fungsi menampilkan tabel lomba
     static void showLomba() {
-        String formatTable = "| %-3s | %-60s | %-61s |%n";
-        String horizonLine = "+-----+" + "-".repeat(62) + "+" + "-".repeat(63) + "+";
-        System.out.println(horizonLine);
-        System.out.println("| NO  | NAMA" + " ".repeat(57) + "|Deskripsi" + " ".repeat(54) + "|");
-        System.out.println(horizonLine);
+        String formatTable = "║ %-3s ║ %-60s ║ %-61s ║%n";
+        String firstLine = "╔═════╗" + "═".repeat(62) + "╦" + "═".repeat(63) + "╗";
+        String middleLine = "╠═════╣" + "═".repeat(62) + "╬" + "═".repeat(63) + "╣";
+        String lastLine = "╚═════╝" + "═".repeat(62) + "╩" + "═".repeat(63) + "╝";
+        System.out.println(firstLine);
+        System.out.println("║ NO  ║ NAMA" + " ".repeat(57) + "║Deskripsi" + " ".repeat(54) + "║");
+        System.out.println(middleLine);
         for (int i = 0; i < lomba.length; i++) {
             String[] isi = lomba[i];
             System.out.printf(formatTable, i + 1, isi[0], isi[1]);
         }
-        System.out.println(horizonLine);
+        System.out.println(lastLine);
     }
 
     // interface menambahkan lomba
@@ -1537,12 +1632,15 @@ public class MainApps {
 
     // melakukan print title/judul
     static void renderTitle(String title) {
-        int paddingSize = 4;
-        int titleLength = title.length();
-        String horizontalBorder = "+" + "-".repeat(titleLength + paddingSize * 2) + "+";
-        System.out.println(horizontalBorder);
-        System.out.println("|" + " ".repeat(paddingSize) + title + " ".repeat(paddingSize) + "|");
-        System.out.println(horizontalBorder);
+        String fixTittle = (title.length() > 40) ? title.substring(0, 40) : title;
+        int titleLength = fixTittle.length();
+        String firstLine = "╔" + "═".repeat(42) + "╗";
+        String lastLine = "╚" + "═".repeat(42) + "╝";
+        System.out.println(firstLine);
+        System.out.println((titleLength % 2 == 0)
+                ? "║" + " ".repeat((42 - titleLength) / 2) + fixTittle + " ".repeat((42 - titleLength) / 2) + "║"
+                : "║" + " ".repeat((42 - titleLength) / 2) + title + " ".repeat((42 - titleLength) / 2 + 1) + "║");
+        System.out.println(lastLine);
     }
 
     // mengembalikan input String user scanner
@@ -1628,15 +1726,22 @@ public class MainApps {
     // membuat menu dengan melakukan perulangan print berdasarkan jumlah data dalam
     // array dan mengembalikan input integer
     static int pickMenu(String menuTitle, String[] menus) {
-        System.out.println(menuTitle);
         int i = 0;
+        String formatMenu = "║ %-40s ║%n";
+        String firstLine = "╔" + "═".repeat(42) + "╗";
+        String middleLine = "╠" + "═".repeat(42) + "╣";
+        String lastLine = "╚" + "═".repeat(42) + "╝";
+        System.out.println(firstLine);
+        System.out.printf(formatMenu, menuTitle);
+        System.out.println(middleLine);
         while (i < menus.length) {
-            System.out.printf("%d. %s%n", i + 1, menus[i]);
+            System.out.printf(formatMenu, String.format("%d. %s", i + 1, menus[i]));
             i++;
         }
-        System.out.printf("%d. %s%n", i + 1, "Keluar");
+        System.out.printf(formatMenu, String.format("%d. %s", i + 1, "Keluar"));
+        System.out.println(lastLine);
         while (true) {
-            String userInput = getInputStringNumberwithLimit("Pilih menu", 1, menus.length + 1, false);
+            String userInput = getInputStringNumberwithLimit("  Pilih menu", 1, menus.length + 1, false);
             int userNumber = Integer.parseInt(userInput);
             if (userNumber == menus.length + 1)
                 exit();
