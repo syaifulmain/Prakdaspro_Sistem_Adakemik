@@ -687,13 +687,6 @@ public class MainApps {
         double uts = Double.parseDouble(Array[studentIndex][3]);
         double uas = Double.parseDouble(Array[studentIndex][4]);
         Array[studentIndex][userInput] = String.valueOf(temp);
-        // transkipNilai[studentIndex][indexMatkul] = (userInput!=1) ? (userInput!=2) ?
-        // (userInput!=3) ? (userInput!=4) ? "" : String.valueOf((kuis * bobot1) +
-        // (tugas * bobot2) + (uts * bobot3) + (temp * bobot4)) : String.valueOf((kuis *
-        // bobot1) + (tugas * bobot2) + (temp * bobot3) + (uas * bobot4)) :
-        // String.valueOf((kuis * bobot1) + (temp * bobot2) + (uts * bobot3) + (uas *
-        // bobot4)) : String.valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3)
-        // + (uas * bobot4));
         switch (userInput) {
             case 1 -> transkipNilai[studentIndex][indexMatkul] = String
                     .valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3) + (uas * bobot4));
@@ -1098,7 +1091,6 @@ public class MainApps {
         String middleLine = "╠═════╬════════════╬═══════════════════════════╬═════╬═════╬═════╣";
         String lastLine = "╚═════╩════════════╩═══════════════════════════╩═════╩═════╩═════╝";
         String formatTable = "║ %-3s ║ %-10s ║ %-25s ║ %-2s  ║ %-2s  ║ %-2s  ║%n";
-        String horizonLine = "+-----+------------+---------------------------+-----+-----+-----+";
         System.out.println(firstLine);
         System.out.format("║ NO  ║ NIM        ║ NAMA                      ║  A  ║  I  ║  S  ║%n");
         System.out.println(middleLine);
