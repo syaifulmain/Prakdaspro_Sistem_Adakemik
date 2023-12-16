@@ -203,7 +203,7 @@ public class MainApps {
                 { "2222222222", "Noprianto, S.Kom., M.Eng", "L", "BLITAR", "22-22-2222", "Daspro" },
                 { "3333333333", "Meyti Eka Apriyani ST., MT.", "P", "BLITAR", "33-33-3333", "Daspro" },
                 { "4444444444", "Irsyad Arif Mashudi, M.Kom", "L", "BLITAR", "44-44-4444", "Daspro" },
-                { "5555555555", "Yuri Ariyanto, S.Kom., M.Kom", "L", "BLITAR", "55-55-5555", "Dosen" }
+                { "5555555555", "Yuri Ariyanto, S.Kom., M.Kom", "L", "BLITAR", "55-55-5555", "BING" }
         };
         userDosen = new String[][] {
                 { "dosen", "dosen" },
@@ -687,13 +687,6 @@ public class MainApps {
         double uts = Double.parseDouble(Array[studentIndex][3]);
         double uas = Double.parseDouble(Array[studentIndex][4]);
         Array[studentIndex][userInput] = String.valueOf(temp);
-        // transkipNilai[studentIndex][indexMatkul] = (userInput!=1) ? (userInput!=2) ?
-        // (userInput!=3) ? (userInput!=4) ? "" : String.valueOf((kuis * bobot1) +
-        // (tugas * bobot2) + (uts * bobot3) + (temp * bobot4)) : String.valueOf((kuis *
-        // bobot1) + (tugas * bobot2) + (temp * bobot3) + (uas * bobot4)) :
-        // String.valueOf((kuis * bobot1) + (temp * bobot2) + (uts * bobot3) + (uas *
-        // bobot4)) : String.valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3)
-        // + (uas * bobot4));
         switch (userInput) {
             case 1 -> transkipNilai[studentIndex][indexMatkul] = String
                     .valueOf((temp * bobot1) + (tugas * bobot2) + (uts * bobot3) + (uas * bobot4));
@@ -952,7 +945,6 @@ public class MainApps {
         clearScreen();
         showDataBioMahasiswa(true, oldNim);
         int userInput = pickMenu("Ubah data", new String[] {
-                // "NIM",
                 "Nama",
                 "Jenis Kelamin",
                 "Alamat",
@@ -1098,7 +1090,6 @@ public class MainApps {
         String middleLine = "╠═════╬════════════╬═══════════════════════════╬═════╬═════╬═════╣";
         String lastLine = "╚═════╩════════════╩═══════════════════════════╩═════╩═════╩═════╝";
         String formatTable = "║ %-3s ║ %-10s ║ %-25s ║ %-2s  ║ %-2s  ║ %-2s  ║%n";
-        String horizonLine = "+-----+------------+---------------------------+-----+-----+-----+";
         System.out.println(firstLine);
         System.out.format("║ NO  ║ NIM        ║ NAMA                      ║  A  ║  I  ║  S  ║%n");
         System.out.println(middleLine);
@@ -1114,7 +1105,157 @@ public class MainApps {
 
     /* <--- modulDosen ---> */
     static void modulDosen() {
+        while (true) {
+            System.out.println("Siakad / Modul Dosen");
+            renderTitle("Modul Dosen");
+                    showDataBioDosen(false);
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Add Data Dosen",
+                    "Edit Data Dosen",
+                    "Hapus Data Dosen",
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> addDataDosen();
+                case 2 -> editDataBioDosen();
+                case 3 -> removeDataBioDosen();
+                case 4 -> {
+                    return;
+                }
+            }
+        }
 
+    }
+
+    // Fungsi showDataBioDosen. Jika id ditemukan, maka akan menampilkan data
+    static void showDataBioDosen(boolean isId, String... id) {
+        String firstLine = "╔═════╦════════════╦══════════════════════════════════════════╦═══════════════╦═════════════════╦═══════════════╦══════════════╗";
+        String middleLine = "╠═════╬════════════╬══════════════════════════════════════════╬═══════════════╬═════════════════╬═══════════════╬══════════════╣";
+        String lastLine = "╚═════╩════════════╩══════════════════════════════════════════╩═══════════════╩═════════════════╩═══════════════╩══════════════╝";
+        String formatTable = "║ %-3s ║ %-10s ║ %-40s ║       %-7s ║ %-15s ║ %-13s ║   %-10s ║%n";
+        System.out.println(firstLine);
+        System.out.format(
+                "║ NO  ║ ID         ║ NAMA                                     ║ Jenis Kelamin ║ Alamat          ║ Tanggal Lahir ║ Mengajar     ║%n");
+        System.out.println(middleLine);
+        for (int i = 0; i < bioDosen.length; i++) {
+            String[] takeBio = bioDosen[i];
+            if (isId && id[0].equals(takeBio[0])) {
+                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
+                        takeBio[5]);
+                break;
+            }
+            if (!isId)
+                System.out.printf(formatTable, (i + 1), takeBio[0], takeBio[1], takeBio[2], takeBio[3], takeBio[4],
+                        takeBio[5]);
+        }
+        System.out.println(lastLine);
+
+    }
+
+    // Fungsi addDataDosen. Menambahkan data dosen
+    static void addDataDosen() {
+        String id = getInputStringNumberwithLimitChar("ID", 10, 10, false);
+        if (has(bioDosen, id, 0)) {
+            System.out.println("ID " + id + " sudah terdaftar");
+            return;
+        }
+        String nama = getInputStringWithLimit("NAMA", 1, 25, false);
+        String jenisKelamin = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
+        String alamat = getInputStringWithLimit("Alamat", 1, 15, false);
+        String tanggalLahir = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
+        String mengajar = getInputStringWithLimit("Mengajar", 1, 10, false);
+        String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
+        if (userChoose.equalsIgnoreCase("y")){
+            clearScreen();
+            addDataDosen(id, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, mengajar);
+            return;
+        }
+        else
+            System.out.println("Dibatalkan");
+    }
+    // Fungsi addDataDosen. Menambahkan data dosen
+    static void addDataDosen(String... dataBio) {
+        String[][] dosenBaru = new String[bioDosen.length + 1][6];
+        for (int i = 0; i < bioDosen.length; i++)
+            dosenBaru[i] = bioDosen[i];
+        dosenBaru[dosenBaru.length - 1] = dataBio;
+        bioDosen = dosenBaru;
+        System.out.println("Dosen telah berhasil ditambahkan");
+    }
+    // interface edit data dosen
+    static void editDataBioDosen(){
+        String ubah="",id;
+        int dosenIndex = -1;
+        while (true) {
+            showDataBioDosen(false);
+            id = getInputStringWithLimit("Masukan ID yang ingin diubah", 10, 10, false);
+            if (has(bioDosen, id, 0))
+                break;
+            clearScreen();
+            System.out.println("ID tidak ditemukan");
+        }
+        for (int i = 0; i < bioDosen.length; i++) {
+            if (bioDosen[i][0].equals(id)) {
+                dosenIndex = i;
+                break;
+            }
+        }
+        clearScreen();
+        showDataBioDosen(true, id);
+        int userInput = pickMenu("Ubah data", new String[] {
+                "Nama",
+                "Jenis Kelamin",
+                "Alamat",
+                "Tanggal Lahir",
+                "Mengajar",
+                "Batal"
+        });
+        switch (userInput) {
+            case 1 -> ubah = getInputStringWithLimit("NAMA", 1, 25, false);
+            case 2 -> ubah = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
+            case 3 -> ubah = getInputStringWithLimit("Alamat", 1, 15, false);
+            case 4 -> ubah = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
+            case 5 -> {
+                clearScreen();
+                return;
+            }
+        }
+        String userChoose = getInputUniqueWord("Simpan " + ubah + " Sebagai perubahan y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("y")) {
+            bioDosen[dosenIndex][userInput] = ubah;
+            System.out.println("Berhasil mengedit");
+        } else {
+            System.out.println("Dibatalkan");
+        }
+    }
+    // fungsi interface  hapus data dosen
+    static void removeDataBioDosen() {
+        String id;
+        while (true) {
+            showDataBioDosen(false);
+            id = getInputStringWithLimit("Masukan ID yang ingin dihapus : ", 10, 10, false);
+            if (has(bioDosen, id, 0))
+                break;
+            clearScreen();
+            System.out.println("Dosen dengan ID " + id + " tidak ditemukan!");
+        }
+        bioDosen = removeDataBioDosen(bioDosen, id);
+        clearScreen();
+        System.out.println("Dosen " + id + " telah berhasil dihapus!");
+    }
+    // fungsi hapus data dosen
+    static String[][] removeDataBioDosen(String[][] array, String id) {
+        String[][] tempArray = new String[array.length - 1][array[0].length];
+        int count = 0;
+        for (String[] dosen : array) {
+            if (dosen[0].equals(id))
+                continue;
+            tempArray[count] = dosen;
+            count++;
+        }
+        return tempArray;
     }
     /* <--- modulDosen ---> */
 
