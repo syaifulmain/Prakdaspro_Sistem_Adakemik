@@ -1132,7 +1132,7 @@ public class MainApps {
         System.out.println(middleLine);
         for (int i = 0; i < presensiMahasiswa.length; i++) {
             String[] takePresensi = presensiMahasiswa[i];
-            if (isSort && sort[0].equals(takePresensi[0])) {
+            if (isSort && sort[0].equals(i+1+"")) {
                 System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
                         takePresensi[2], takePresensi[3]);
                 break;
