@@ -58,11 +58,11 @@ public class MainApps {
     static void fillPresensi() {
         // NIM, ALPHA, IZIN, SAKIT
         presensiMahasiswa = new String[][] {
-                { "1111111111", "0", "0", "0" },
-                { "2222222222", "0", "0", "0" },
-                { "3333333333", "0", "0", "0" },
-                { "4444444444", "0", "0", "0" },
-                { "5555555555", "0", "0", "0" },
+                { "1111111111", "0", "2", "0" },
+                { "2222222222", "0", "0", "4" },
+                { "3333333333", "1", "0", "0" },
+                { "4444444444", "0", "3", "0" },
+                { "5555555555", "2", "0", "0" },
                 { "6666666666", "0", "0", "0" },
         };
     }
@@ -437,6 +437,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> penilaianMahasiswa();
+                case 2 -> presensiMahasiswa();
                 case 4 -> {
                     return;
                 }
@@ -1076,16 +1077,36 @@ public class MainApps {
     }
 
     static void presensiMahasiswa() {
-        System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
-        renderTitle("Presensi Mahasiswa");
-        tampilkanPresensiMahasiswa();
-        int userInput = pickMenu("Menu : ", new String[] {
-                "Kembali",
-        });
-        clearScreen();
+        String pilih = "";
+            while (true) {
+                System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
+                renderTitle("Presensi Mahasiswa");
+                tampilkanPresensiMahasiswa(false);
+                 pilih =getInputStringNumber("Pilih Mahasiswa yang tidak hadir (Null untuk kembali)", true);
+                if (pilih.equals("")){
+                    clearScreen();
+                    System.out.println("Dibatalkan");
+                      return;
+                }
+                clearScreen();
+                if (Integer.parseInt(pilih) > presensiMahasiswa.length || Integer.parseInt(pilih) < 1){
+                    System.out.println("Mahasiswa tidak ditemukan");
+                } else {
+                    break;
+                }
+            }
+            tampilkanPresensiMahasiswa(true, pilih);
+            int userInput = pickMenu("Pilih Keterangan ", new String[]{
+                "Alfa",
+                "Izin",
+                "Sakit",
+                "Kembali"
+            });
+            switch(userInput){
+            }
     }
 
-    static void tampilkanPresensiMahasiswa() {
+    static void tampilkanPresensiMahasiswa(boolean isSort, String... sort) {
         String firstLine = "╔═════╦════════════╦═══════════════════════════╦═════╦═════╦═════╗";
         String middleLine = "╠═════╬════════════╬═══════════════════════════╬═════╬═════╬═════╣";
         String lastLine = "╚═════╩════════════╩═══════════════════════════╩═════╩═════╩═════╝";
@@ -1095,8 +1116,14 @@ public class MainApps {
         System.out.println(middleLine);
         for (int i = 0; i < presensiMahasiswa.length; i++) {
             String[] takePresensi = presensiMahasiswa[i];
-            System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
-                    takePresensi[2], takePresensi[3]);
+            if (isSort && sort[0].equals(takePresensi[0])) {
+                System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
+                        takePresensi[2], takePresensi[3]);
+                break;
+            }
+            if (!isSort)
+                System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
+                        takePresensi[2], takePresensi[3]);
         }
         System.out.println(lastLine);
     }
