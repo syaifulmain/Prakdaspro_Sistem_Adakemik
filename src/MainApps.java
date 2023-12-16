@@ -1077,7 +1077,7 @@ public class MainApps {
     }
 
     static void presensiMahasiswa() {
-        String pilih = "";
+        String pilih = "", keterangan = "";
             while (true) {
                 System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
                 renderTitle("Presensi Mahasiswa");
@@ -1086,7 +1086,7 @@ public class MainApps {
                 if (pilih.equals("")){
                     clearScreen();
                     System.out.println("Dibatalkan");
-                      return;
+                    return;
                 }
                 clearScreen();
                 if (Integer.parseInt(pilih) > presensiMahasiswa.length || Integer.parseInt(pilih) < 1){
@@ -1103,6 +1103,22 @@ public class MainApps {
                 "Kembali"
             });
             switch(userInput){
+                case 1 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Alfa",1,6, false);
+                case 2 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Izin",1,6, false);
+                case 3 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Sakit",1,6, false);
+                case 4 -> {
+                    clearScreen();
+                    System.out.println("Dibatalkan");
+                    return;
+                }
+            }
+            String userChoose = getInputUniqueWord("Simpan perubahan? y/t", 1, 1, true, "y", "t");
+            clearScreen();
+            if (userChoose.equalsIgnoreCase("y")) {
+                presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput] =Integer.parseInt(presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput]) + Integer.parseInt(keterangan) + "";
+                System.out.println("Berhasil mengubah");
+            } else {
+                System.out.println("Dibatalkan");
             }
     }
 
