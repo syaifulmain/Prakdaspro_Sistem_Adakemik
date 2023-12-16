@@ -1106,11 +1106,32 @@ public class MainApps {
 
     /* <--- modulDosen ---> */
     static void modulDosen() {
-        showDataBioDosen(false);
+        while (true) {
+            System.out.println("Siakad / Modul Dosen");
+            renderTitle("Modul Dosen");
+                    showDataBioDosen(false);
+            int userInput = pickMenu("Menu : ", new String[] {
+                    "Add Data Dosen",
+                    "Edit Data Dosen",
+                    "Hapus Data Dosen",
+                    "Kembali"
+            });
+            clearScreen();
+            switch (userInput) {
+                case 1 -> addDataDosen();
+                // case 2 -> editDataBioDosen();
+                // case 3 -> removeDataBioDosen();
+                case 4 -> {
+                    return;
+                }
+            }
+        }
 
     }
+
+    // Fungsi showDataBioDosen. Jika id ditemukan, maka akan menampilkan data
     static void showDataBioDosen(boolean isId, String... id) {
-      String firstLine = "╔═════╦════════════╦══════════════════════════════════════════╦═══════════════╦═════════════════╦═══════════════╦══════════════╗";
+        String firstLine = "╔═════╦════════════╦══════════════════════════════════════════╦═══════════════╦═════════════════╦═══════════════╦══════════════╗";
         String middleLine = "╠═════╬════════════╬══════════════════════════════════════════╬═══════════════╬═════════════════╬═══════════════╬══════════════╣";
         String lastLine = "╚═════╩════════════╩══════════════════════════════════════════╩═══════════════╩═════════════════╩═══════════════╩══════════════╝";
         String formatTable = "║ %-3s ║ %-10s ║ %-40s ║       %-7s ║ %-15s ║ %-13s ║   %-10s ║%n";
@@ -1130,7 +1151,38 @@ public class MainApps {
                         takeBio[5]);
         }
         System.out.println(lastLine);
-        
+
+    }
+
+    // Fungsi addDataDosen. Menambahkan data dosen
+    static void addDataDosen() {
+        String id = getInputStringNumberwithLimitChar("ID", 10, 10, false);
+        if (has(bioDosen, id, 0)) {
+            System.out.println("ID " + id + " sudah terdaftar");
+            return;
+        }
+        String nama = getInputStringWithLimit("NAMA", 1, 25, false);
+        String jenisKelamin = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
+        String alamat = getInputStringWithLimit("Alamat", 1, 15, false);
+        String tanggalLahir = getInputStringWithLimit("Tanggal lahir", 10, 10, false);
+        String mengajar = getInputStringWithLimit("Mengajar", 1, 10, false);
+        String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
+        if (userChoose.equalsIgnoreCase("y")){
+            clearScreen();
+            addDataDosen(id, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, mengajar);
+            return;
+        }
+        else
+            System.out.println("Dibatalkan");
+    }
+    // Fungsi addDataDosen. Menambahkan data dosen
+    static void addDataDosen(String... dataBio) {
+        String[][] dosenBaru = new String[bioDosen.length + 1][6];
+        for (int i = 0; i < bioDosen.length; i++)
+            dosenBaru[i] = bioDosen[i];
+        dosenBaru[dosenBaru.length - 1] = dataBio;
+        bioDosen = dosenBaru;
+        System.out.println("Dosen telah berhasil ditambahkan");
     }
     /* <--- modulDosen ---> */
 
