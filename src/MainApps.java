@@ -1119,7 +1119,7 @@ public class MainApps {
             switch (userInput) {
                 case 1 -> addDataDosen();
                 case 2 -> editDataBioDosen();
-                // case 3 -> removeDataBioDosen();
+                case 3 -> removeDataBioDosen();
                 case 4 -> {
                     return;
                 }
@@ -1229,6 +1229,33 @@ public class MainApps {
         } else {
             System.out.println("Dibatalkan");
         }
+    }
+    // fungsi interface  hapus data dosen
+    static void removeDataBioDosen() {
+        String id;
+        while (true) {
+            showDataBioDosen(false);
+            id = getInputStringWithLimit("Masukan ID yang ingin dihapus : ", 10, 10, false);
+            if (has(bioDosen, id, 0))
+                break;
+            clearScreen();
+            System.out.println("Dosen dengan ID " + id + " tidak ditemukan!");
+        }
+        bioDosen = removeDataBioDosen(bioDosen, id);
+        clearScreen();
+        System.out.println("Dosen " + id + " telah berhasil dihapus!");
+    }
+    // fungsi hapus data dosen
+    static String[][] removeDataBioDosen(String[][] array, String id) {
+        String[][] tempArray = new String[array.length - 1][array[0].length];
+        int count = 0;
+        for (String[] dosen : array) {
+            if (dosen[0].equals(id))
+                continue;
+            tempArray[count] = dosen;
+            count++;
+        }
+        return tempArray;
     }
     /* <--- modulDosen ---> */
 
