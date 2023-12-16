@@ -945,7 +945,6 @@ public class MainApps {
         clearScreen();
         showDataBioMahasiswa(true, oldNim);
         int userInput = pickMenu("Ubah data", new String[] {
-                // "NIM",
                 "Nama",
                 "Jenis Kelamin",
                 "Alamat",
@@ -1119,7 +1118,7 @@ public class MainApps {
             clearScreen();
             switch (userInput) {
                 case 1 -> addDataDosen();
-                // case 2 -> editDataBioDosen();
+                case 2 -> editDataBioDosen();
                 // case 3 -> removeDataBioDosen();
                 case 4 -> {
                     return;
@@ -1164,7 +1163,7 @@ public class MainApps {
         String nama = getInputStringWithLimit("NAMA", 1, 25, false);
         String jenisKelamin = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
         String alamat = getInputStringWithLimit("Alamat", 1, 15, false);
-        String tanggalLahir = getInputStringWithLimit("Tanggal lahir", 10, 10, false);
+        String tanggalLahir = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
         String mengajar = getInputStringWithLimit("Mengajar", 1, 10, false);
         String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
         if (userChoose.equalsIgnoreCase("y")){
@@ -1183,6 +1182,53 @@ public class MainApps {
         dosenBaru[dosenBaru.length - 1] = dataBio;
         bioDosen = dosenBaru;
         System.out.println("Dosen telah berhasil ditambahkan");
+    }
+    // interface edit data dosen
+    static void editDataBioDosen(){
+        String ubah="",id;
+        int dosenIndex = -1;
+        while (true) {
+            showDataBioDosen(false);
+            id = getInputStringWithLimit("Masukan ID yang ingin diubah", 10, 10, false);
+            if (has(bioDosen, id, 0))
+                break;
+            clearScreen();
+            System.out.println("ID tidak ditemukan");
+        }
+        for (int i = 0; i < bioDosen.length; i++) {
+            if (bioDosen[i][0].equals(id)) {
+                dosenIndex = i;
+                break;
+            }
+        }
+        clearScreen();
+        showDataBioDosen(true, id);
+        int userInput = pickMenu("Ubah data", new String[] {
+                "Nama",
+                "Jenis Kelamin",
+                "Alamat",
+                "Tanggal Lahir",
+                "Mengajar",
+                "Batal"
+        });
+        switch (userInput) {
+            case 1 -> ubah = getInputStringWithLimit("NAMA", 1, 25, false);
+            case 2 -> ubah = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
+            case 3 -> ubah = getInputStringWithLimit("Alamat", 1, 15, false);
+            case 4 -> ubah = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
+            case 5 -> {
+                clearScreen();
+                return;
+            }
+        }
+        String userChoose = getInputUniqueWord("Simpan " + ubah + " Sebagai perubahan y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("y")) {
+            bioDosen[dosenIndex][userInput] = ubah;
+            System.out.println("Berhasil mengedit");
+        } else {
+            System.out.println("Dibatalkan");
+        }
     }
     /* <--- modulDosen ---> */
 
