@@ -346,14 +346,15 @@ public class MainApps {
                     "Biodata",
                     "Nilai",
                     "Jadwal",
-                    "Presesi",
+                    "Presensi",
+                    "Logout",
             });
             clearScreen();
             switch (userInput) {
                 case 1 -> hadleBiodataMahasiswa(nim);
                 case 2 -> hadleNilaiMahasiswa(nim);
                 case 3 -> hadleJadwalMahasiswa(nim);
-                case 4 -> hadlePresensiMahasiswa();
+                case 4 -> hadlePresensiMahasiswa(nim);
                 case 5 -> {
                     return;
                 }
@@ -408,7 +409,9 @@ public class MainApps {
         }
     }
 
-    static void hadlePresensiMahasiswa() {
+    static void hadlePresensiMahasiswa(String nim) {
+        renderTitle("PRESENSI MAHASISWA:");
+        tampilkanPresensiMahasiswa(true, nim);
 
     }
     /* DASHBOARD MAHASISWA */
@@ -437,7 +440,7 @@ public class MainApps {
             switch (userInput) {
                 case 1 -> penilaianMahasiswa();
                 case 2 -> presensiMahasiswa();
-                case 4 -> {
+                case 3 -> {
                     return;
                 }
             }
@@ -763,51 +766,53 @@ public class MainApps {
         System.out.println(lastLine);
         return;
     }
+
     // interface presensi mahasiswa
     static void presensiMahasiswa() {
         String pilih = "", keterangan = "";
-            while (true) {
-                System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
-                renderTitle("Presensi Mahasiswa");
-                tampilkanPresensiMahasiswa(false);
-                 pilih =getInputStringNumber("Pilih Mahasiswa yang tidak hadir (Null untuk kembali)", true);
-                if (pilih.equals("")){
-                    clearScreen();
-                    System.out.println("Dibatalkan");
-                    return;
-                }
+        while (true) {
+            System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
+            renderTitle("Presensi Mahasiswa");
+            tampilkanPresensiMahasiswa(false);
+            pilih = getInputStringNumber("Pilih Mahasiswa yang tidak hadir (Null untuk kembali)", true);
+            if (pilih.equals("")) {
                 clearScreen();
-                if (Integer.parseInt(pilih) > presensiMahasiswa.length || Integer.parseInt(pilih) < 1){
-                    System.out.println("Mahasiswa tidak ditemukan");
-                } else {
-                    break;
-                }
+                System.out.println("Dibatalkan");
+                return;
             }
-            tampilkanPresensiMahasiswa(true, pilih);
-            int userInput = pickMenu("Pilih Keterangan ", new String[]{
+            clearScreen();
+            if (Integer.parseInt(pilih) > presensiMahasiswa.length || Integer.parseInt(pilih) < 1) {
+                System.out.println("Mahasiswa tidak ditemukan");
+            } else {
+                break;
+            }
+        }
+        tampilkanPresensiMahasiswa(true, pilih);
+        int userInput = pickMenu("Pilih Keterangan ", new String[] {
                 "Alfa",
                 "Izin",
                 "Sakit",
                 "Kembali"
-            });
-            switch(userInput){
-                case 1 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Alfa",1,6, false);
-                case 2 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Izin",1,6, false);
-                case 3 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Sakit",1,6, false);
-                case 4 -> {
-                    clearScreen();
-                    System.out.println("Dibatalkan");
-                    return;
-                }
-            }
-            String userChoose = getInputUniqueWord("Simpan perubahan? y/t", 1, 1, true, "y", "t");
-            clearScreen();
-            if (userChoose.equalsIgnoreCase("y")) {
-                presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput] =Integer.parseInt(presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput]) + Integer.parseInt(keterangan) + "";
-                System.out.println("Berhasil mengubah");
-            } else {
+        });
+        switch (userInput) {
+            case 1 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Alfa", 1, 6, false);
+            case 2 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Izin", 1, 6, false);
+            case 3 -> keterangan = getInputStringNumberwithLimit("Masukan berapa jam Sakit", 1, 6, false);
+            case 4 -> {
+                clearScreen();
                 System.out.println("Dibatalkan");
+                return;
             }
+        }
+        String userChoose = getInputUniqueWord("Simpan perubahan? y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("y")) {
+            presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput] = Integer.parseInt(
+                    presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput]) + Integer.parseInt(keterangan) + "";
+            System.out.println("Berhasil mengubah");
+        } else {
+            System.out.println("Dibatalkan");
+        }
     }
 
     static void tampilkanPresensiMahasiswa(boolean isSort, String... sort) {
@@ -820,7 +825,7 @@ public class MainApps {
         System.out.println(middleLine);
         for (int i = 0; i < presensiMahasiswa.length; i++) {
             String[] takePresensi = presensiMahasiswa[i];
-            if (isSort && sort[0].equals(i+1+"")) {
+            if (isSort && sort[0].equals(i + 1 + "")|| isSort && sort[0].equals(takePresensi[0])) {
                 System.out.printf(formatTable, (i + 1), takePresensi[0], bioMahasiswa[i][1], takePresensi[1],
                         takePresensi[2], takePresensi[3]);
                 break;
@@ -1144,36 +1149,36 @@ public class MainApps {
     }
 
     // interface presensi mahasiswa admin
-    static void presensiMahasiswaAdmin(){
-        String pilih ="", keterangan="";
+    static void presensiMahasiswaAdmin() {
+        String pilih = "", keterangan = "";
         while (true) {
             System.out.println("Siakad / Modul Mahasiswa / Presensi Mahasiswa");
             renderTitle("Edit Presensi Mahasiswa");
             tampilkanPresensiMahasiswa(false);
-            pilih =getInputStringNumber("Pilih Mahasiswa yang akan diproses (Null untuk kembali)", true);
-            if (pilih.equals("")){
+            pilih = getInputStringNumber("Pilih Mahasiswa yang akan diproses (Null untuk kembali)", true);
+            if (pilih.equals("")) {
                 clearScreen();
                 System.out.println("Dibatalkan");
                 return;
             }
             clearScreen();
-            if (Integer.parseInt(pilih) > presensiMahasiswa.length || Integer.parseInt(pilih) < 1){
+            if (Integer.parseInt(pilih) > presensiMahasiswa.length || Integer.parseInt(pilih) < 1) {
                 System.out.println("Mahasiswa tidak ditemukan");
             } else {
                 break;
             }
         }
         tampilkanPresensiMahasiswa(true, pilih);
-        int userInput = pickMenu("Pilih Keterangan ", new String[]{
-            "Alfa",
-            "Izin",
-            "Sakit",
-            "Kembali"
+        int userInput = pickMenu("Pilih Keterangan ", new String[] {
+                "Alfa",
+                "Izin",
+                "Sakit",
+                "Kembali"
         });
-        switch(userInput){
-            case 1 -> keterangan = getInputStringNumberwithLimit("Masukan ganti jam total Alfa",0,2000, false);
-            case 2 -> keterangan = getInputStringNumberwithLimit("Masukan ganti jam total Izin",0,2000, false);
-            case 3 -> keterangan = getInputStringNumberwithLimit("Masukan ganti total jam Sakit",0,2000, false);
+        switch (userInput) {
+            case 1 -> keterangan = getInputStringNumberwithLimit("Masukan ganti jam total Alfa", 0, 2000, false);
+            case 2 -> keterangan = getInputStringNumberwithLimit("Masukan ganti jam total Izin", 0, 2000, false);
+            case 3 -> keterangan = getInputStringNumberwithLimit("Masukan ganti total jam Sakit", 0, 2000, false);
             case 4 -> {
                 clearScreen();
                 System.out.println("Dibatalkan");
@@ -1183,13 +1188,12 @@ public class MainApps {
         String userChoose = getInputUniqueWord("Simpan perubahan? y/t", 1, 1, true, "y", "t");
         clearScreen();
         if (userChoose.equalsIgnoreCase("y")) {
-            presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput] =keterangan;
+            presensiMahasiswa[Integer.parseInt(pilih) - 1][userInput] = keterangan;
             System.out.println("Berhasil mengubah");
         } else {
             System.out.println("Dibatalkan");
         }
     }
-
 
     /* <--- modulMahasiswa ---> */
 
@@ -1198,7 +1202,7 @@ public class MainApps {
         while (true) {
             System.out.println("Siakad / Modul Dosen");
             renderTitle("Modul Dosen");
-                    showDataBioDosen(false);
+            showDataBioDosen(false);
             int userInput = pickMenu("Menu : ", new String[] {
                     "Add Data Dosen",
                     "Edit Data Dosen",
@@ -1256,14 +1260,14 @@ public class MainApps {
         String tanggalLahir = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
         String mengajar = getInputStringWithLimit("Mengajar", 1, 10, false);
         String userChoose = getInputUniqueWord("Tambahkan data? y/t", 1, 1, true, "y", "t");
-        if (userChoose.equalsIgnoreCase("y")){
+        if (userChoose.equalsIgnoreCase("y")) {
             clearScreen();
             addDataDosen(id, nama.toUpperCase(), jenisKelamin.toUpperCase(), alamat, tanggalLahir, mengajar);
             return;
-        }
-        else
+        } else
             System.out.println("Dibatalkan");
     }
+
     // Fungsi addDataDosen. Menambahkan data dosen
     static void addDataDosen(String... dataBio) {
         String[][] dosenBaru = new String[bioDosen.length + 1][6];
@@ -1273,9 +1277,10 @@ public class MainApps {
         bioDosen = dosenBaru;
         System.out.println("Dosen telah berhasil ditambahkan");
     }
+
     // interface edit data dosen
-    static void editDataBioDosen(){
-        String ubah="",id;
+    static void editDataBioDosen() {
+        String ubah = "", id;
         int dosenIndex = -1;
         while (true) {
             showDataBioDosen(false);
@@ -1320,7 +1325,8 @@ public class MainApps {
             System.out.println("Dibatalkan");
         }
     }
-    // fungsi interface  hapus data dosen
+
+    // fungsi interface hapus data dosen
     static void removeDataBioDosen() {
         String id;
         while (true) {
@@ -1335,6 +1341,7 @@ public class MainApps {
         clearScreen();
         System.out.println("Dosen " + id + " telah berhasil dihapus!");
     }
+
     // fungsi hapus data dosen
     static String[][] removeDataBioDosen(String[][] array, String id) {
         String[][] tempArray = new String[array.length - 1][array[0].length];
