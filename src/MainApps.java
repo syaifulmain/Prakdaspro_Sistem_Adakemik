@@ -346,7 +346,7 @@ public class MainApps {
                     "Biodata",
                     "Nilai",
                     "Jadwal",
-                    "Presesi",
+                    "Presensi",
                     "Kembali"
             });
             clearScreen();
@@ -354,7 +354,7 @@ public class MainApps {
                 case 1 -> hadleBiodataMahasiswa(nim);
                 case 2 -> hadleNilaiMahasiswa(nim);
                 case 3 -> hadleJadwalMahasiswa(nim);
-                case 4 -> hadlePresensiMahasiswa();
+                case 4 -> hadlePresensiMahasiswa(nim);
                 case 5 -> {
                     return;
                 }
@@ -380,6 +380,8 @@ public class MainApps {
         if (!userFound) {
             System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
         }
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
     }
 
     static void hadleNilaiMahasiswa(String nim) {
@@ -389,6 +391,8 @@ public class MainApps {
                 showNilaiMahasiswa(i);
             }
         }
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
     }
 
     static void hadleJadwalMahasiswa(String nim) {
@@ -407,11 +411,24 @@ public class MainApps {
                 break;
             }
         }
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
     }
 
-    static void hadlePresensiMahasiswa() {
+    static void hadlePresensiMahasiswa(String nim) {
+        clearScreen();
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (nim.equals(bioMahasiswa[i][0])) {
+                renderTitle("PRESENSI AKADEMIK MAHASISWA:");
+                tampilkanPresensiMahasiswa();
 
+            }
+        }
+
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
     }
+    
     /* DASHBOARD MAHASISWA */
 
     /* DASHBOARD DOSEN */
