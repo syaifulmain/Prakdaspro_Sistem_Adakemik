@@ -262,18 +262,17 @@ public class MainApps {
     static void run() {
         fill();
         clearScreen();
-        testRun();
-        // firstLogin();
+        // testRun();
+        firstLogin();
     }
 
-    static void testRun() {
-        switch (input("test role \n1. Admin\n2. Dosen\n3. Mahasiswa")) {
-            case "1" -> dashboardAdmin("admin");
-            case "2" -> dashboardDosen("1111111111");
-            case "3" -> dashboardMahasiswa("1111111111");
-        }
-
-    }
+    // static void testRun() {
+    //     switch (input("test role \n1. Admin\n2. Dosen\n3. Mahasiswa")) {
+    //         case "1" -> dashboardAdmin("admin");
+    //         case "2" -> dashboardDosen("1111111111");
+    //         case "3" -> dashboardMahasiswa("1111111111");
+    //     }
+    // }
 
     // login awal untuk login
     static void firstLogin() {
