@@ -365,18 +365,7 @@ public class MainApps {
     // menampilkan biodata mahasiswa
     static void hadleBiodataMahasiswa(String nim) {
         boolean userFound = false;
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) {
-                userFound = true;
-                System.out.println("NIM: " + bioMahasiswa[i][0]);
-                System.out.println("Nama: " + bioMahasiswa[i][1]);
-                System.out.println("Jenis Kelamin: " + bioMahasiswa[i][2]);
-                System.out.println("Alamat: " + bioMahasiswa[i][3]);
-                System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
-                System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break;
-            }
-        }
+        showDataBioMahasiswa(true, nim);
         if (!userFound) {
             System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
         }
