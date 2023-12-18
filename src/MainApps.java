@@ -330,18 +330,11 @@ public class MainApps {
     /* DASHBOARD MAHASISWA */
     // menu dashboard mahasiswa
     static void dashboardMahasiswa(String nim) {
-        int index = -1;
-        String name = "";
-        for (int i = 0; i < bioDosen.length; i++) {
-            if (userMahasiswa[i][0].equals(nim)) {
-                index = i;
-                name = bioMahasiswa[index][1];
-                break;
-            }
-        }
+        int indexSiswa = getIndexByNim(nim);
+        String name = bioMahasiswa[indexSiswa][1];
         while (true) {
             renderTitle("Selamat Datang " + name);
-            System.out.println("=== Dashboard Mahasiswa ===");
+            renderTitle("Dashboard Mahasiswa");
             int userInput = pickMenu("Menu : ", new String[] {
                     "Biodata",
                     "Nilai",
@@ -351,10 +344,10 @@ public class MainApps {
             });
             clearScreen();
             switch (userInput) {
-                case 1 -> hadleBiodataMahasiswa(nim);
-                case 2 -> hadleNilaiMahasiswa(nim);
-                case 3 -> hadleJadwalMahasiswa(nim);
-                case 4 -> hadlePresensiMahasiswa(nim);
+                case 1 -> hadleBiodataMahasiswa(indexSiswa);
+                case 2 -> hadleNilaiMahasiswa(indexSiswa);
+                case 3 -> hadleJadwalMahasiswa(indexSiswa);
+                case 4 -> hadlePresensiMahasiswa(indexSiswa);
                 case 5 -> {
                     return;
                 }
@@ -363,68 +356,54 @@ public class MainApps {
     }
 
     // menampilkan biodata mahasiswa
-    static void hadleBiodataMahasiswa(String nim) {
-        boolean userFound = false;
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) {
-                userFound = true;
-                System.out.println("NIM: " + bioMahasiswa[i][0]);
-                System.out.println("Nama: " + bioMahasiswa[i][1]);
-                System.out.println("Jenis Kelamin: " + bioMahasiswa[i][2]);
-                System.out.println("Alamat: " + bioMahasiswa[i][3]);
-                System.out.println("Tanggal Lahir: " + bioMahasiswa[i][4]);
-                System.out.println("Kelas: " + bioMahasiswa[i][5]);
-                break;
-            }
+    static void hadleBiodataMahasiswa(int indexSiswa) {
+        renderTitle("Biodata Mahasiswa");
+        showBiodataMahasiswa(indexSiswa);
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
+    }
+
+    static void showBiodataMahasiswa(int indexSiswa) {
+        String[] deskripsi = { "NIM", "Nama", "Jenis Kelamin", "Alamat", "Tanggal Lahir", "Kelas" };
+        String firstLine = "╔═══════════════╦" + "═".repeat(26) + "╗";
+        String middleLine = "╠═══════════════╬" + "═".repeat(26) + "╣";
+        String lastLine = "╚═══════════════╩" + "═".repeat(26) + "╝";
+        String formatTable = "║ %-13s ║ %-25s║%n";
+        System.out.println(firstLine);
+        for (int i = 0; i < deskripsi.length; i++) {
+            String[] takeBio = bioMahasiswa[indexSiswa];
+            System.out.printf(formatTable, deskripsi[i], takeBio[i]);
+            if (i != deskripsi.length - 1)
+                System.out.println(middleLine);
         }
-        if (!userFound) {
-            System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
+        System.out.println(lastLine);
+     }
+
+
+    static void hadleNilaiMahasiswa(int indexSiswa) {
+        showNilaiMahasiswa(indexSiswa);
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
+    }
+
+    static void hadleJadwalMahasiswa(int indexSiswa) {
+        String kelas = bioMahasiswa[indexSiswa][5];
+        renderTitle("JADWAL AKADEMIK MAHASISWA KELAS " + kelas);
+        switch (kelas) {
+            case "1A" -> tampilkanJadwalBerdasarkanKelas(jadwal_1A);
+            case "1B" -> tampilkanJadwalBerdasarkanKelas(jadwal_1B);
+            case "1C" -> tampilkanJadwalBerdasarkanKelas(jadwal_1C);
+            case "1D" -> tampilkanJadwalBerdasarkanKelas(jadwal_1D);
+            case "1E" -> tampilkanJadwalBerdasarkanKelas(jadwal_1E);
+            default -> renderTitle("Kelas tidak ditemukan, silahkan hubungi admin");
         }
         getInputString("Enter untuk melanjutkan", true);
         clearScreen();
     }
 
-    static void hadleNilaiMahasiswa(String nim) {
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) {
-                renderTitle("NILAI AKADEMIK MAHASISWA:");
-                showNilaiMahasiswa(i);
-            }
-        }
-        getInputString("Enter untuk melanjutkan", true);
-        clearScreen();
-    }
-
-    static void hadleJadwalMahasiswa(String nim) {
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) {
-                String kelas = bioMahasiswa[i][5];
-                System.out.println("\nJADWAL AKADEMIK MAHASISWA: \n");
-                switch (kelas) {
-                    case "1A" -> tampilkanJadwalBerdasarkanKelas(jadwal_1A);
-                    case "1B" -> tampilkanJadwalBerdasarkanKelas(jadwal_1B);
-                    case "1C" -> tampilkanJadwalBerdasarkanKelas(jadwal_1C);
-                    case "1D" -> tampilkanJadwalBerdasarkanKelas(jadwal_1D);
-                    case "1E" -> tampilkanJadwalBerdasarkanKelas(jadwal_1E);
-                    default -> System.out.println("Jadwal untuk kelas " + kelas + " tidak ditemukan.");
-                }
-                break;
-            }
-        }
-        getInputString("Enter untuk melanjutkan", true);
-        clearScreen();
-    }
-
-    static void hadlePresensiMahasiswa(String nim) {
-        clearScreen();
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) {
-                renderTitle("PRESENSI AKADEMIK MAHASISWA:");
-                tampilkanPresensiMahasiswa();
-
-            }
-        }
-
+    static void hadlePresensiMahasiswa(int indexSiswa) {
+        renderTitle("PRESENSI AKADEMIK MAHASISWA " + bioMahasiswa[indexSiswa][1]);
+        tampilkanPresensiMahasiswa(true, bioMahasiswa[indexSiswa][0]);
         getInputString("Enter untuk melanjutkan", true);
         clearScreen();
     }
@@ -1967,6 +1946,14 @@ public class MainApps {
         System.out.println(lastLine);
     }
 
+    static void renderTitleMiddle(String title) {
+        String fixTittle = (title.length() > 40) ? title.substring(0, 40) : title;
+        int titleLength = fixTittle.length();
+        System.out.println((titleLength % 2 == 0)
+                ? "║" + " ".repeat((42 - titleLength) / 2) + fixTittle + " ".repeat((42 - titleLength) / 2) + "║"
+                : "║" + " ".repeat((42 - titleLength) / 2) + title + " ".repeat((42 - titleLength) / 2 + 1) + "║");
+    }
+
     // mengembalikan input String user scanner
     static String input(String info) {
         System.out.print(info + " : ");
@@ -2074,6 +2061,15 @@ public class MainApps {
             }
             System.out.println("Format masukan salah");
         }
+    }
+
+    static int getIndexByNim (String nim) {
+        for (int i = 0; i < bioMahasiswa.length; i++) {
+            if (bioMahasiswa[i][0].equals(nim)) {
+                return i;
+            }
+        }
+        return -1;
     }
     /* <--- HELPER ---> */
 }
