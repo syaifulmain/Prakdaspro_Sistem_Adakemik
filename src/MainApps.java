@@ -380,8 +380,6 @@ public class MainApps {
         if (!userFound) {
             System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
         }
-        getInputString("Enter untuk melanjutkan", true);
-        clearScreen();
     }
 
     static void hadleNilaiMahasiswa(String nim) {
@@ -391,8 +389,6 @@ public class MainApps {
                 showNilaiMahasiswa(i);
             }
         }
-        getInputString("Enter untuk melanjutkan", true);
-        clearScreen();
     }
 
     static void hadleJadwalMahasiswa(String nim) {
@@ -411,22 +407,12 @@ public class MainApps {
                 break;
             }
         }
-        getInputString("Enter untuk melanjutkan", true);
-        clearScreen();
     }
 
     static void hadlePresensiMahasiswa(String nim) {
-        clearScreen();
-        for (int i = 0; i < bioMahasiswa.length; i++) {
-            if (nim.equals(bioMahasiswa[i][0])) {
-                renderTitle("PRESENSI AKADEMIK MAHASISWA:");
-                tampilkanPresensiMahasiswa();
+        renderTitle("PRESENSI MAHASISWA:");
+        tampilkanPresensiMahasiswa(true, nim);
 
-            }
-        }
-
-        getInputString("Enter untuk melanjutkan", true);
-        clearScreen();
     }
     /* DASHBOARD MAHASISWA */
 
