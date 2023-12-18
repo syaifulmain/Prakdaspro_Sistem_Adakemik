@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class MainApps {
     static Scanner scanner = new Scanner(System.in);
     static String[] role = { "ADMIN", "DOSEN", "MAHASISWA" };
-     // ═    ║   ╔   ╚   ╝   ╠   ╣   ╦  ╩	╬   ╗   doksli
+    // ═ ║ ╔ ╚ ╝ ╠ ╣ ╦ ╩ ╬ ╗ doksli
     /* Admin */
     static String[][] userAdmin;
     /* Admin */
