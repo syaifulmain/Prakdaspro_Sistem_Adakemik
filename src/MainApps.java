@@ -332,14 +332,21 @@ public class MainApps {
     static void dashboardMahasiswa(String nim) {
         int indexSiswa = getIndexByNim(nim);
         String name = bioMahasiswa[indexSiswa][1];
+        int once = 0;
         while (true) {
-            renderTitle("Selamat Datang " + name);
+            if (once == 0) {
+                renderTitle("Selamat Datang " + name);
+                once++;
+            }
+            else
+                renderTitle("Halo " + name);
             renderTitle("Dashboard Mahasiswa");
             int userInput = pickMenu("Menu : ", new String[] {
                     "Biodata",
                     "Nilai",
                     "Jadwal",
                     "Presensi",
+                    "Ganti Password",
                     "Logout",
             });
             clearScreen();
@@ -348,7 +355,8 @@ public class MainApps {
                 case 2 -> hadleNilaiMahasiswa(indexSiswa);
                 case 3 -> hadleJadwalMahasiswa(indexSiswa);
                 case 4 -> hadlePresensiMahasiswa(indexSiswa);
-                case 5 -> {
+                case 5 -> gantiPasswordMahasiswa(indexSiswa);
+                case 6 -> {
                     return;
                 }
             }
@@ -404,6 +412,40 @@ public class MainApps {
     static void hadlePresensiMahasiswa(int indexSiswa) {
         renderTitle("PRESENSI AKADEMIK MAHASISWA " + bioMahasiswa[indexSiswa][1]);
         tampilkanPresensiMahasiswa(true, bioMahasiswa[indexSiswa][0]);
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
+    }
+
+    static void gantiPasswordMahasiswa(int indexSiswa) {
+        renderTitle("Ganti Password");
+        while (true) {
+            String oldPassword = getInputStringWithLimit("Masukan password lama", 1, 15, true);
+            if (oldPassword.equals(null)) {
+                System.out.println("Dibatalkan");
+                return;
+            }
+            if (has(userMahasiswa, oldPassword, 1)) {
+                break;
+            }
+            System.out.println("Password lama salah");
+        }
+        clearScreen();
+        renderTitle("Ganti Password");
+        String newPassword;
+        while (true) {
+            newPassword = getInputStringWithLimit("Masukan password baru", 8, 15, false);
+            clearScreen();
+            renderTitle("Ganti Password");
+            String newPassword2 = getInputStringWithLimit("Masukan password baru lagi", 8, 15, false);
+            if (newPassword.equals(newPassword2)) {
+                break;
+            }
+            clearScreen();
+            renderTitle("Ganti Password");
+            System.out.println("Password baru tidak sama");
+        }
+        userMahasiswa[indexSiswa][1] = newPassword;
+        System.out.println("Berhasil mengganti password");
         getInputString("Enter untuk melanjutkan", true);
         clearScreen();
     }
