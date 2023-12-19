@@ -260,10 +260,9 @@ public class MainApps {
     }
 
     static void run() {
-        fill();
-        clearScreen();
-        // testRun();
-        firstLogin();
+        fill();         // mengisi data array
+        clearScreen();  // membersihkan layar
+        firstLogin();   // login awal
     }
 
     // static void testRun() {
@@ -1068,9 +1067,9 @@ public class MainApps {
                 "Batal"
         });
         switch (userInput) {
-            case 1 -> input = getInputStringWithLimit("NAMA", 1, 25, false);
+            case 1 -> input = (getInputStringWithLimit("NAMA", 1, 25, false).toUpperCase());
             case 2 -> input = getInputUniqueWord("Gender L/P", 1, 1, true, "l", "p");
-            case 3 -> input = getInputStringWithLimit("Alamat", 1, 15, false);
+            case 3 -> input = (getInputStringWithLimit("Alamat", 1, 15, false).toUpperCase());
             case 4 -> input = getInputStringWithLimit("Tanggal lahir(DD/MM/YYYY)", 10, 10, false);
             case 5 -> {
                 clearScreen();
@@ -1093,11 +1092,17 @@ public class MainApps {
         renderTitle("Hapus Data Mahasiswa");
         while (true) {
             showDataBioMahasiswa(false);
-            nim = getInputStringWithLimit("Masukan NIM yang ingin dihapus : ", 10, 10, false);
+            nim = getInputStringWithLimit("Masukan NIM yang ingin dihapus", 10, 10, false);
             if (has(bioMahasiswa, nim, 0))
                 break;
             clearScreen();
             System.out.println("Mahasiswa dengan NIM " + nim + " tidak ada!");
+        }
+        String userChoose = getInputUniqueWord("Hapus data dari NIM : " + nim + " y/t", 1, 1, true, "y", "t");
+        clearScreen();
+        if (userChoose.equalsIgnoreCase("n")) {
+            System.out.println("Dibatalkan");
+            return;
         }
         bioMahasiswa = removeDataBioMahasiswa(bioMahasiswa, nim);
         userMahasiswa = removeDataBioMahasiswa(userMahasiswa, nim);
@@ -1962,7 +1967,8 @@ public class MainApps {
     /* <--- HELPER ---> */
     // clear terminal
     static void clearScreen() {
-        System.out.print("\033[H\033[2J");
+        // System.out.print("\033[H\033[2J");
+        System.out.print("\033[2J\033[1;1H");
         System.out.flush();
     }
 
@@ -1985,8 +1991,7 @@ public class MainApps {
         int detik = 60;
         int left = detik / 60, right = detik % 60;
         for (int j = 0; j < detik; j++) {
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clearScreen();
             System.out.printf("Input salah 3x silahkan tunggu %d:%02d%n", left, right);
             try {
                 Thread.sleep(250);
@@ -1998,7 +2003,7 @@ public class MainApps {
             } else
                 right--;
         }
-        System.out.print("\033[H\033[2J");
+        clearScreen();
         System.out.println("Anda dapat mencoba login kembali");
     }
 
