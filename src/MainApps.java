@@ -366,9 +366,6 @@ public class MainApps {
     static void hadleBiodataMahasiswa(String nim) {
         boolean userFound = false;
         showDataBioMahasiswa(true, nim);
-        if (!userFound) {
-            System.out.println("Mahasiswa dengan  " + nim + " tidak ditemukan.");
-        }
     }
 
     static void hadleNilaiMahasiswa(String nim) {
