@@ -364,7 +364,7 @@ public class MainApps {
 
     // menampilkan biodata mahasiswa
     static void hadleBiodataMahasiswa(String nim) {
-        boolean userFound = false;
+        renderTitle("BIODATA MAHASISWA:");
         showDataBioMahasiswa(true, nim);
     }
 
