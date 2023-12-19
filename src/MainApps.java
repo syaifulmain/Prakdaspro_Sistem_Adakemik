@@ -1967,7 +1967,7 @@ public class MainApps {
     /* <--- HELPER ---> */
     // clear terminal
     static void clearScreen() {
-        // System.out.print("\033[H\033[2J");
+        System.out.print("\033[H\033[2J");
         System.out.print("\033[2J\033[1;1H");
         System.out.flush();
     }
