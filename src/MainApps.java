@@ -260,17 +260,17 @@ public class MainApps {
     }
 
     static void run() {
-        fill();         // mengisi data array
-        clearScreen();  // membersihkan layar
-        firstLogin();   // login awal
+        fill(); // mengisi data array
+        clearScreen(); // membersihkan layar
+        firstLogin(); // login awal
     }
 
     // static void testRun() {
-    //     switch (input("test role \n1. Admin\n2. Dosen\n3. Mahasiswa")) {
-    //         case "1" -> dashboardAdmin("admin");
-    //         case "2" -> dashboardDosen("1111111111");
-    //         case "3" -> dashboardMahasiswa("1111111111");
-    //     }
+    // switch (input("test role \n1. Admin\n2. Dosen\n3. Mahasiswa")) {
+    // case "1" -> dashboardAdmin("admin");
+    // case "2" -> dashboardDosen("1111111111");
+    // case "3" -> dashboardMahasiswa("1111111111");
+    // }
     // }
 
     // login awal untuk login
@@ -365,14 +365,20 @@ public class MainApps {
                 case 3 -> hadleJadwalMahasiswa(indexSiswa);
                 case 4 -> hadlePresensiMahasiswa(indexSiswa);
                 case 5 -> gantiPasswordMahasiswa(indexSiswa);
-                case 6 -> showLomba();
+                case 6 -> handleShowLombaMahasiswa();
                 case 7 -> {
                     return;
                 }
             }
         }
     }
-    //Info lomba mahasiswa
+
+    // Info lomba mahasiswa
+    static void handleShowLombaMahasiswa() {
+        showLomba();
+        getInputString("Enter untuk melanjutkan", true);
+        clearScreen();
+    }
 
     // menampilkan biodata mahasiswa
     static void hadleBiodataMahasiswa(int indexSiswa) {
@@ -567,7 +573,7 @@ public class MainApps {
                 clearScreen();
                 return;
             }
-            if (has(bioMahasiswa, nim, 0)) 
+            if (has(bioMahasiswa, nim, 0))
                 break;
             System.out.println("NIM " + nim + " tidak ditemukan");
         }
@@ -675,10 +681,10 @@ public class MainApps {
         while (true) {
             nim = getInputStringWithLimit("Masukan NIM", 10, 10, true);
             if (nim.isEmpty()) {
-                clearScreen();    
+                clearScreen();
                 return;
             }
-            if (has(bioMahasiswa, nim, 0)) 
+            if (has(bioMahasiswa, nim, 0))
                 break;
             System.out.println("NIM " + nim + " tidak ditemukan");
         }
@@ -1381,7 +1387,7 @@ public class MainApps {
             System.out.println("Dibatalkan");
         }
     }
-    
+
     // fungsi interface hapus data dosen
     static void removeDataBioDosen() {
         String id;
