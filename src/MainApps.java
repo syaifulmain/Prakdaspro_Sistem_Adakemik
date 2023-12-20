@@ -355,6 +355,7 @@ public class MainApps {
                     "Jadwal",
                     "Presensi",
                     "Ganti Password",
+                    "Info Lomba",
                     "Logout",
             });
             clearScreen();
@@ -364,12 +365,14 @@ public class MainApps {
                 case 3 -> hadleJadwalMahasiswa(indexSiswa);
                 case 4 -> hadlePresensiMahasiswa(indexSiswa);
                 case 5 -> gantiPasswordMahasiswa(indexSiswa);
-                case 6 -> {
+                case 6 -> showLomba();
+                case 7 -> {
                     return;
                 }
             }
         }
     }
+    //Info lomba mahasiswa
 
     // menampilkan biodata mahasiswa
     static void hadleBiodataMahasiswa(int indexSiswa) {
